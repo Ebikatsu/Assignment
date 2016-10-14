@@ -1,0 +1,14 @@
+	.data
+	.text
+	.align	2
+	.globl	main
+main:
+	li	$v0,5
+	syscall
+	#debug
+	move	$a0,$v0
+	li	$v0,1
+	syscall
+	#debug
+	move	$v0,$0
+	j	$ra

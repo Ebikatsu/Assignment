@@ -1,0 +1,17 @@
+・reportB1
+・プログラムリスト
+	.data
+str:	.asciiz	"s153012\n"
+	.text
+	.align	2
+	.globl	main
+main:
+	li	$v0,4
+	la	$a0,str
+	syscall
+	move	$v0,$0
+	j	$ra
+・実行手順
+上の内容のファイルstunum.sを作成し、qtspimでこれをロードし実行した。
+・実行結果
+s153012
