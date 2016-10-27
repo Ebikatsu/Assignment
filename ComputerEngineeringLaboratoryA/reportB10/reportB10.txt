@@ -1,4 +1,4 @@
-ECŒ¾Œê”ÅƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»Cè¨€èªç‰ˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -31,7 +31,7 @@ int main()
 	printf("\n");
 	return EXIT_SUCCESS;
 }
-EŠ®¬‚µ‚½ƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»å®Œæˆã—ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 		.data
 result:		.word	0:40
 enter:		.asciiz	"\n"
@@ -39,11 +39,11 @@ enter:		.asciiz	"\n"
 		.align	2
 		.globl	main
 main:
-		#$t0‚Ítop
-		#$t1‚Íkake
-		#$t2‚Íagari
-		#$t3‚Íi
-		#$t4‚Ít
+		#$t0ã¯top
+		#$t1ã¯kake
+		#$t2ã¯agari
+		#$t3ã¯i
+		#$t4ã¯t
 		li	$t0,0
 		li	$t5,1
 		sw	$t5,result($zero)
@@ -52,30 +52,30 @@ kakeloop:
 		li	$t2,0
 		li	$t3,0
 iloop:
-		#$t5‚Íresult[i]
+		#$t5ã¯result[i]
 		sll	$t6,$t3,2
 		lw	$t5,result($t6)
-		mult	$t5,$t1		#result[i]‚Ækake‚ÌŠ|‚¯Z‚·‚éB
+		mult	$t5,$t1		#result[i]ã¨kakeã®æ›ã‘ç®—ã™ã‚‹ã€‚
 		mflo	$t4
 		add	$t4,$t4,$t2
 		li	$t5,10000
-		div	$t4,$t5		#t‚Æ10000‚Ì¤‚Æ—]‚è‚ğ‹‚ß‚éB
+		div	$t4,$t5		#tã¨10000ã®å•†ã¨ä½™ã‚Šã‚’æ±‚ã‚ã‚‹ã€‚
 		mflo	$t2
 		mfhi	$t6
 		sll	$t7,$t3,2
 		sw	$t6,result($t7)
 		addi	$t3,$t3,1
-		ble	$t3,$t0,iloop	#top‚ªiˆÈã‚ÌŠÔiloop‚ğ‘±‚¯‚éB
-		ble	$t2,$zero,else	#agari‚ª0ˆÈ‰º‚Ìê‡else‚ÉƒWƒƒƒ“ƒv‚·‚éB
-		addi	$t0,$t0,1	#top‚É1‚ğ‘«‚µAresult[top]‚Éagari‚ğ‘ã“ü‚·‚éB
+		ble	$t3,$t0,iloop	#topãŒiä»¥ä¸Šã®é–“iloopã‚’ç¶šã‘ã‚‹ã€‚
+		ble	$t2,$zero,else	#agariãŒ0ä»¥ä¸‹ã®å ´åˆelseã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹ã€‚
+		addi	$t0,$t0,1	#topã«1ã‚’è¶³ã—ã€result[top]ã«agariã‚’ä»£å…¥ã™ã‚‹ã€‚
 		sll	$t5,$t0,2
 		sw	$t2,result($t5)
 else:
 		addi	$t1,$t1,1
 		li	$t5,100
-		ble	$t1,$t5,kakeloop	#kake‚ª100ˆÈ‰º‚Ìê‡kakeloop‚ÉƒWƒƒƒ“ƒv‚·‚éB
+		ble	$t1,$t5,kakeloop	#kakeãŒ100ä»¥ä¸‹ã®å ´åˆkakeloopã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹ã€‚
 		move	$t3,$t0
-printloop:					#Œ‹‰Ê‚ğ•\¦‚·‚éB
+printloop:					#çµæœã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 		sll	$t5,$t3,2
 		lw	$a0,result($t5)
 		li	$v0,1
@@ -85,11 +85,11 @@ printloop:					#Œ‹‰Ê‚ğ•\¦‚·‚éB
 		la	$a0,enter
 		li	$v0,4
 		syscall
-		li	$v0,10			#I—¹‚·‚éB
+		li	$v0,10			#çµ‚äº†ã™ã‚‹ã€‚
 		syscall
-EƒvƒƒOƒ‰ƒ€‚Ìà–¾
-$t0‚ğtopA$t1‚ğkakeA$t2‚ğagariA$t3‚ğiA$t4‚ğt‚Æ‚µ‚ÄCŒ¾Œê‚ğƒAƒZƒ“ƒuƒŠ‚É–|–ó‚µ‚Ä‚¢‚Á‚½B
-EÀsŒ‹‰ÊA‚¨‚æ‚ÑA‚»‚ÌÀsŒ‹‰Ê‚Ì³‚µ‚³‚ÌØ–¾
-ÀsŒ‹‰Ê‚ÍA
+ãƒ»ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª¬æ˜
+$t0ã‚’topã€$t1ã‚’kakeã€$t2ã‚’agariã€$t3ã‚’iã€$t4ã‚’tã¨ã—ã¦Cè¨€èªã‚’ã‚¢ã‚»ãƒ³ãƒ–ãƒªã«ç¿»è¨³ã—ã¦ã„ã£ãŸã€‚
+ãƒ»å®Ÿè¡Œçµæœã€ãŠã‚ˆã³ã€ãã®å®Ÿè¡Œçµæœã®æ­£ã—ã•ã®è¨¼æ˜
+å®Ÿè¡Œçµæœã¯ã€
 9332621544394415268169923885626670490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000
-‚Å‚ ‚Á‚½B
+ã§ã‚ã£ãŸã€‚

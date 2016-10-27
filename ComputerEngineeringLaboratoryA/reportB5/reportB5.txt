@@ -1,4 +1,4 @@
-ECŒ¾Œê”ÅƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»Cè¨€èªžç‰ˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -14,7 +14,7 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
-EŠ®¬‚µ‚½ƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»å®Œæˆã—ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 	.data
 array:	.word	0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 enter:	.asciiz	"\n"
@@ -22,18 +22,18 @@ enter:	.asciiz	"\n"
 	.align	2
 	.globl	main
 main:
-	#$t0‚Ífrom
-	#$t1‚Íto
-	#$t2‚Íi
+	#$t0ã¯from
+	#$t1ã¯to
+	#$t2ã¯i
 	li	$t3,5
 	sll	$t4,$t3,2
 	la	$t0,array
 	addu	$t0,$t0,$t4
 	la	$t1,array
-	#$t4‚Íi + from - to
-	#$t5‚Í*(i + from - to)
-	#$t6‚Íarray + 10
-	la	$t2,array		#ƒRƒs[‚ðs‚¤B
+	#$t4ã¯i + from - to
+	#$t5ã¯*(i + from - to)
+	#$t6ã¯array + 10
+	la	$t2,array		#ã‚³ãƒ”ãƒ¼ã‚’è¡Œã†ã€‚
 	li	$t7,10
 	sll	$t7,$t7,2
 	la	$t6,array
@@ -46,10 +46,10 @@ loop1:
 	sw	$t5,0($t2)
 	addiu	$t2,$t2,4
 	blt	$t2,$t6,loop1
-	la	$t2,array		#Œ‹‰Ê‚ð•\Ž¦‚·‚éB
-	#$t2‚Íi
-	#$t3‚ˆ‚*i
-	#$t4‚Íarray + 15
+	la	$t2,array		#çµæžœã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+	#$t2ã¯i
+	#$t3ï½ˆï½*i
+	#$t4ã¯array + 15
 	li	$t5,15
 	sll	$t5,$t5,2
 	la	$t4,array
@@ -58,18 +58,18 @@ loop2:
 	lw	$t3,0($t2)
 	move	$a0,$t3
 	li	$v0,1
-	syscall				#’l‚ð•\Ž¦‚·‚éB
+	syscall				#å€¤ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	la	$a0,enter
 	li	$v0,4
-	syscall				#‰üs‚ð•\Ž¦‚·‚éB
+	syscall				#æ”¹è¡Œã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	addiu	$t2,$t2,4
 	blt	$t2,$t4,loop2
-	li	$v0,10			#I—¹‚·‚éB
+	li	$v0,10			#çµ‚äº†ã™ã‚‹ã€‚
 	syscall
-EƒvƒƒOƒ‰ƒ€‚Ìà–¾
-‚Ü‚¸from‚ÌƒAƒhƒŒƒX‚ð$t0‚ÉAto‚ÌƒAƒhƒŒƒX‚ð$t1‚É‘ã“ü‚µA$t2‚ðƒJƒEƒ“ƒ^[‚Æ‚µ‚Äƒ‹[ƒvˆ—‚Å”z—ñ‚Ì—v‘f‚ÌƒRƒs[‚·‚éB‚»‚ÌŒãA$t2‚ðƒJƒEƒ“ƒ^[‚Æ‚µ‚Ä”z—ñ‚Ì—v‘f‚ð‡‚É•\Ž¦‚µ‚ÄƒvƒƒOƒ‰ƒ€‚ðI—¹‚µ‚Ä‚¢‚éB
-EŽÀsŒ‹‰ÊA‚¨‚æ‚ÑA‚»‚ÌŽÀsŒ‹‰Ê‚Ì³‚µ‚³‚ÌØ–¾
-ŽÀsŒ‹‰Ê‚ÍA
+ãƒ»ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª¬æ˜Ž
+ã¾ãšfromã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’$t0ã«ã€toã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’$t1ã«ä»£å…¥ã—ã€$t2ã‚’ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã¨ã—ã¦ãƒ«ãƒ¼ãƒ—å‡¦ç†ã§é…åˆ—ã®è¦ç´ ã®ã‚³ãƒ”ãƒ¼ã™ã‚‹ã€‚ãã®å¾Œã€$t2ã‚’ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã¨ã—ã¦é…åˆ—ã®è¦ç´ ã‚’é †ã«è¡¨ç¤ºã—ã¦ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’çµ‚äº†ã—ã¦ã„ã‚‹ã€‚
+ãƒ»å®Ÿè¡Œçµæžœã€ãŠã‚ˆã³ã€ãã®å®Ÿè¡Œçµæžœã®æ­£ã—ã•ã®è¨¼æ˜Ž
+å®Ÿè¡Œçµæžœã¯ã€
 1
 2
 3
@@ -85,5 +85,5 @@ loop2:
 8
 9
 10
-‚Å‚ ‚Á‚½B
+ã§ã‚ã£ãŸã€‚
 

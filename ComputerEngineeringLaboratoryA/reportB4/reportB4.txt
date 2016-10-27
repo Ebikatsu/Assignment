@@ -1,4 +1,4 @@
-�EC����Ńv���O�����̃��X�g
+・C言語版プログラムのリスト
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -18,7 +18,7 @@ int main(void)
 	for(i = 0; i < arraylength; i++)printf("%d:%d\n", i, array[i]);
 	return EXIT_SUCCESS;
 }
-�E���������v���O�����̃��X�g
+・完成したプログラムのリスト
 		.data
 array:		.word	0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 prompt:		.asciiz	">"
@@ -28,32 +28,32 @@ colon:		.asciiz	":"
 		.align	2
 		.globl	main
 main:
-		la	$a0,prompt		#������prompt��\������B
+		la	$a0,prompt		#文字列promptを表示する。
 		li	$v0,4
 		syscall
-		li	$v0,5			#��������͂���B
+		li	$v0,5			#整数を入力する。
 		syscall
 		move	$t0,$v0
-		li	$t1,0			#���͂��ꂽ�l��0����10�͈̔͂ɂ��邩�ǂ����m�F����B
+		li	$t1,0			#入力された値が0から10の範囲にあるかどうか確認する。
 		blt	$t0,$t1,printt0
 		li	$t1,10
-		bge	$t0,$t1,printt0		#�z��̊Y������v�f��1�𑫂��B
+		bge	$t0,$t1,printt0		#配列の該当する要素に1を足す。
 		la	$t1,array
 		sll	$t2,$t0,2
 		addu	$t1,$t1,$t2
 		lw	$t2,0($t1)
 		addiu	$t2,$t2,1
 		sw	$t2,0($t1)
-printt0:					#���͂��ꂽ�l��\������B
+printt0:					#入力された値を表示する。
 		move	$a0,$t0
 		li	$v0,1
 		syscall
 		la	$a0,enter
 		li	$v0,4
 		syscall
-		li	$t1,0			#���͂��ꂽ�l���񕉂ł����main�ɃW�����v����B
+		li	$t1,0			#入力された値が非負であればmainにジャンプする。
 		bge	$t0,$t1,main
-		li	$t0,0			#���ʂ�\������B
+		li	$t0,0			#結果を表示する。
 loop:
 		move	$a0,$t0
 		li	$v0,1
@@ -76,10 +76,10 @@ loop:
 		blt	$t0,$t1,loop
 		li	$v0,10
 		syscall
-�E�v���O�����̐���
-�܂�������">"��\�����A�����̓��͂𑣂��A���͂�����������$t0�ɑ������B���̌�$t0��0����9�͈̔͂ɂ���ꍇ��array����$t0�Ԗڂ̗v�f���C���N�������g����B���̌�$t0�̒l��\�����ĉ��s���A$t0���񕉂Ȃ��main�ɃW�����v����B���̃��[�v���I��������A$t0�ŃJ�E���^�Ƃ��郋�[�v�Ō��ʂ�\������B
-�E���s���ʁA����сA���̎��s���ʂ̐������̏ؖ�
-���s���ʂ̗�Ƃ��Ă�
+・プログラムの説明
+まず文字列">"を表示し、整数の入力を促し、入力させた整数を$t0に代入する。その後$t0が0から9の範囲にある場合はarrayから$t0番目の要素をインクリメントする。その後$t0の値を表示して改行し、$t0が非負ならばmainにジャンプする。このループが終了したら、$t0でカウンタとするループで結果を表示する。
+・実行結果、および、その実行結果の正しさの証明
+実行結果の例としては
 >3
 3
 >3
@@ -98,4 +98,4 @@ loop:
 7:1
 8:0
 9:0
-�����Đ��������ʂ𓾂�ꂽ�B
+因って正しい結果を得られた。

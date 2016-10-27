@@ -1,4 +1,4 @@
-ECŒ¾Œê”ÅƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»Cè¨€èªžç‰ˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -16,7 +16,7 @@ int fact(int n)
 	if(n == 0)return 1;
 	else return n * fact(n -1);
 }
-EŠ®¬‚µ‚½ƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»å®Œæˆã—ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 	.data
 facteq:	.asciiz	"!="
 enter:	.asciiz	"\n"
@@ -24,39 +24,39 @@ enter:	.asciiz	"\n"
 	.align	2
 	.globl	main
 main:
-	#$t0‚Íi
+	#$t0ã¯i
 	li	$t0,10
 loop:
-	move	$a0,$t0		#$t0‚ð•\Ž¦‚·‚éB
+	move	$a0,$t0		#$t0ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	li	$v0,1
 	syscall
-	la	$a0,facteq	#•¶Žš—ñfacteq‚ð•\Ž¦‚·‚éB
+	la	$a0,facteq	#æ–‡å­—åˆ—facteqã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	li	$v0,4
 	syscall
 	move	$a0,$t0
-	addi	$sp,$sp,-8	#ƒXƒ^ƒbƒN‚É$t0‚Æ$ra‚ðÏ‚ÞB
+	addi	$sp,$sp,-8	#ã‚¹ã‚¿ãƒƒã‚¯ã«$t0ã¨$raã‚’ç©ã‚€ã€‚
 	sw	$t0,4($sp)
 	sw	$ra,0($sp)
-	jal	fact		#ƒTƒuƒ‹[ƒ`ƒ“fact‚ðŒÄ‚ÔB
-	lw	$ra,0($sp)	#ƒXƒ^ƒbƒN‚ð‚à‚Æ‚É–ß‚·B
+	jal	fact		#ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³factã‚’å‘¼ã¶ã€‚
+	lw	$ra,0($sp)	#ã‚¹ã‚¿ãƒƒã‚¯ã‚’ã‚‚ã¨ã«æˆ»ã™ã€‚
 	lw	$t0,4($sp)
 	addi	$sp,$sp,8
-	move	$a0,$v0		#ŠKæ‚ÌŒ‹‰Ê‚ð•\Ž¦‚·‚éB
+	move	$a0,$v0		#éšŽä¹—ã®çµæžœã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	li	$v0,1
 	syscall
-	la	$a0,enter	#‰üs‚·‚éB
+	la	$a0,enter	#æ”¹è¡Œã™ã‚‹ã€‚
 	li	$v0,4
 	syscall
 	addi	$t0,$t0,-1
 	bge	$t0,$zero,loop
-	li	$v0,10		#I—¹‚·‚éB
+	li	$v0,10		#çµ‚äº†ã™ã‚‹ã€‚
 	syscall
 fact:
 	move $t0,$a0
-	bne	$t0,$zero,else	#ˆø”‚ª0‚È‚ç‚Î1‚ð•Ô‚·B
+	bne	$t0,$zero,else	#å¼•æ•°ãŒ0ãªã‚‰ã°1ã‚’è¿”ã™ã€‚
 	li	$v0,1
 	j	$ra
-else:				#ˆø”‚ª0‚Å‚È‚¢‚È‚ç‚Îˆø”‚ð1Œ¸‚ç‚µ‚ÄŠKæ‚ð‹‚ß‚½‚à‚Ì‚Æˆø”‚ð‚©‚¯‚½‚à‚Ì‚ð•Ô‚·B
+else:				#å¼•æ•°ãŒ0ã§ãªã„ãªã‚‰ã°å¼•æ•°ã‚’1æ¸›ã‚‰ã—ã¦éšŽä¹—ã‚’æ±‚ã‚ãŸã‚‚ã®ã¨å¼•æ•°ã‚’ã‹ã‘ãŸã‚‚ã®ã‚’è¿”ã™ã€‚
 	addi	$a0,$t0,-1
 	addi	$sp,$sp,-8
 	sw	$t0,4($sp)
@@ -68,10 +68,10 @@ else:				#ˆø”‚ª0‚Å‚È‚¢‚È‚ç‚Îˆø”‚ð1Œ¸‚ç‚µ‚ÄŠKæ‚ð‹‚ß‚½‚à‚Ì‚Æˆø”‚ð‚©‚¯‚½‚à‚Ì‚ð
 	mult	$t0,$v0
 	mflo	$v0
 	j	$ra
-EƒvƒƒOƒ‰ƒ€‚Ìà–¾
-‚Ü‚¸mainƒ‰ƒxƒ‹‚Å‚Í10‚©‚ç0‚Ü‚Å‚ÌŠKæ‚ð•\Ž¦‚·‚é‚½‚ß‚É$t0‚ðƒJƒEƒ“ƒ^[‚Æ‚µ‚ÄŒJ‚è•Ô‚µˆ—‚ðŽÀ‘•‚µ‚½B‚»‚ÌŒJ‚è•Ô‚µˆ—‚Ì’†‚ÅA$t0‚Ì’l‚ð•\Ž¦‚µA•¶Žš—ñfacteq‚ð•\Ž¦‚µAƒTƒuƒ‹[ƒ`ƒ“fact‚ðŒÄ‚Ño‚·‚½‚ß‚É$a0‚Éˆø”‚Æ‚µ‚Ä$t0‚ð‘ã“ü‚µA$t0‚Æ$ra‚ðƒXƒ^ƒbƒN‚ÉÏ‚ñ‚ÅƒTƒuƒ‹[ƒ`ƒ“fact‚ðŒÄ‚ÔBƒXƒ^ƒbƒN‚ð‚à‚Æ‚É–ß‚µ‚½ŒãAfact‚ÌŒ‹‰Ê‚Å‚ ‚é$v0‚ð•\Ž¦‚µA‰üs‚µ‚ÄŒJ‚è•Ô‚µˆ—‚ÌŽŸ‚Éi‚ÝBŒJ‚è•Ô‚µˆ—‚ªÅŒã‚Ü‚ÅI‚í‚Á‚½‚çI—¹‚·‚éBƒTƒuƒ‹[ƒ`ƒ“fact‚Å‚ÍA‚Ü‚¸$a0‚ª0‚Å‚È‚¯‚ê‚Îelse‚ÉƒWƒƒƒ“ƒv‚µA‚»‚¤‚Å‚È‚¯‚ê‚Î•Ô‚è’l$v0‚É1‚ð‘ã“ü‚µ‚ÄŒÄ‚Ño‚µŒ³‚É–ß‚éBƒ‰ƒxƒ‹else‚Å‚Íˆø”‚É1‚ðˆø‚¢‚Äfact‚ðŒÄ‚Ño‚µA$v0‚É$a0‚ð‚©‚¯‚ÄI—¹‚·‚éB
-EŽÀsŒ‹‰ÊA‚¨‚æ‚ÑA‚»‚ÌŽÀsŒ‹‰Ê‚Ì³‚µ‚³‚ÌØ–¾
-ŽÀsŒ‹‰Ê‚ÍA
+ãƒ»ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª¬æ˜Ž
+ã¾ãšmainãƒ©ãƒ™ãƒ«ã§ã¯10ã‹ã‚‰0ã¾ã§ã®éšŽä¹—ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã«$t0ã‚’ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã¨ã—ã¦ç¹°ã‚Šè¿”ã—å‡¦ç†ã‚’å®Ÿè£…ã—ãŸã€‚ãã®ç¹°ã‚Šè¿”ã—å‡¦ç†ã®ä¸­ã§ã€$t0ã®å€¤ã‚’è¡¨ç¤ºã—ã€æ–‡å­—åˆ—facteqã‚’è¡¨ç¤ºã—ã€ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³factã‚’å‘¼ã³å‡ºã™ãŸã‚ã«$a0ã«å¼•æ•°ã¨ã—ã¦$t0ã‚’ä»£å…¥ã—ã€$t0ã¨$raã‚’ã‚¹ã‚¿ãƒƒã‚¯ã«ç©ã‚“ã§ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³factã‚’å‘¼ã¶ã€‚ã‚¹ã‚¿ãƒƒã‚¯ã‚’ã‚‚ã¨ã«æˆ»ã—ãŸå¾Œã€factã®çµæžœã§ã‚ã‚‹$v0ã‚’è¡¨ç¤ºã—ã€æ”¹è¡Œã—ã¦ç¹°ã‚Šè¿”ã—å‡¦ç†ã®æ¬¡ã«é€²ã¿ã€‚ç¹°ã‚Šè¿”ã—å‡¦ç†ãŒæœ€å¾Œã¾ã§çµ‚ã‚ã£ãŸã‚‰çµ‚äº†ã™ã‚‹ã€‚ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³factã§ã¯ã€ã¾ãš$a0ãŒ0ã§ãªã‘ã‚Œã°elseã«ã‚¸ãƒ£ãƒ³ãƒ—ã—ã€ãã†ã§ãªã‘ã‚Œã°è¿”ã‚Šå€¤$v0ã«1ã‚’ä»£å…¥ã—ã¦å‘¼ã³å‡ºã—å…ƒã«æˆ»ã‚‹ã€‚ãƒ©ãƒ™ãƒ«elseã§ã¯å¼•æ•°ã«1ã‚’å¼•ã„ã¦factã‚’å‘¼ã³å‡ºã—ã€$v0ã«$a0ã‚’ã‹ã‘ã¦çµ‚äº†ã™ã‚‹ã€‚
+ãƒ»å®Ÿè¡Œçµæžœã€ãŠã‚ˆã³ã€ãã®å®Ÿè¡Œçµæžœã®æ­£ã—ã•ã®è¨¼æ˜Ž
+å®Ÿè¡Œçµæžœã¯ã€
 10!=3628800
 9!=362880
 8!=40320
@@ -83,4 +83,4 @@ else:				#ˆø”‚ª0‚Å‚È‚¢‚È‚ç‚Îˆø”‚ð1Œ¸‚ç‚µ‚ÄŠKæ‚ð‹‚ß‚½‚à‚Ì‚Æˆø”‚ð‚©‚¯‚½‚à‚Ì‚ð
 2!=2
 1!=1
 0!=1
-‚Å‚ ‚Á‚½B
+ã§ã‚ã£ãŸã€‚

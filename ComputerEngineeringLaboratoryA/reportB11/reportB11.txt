@@ -1,4 +1,4 @@
-ECŒ¾Œê”ÅƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»Cè¨€èªžç‰ˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -31,7 +31,7 @@ int main()
 	printf("\n");
 	return EXIT_SUCCESS;
 }
-EŠ®¬‚µ‚½ƒvƒƒOƒ‰ƒ€‚ÌƒŠƒXƒg
+ãƒ»å®Œæˆã—ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªã‚¹ãƒˆ
 		.data
 result:		.word	0:40
 enter:		.asciiz	"\n"
@@ -72,13 +72,13 @@ else:
 		ble	$t1,$t5,kakeloop
 		move	$t3,$t0
 printloop:
-		la	$a0,space		#ƒXƒy[ƒX‚ð•\Ž¦‚·‚éB
+		la	$a0,space		#ã‚¹ãƒšãƒ¼ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 		li	$v0,4
 		syscall
 		sll	$t6,$t3,2
 		lw	$t5,result($t6)
 
-		li	$t6,1000		#result[i]‚Æ1000,100,10‚Ì’l‚ð”äŠr‚µ‚Ä“KØ‚ÈŒÂ”‚Ì0‚ð•\Ž¦‚·‚éB
+		li	$t6,1000		#result[i]ã¨1000,100,10ã®å€¤ã‚’æ¯”è¼ƒã—ã¦é©åˆ‡ãªå€‹æ•°ã®0ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 		bgt	$t5,$t6,zeroelse1
 		la	$a0,zero
 		li	$v0,4
@@ -106,7 +106,7 @@ zeroelse3:
 		syscall
 		li	$v0,10
 		syscall
-EƒvƒƒOƒ‰ƒ€‚Ìà–¾
-‰Û‘èB10‚ÌƒvƒƒOƒ‰ƒ€‚ÉƒXƒy[ƒX‚ð•\Ž¦‚·‚éˆ—‚ÆA4Œ…•ª‚ÌŒ‹‰Ê‚ª“ü‚Á‚½$t5‚Ì‘å‚«‚³‚É‚æ‚Á‚Ä³‚µ‚¢ŒÂ”‚Ì0‚ð•\Ž¦‚·‚éˆ—‚ð‰Á‚¦‚½B
-EŽÀsŒ‹‰ÊA‚¨‚æ‚ÑA‚»‚ÌŽÀsŒ‹‰Ê‚Ì³‚µ‚³‚ÌØ–¾
+ãƒ»ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª¬æ˜Ž
+èª²é¡ŒB10ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã«ã‚¹ãƒšãƒ¼ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†ã¨ã€4æ¡åˆ†ã®çµæžœãŒå…¥ã£ãŸ$t5ã®å¤§ãã•ã«ã‚ˆã£ã¦æ­£ã—ã„å€‹æ•°ã®0ã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†ã‚’åŠ ãˆãŸã€‚
+ãƒ»å®Ÿè¡Œçµæžœã€ãŠã‚ˆã³ã€ãã®å®Ÿè¡Œçµæžœã®æ­£ã—ã•ã®è¨¼æ˜Ž
  0093 3262 1544 3944 1526 8169 9238 8562 6670 0490 7159 6826 4381 6214 6859 2963 8952 1759 9993 2299 1560 8941 4639 7615 6518 2862 5369 7920 8272 2375 8251 1852 1091 6864 0000 0000 0000 0000 0000 0000
