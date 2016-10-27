@@ -22,12 +22,17 @@ enter:	.asciiz	"\n"
 	.align	2
 	.globl	main
 main:
+	#$t0はfrom
+	#$t1はto
+	#$t2はi
+	#$t3はi + to - from
+	#$t4は*i
 	li	$t2,5
 	sll	$t2,$t2,2
 	la	$t0,array
 	la	$t1,array
 	addu	$t1,$t1,$t2
-	li	$t5,9
+	li	$t5,9		#コピーを行う。
 	sll	$t5,$t5,2
 	la	$t2,array
 	addu	$t2,$t2,$t5
@@ -39,22 +44,25 @@ loop1:
 	sw	$t4,0($t3)
 	addi	$t2,$t2,-4
 	bge	$t2,$t0,loop1
+	#$t2はi
+	#$t3は*i
+	#$t4はarray + 15
 	la	$t2,array
 	li	$t5,15
 	sll	$t5,$t5,2
 	la	$t4,array
 	addu	$t4,$t4,$t5
-loop2:
+loop2:				#結果を表示する。
 	lw	$t3,0($t2)
 	move	$a0,$t3
 	li	$v0,1
 	syscall
-	la	$a0,enter
+	la	$a0,enter	#改行を表示する。
 	li	$v0,4
 	syscall
 	addiu	$t2,$t2,4
-	blt	$t2,$t4,loop2
-	li	$v0,10
+	blt	$t2,$t4,loop2	#結果を表示しきるまでloop2にジャンプする。
+	li	$v0,10		#終了する。
 	syscall
 ・プログラムの説明
 まず$t0にfromを、$t1にtoを代入し、$t2をカウンターとしてarrayから9番目のアドレスから0番目までループ処理をする。ループ処理の中では配列の要素のコピーを行い、このループを抜けると課題B5と同様の方法で配列の各要素を表示して終了している。

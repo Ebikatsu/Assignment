@@ -1,15 +1,15 @@
 ・reportB1
 ・プログラムリスト
 	.data
-str:	.asciiz	"s153012\n"
+str:	.asciiz	"s153012\n"	#表示する文字列
 	.text
 	.align	2
 	.globl	main
 main:
-	li	$v0,4
+	li	$v0,4		#文字列strを表示する。
 	la	$a0,str
 	syscall
-	move	$v0,$0
+	move	$v0,$0		#終了する。
 	j	$ra
 ・実行手順
 上の内容のファイルstunum.sを作成し、qtspimでこれをロードし実行した。
