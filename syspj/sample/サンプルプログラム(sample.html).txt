@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>サンプルプログラム</title>
+</head>
+<body>
+
+<form method="post" action="http://10.210.128.120:8080/~groupXX/Program2">
+
+  <h3>フォーム1です。</h3>
+  <input type="hidden" name="id" value="1">
+
+  <h3>テキストボックス</h3>
+   <input type="text" name="color">
+
+   <br>
+
+  <h3>チェックボックス</h3>
+   <input type="checkbox" name="fruit" value="りんご">りんご
+   <input type="checkbox" name="fruit" value="みかん">みかん
+   <input type="checkbox" name="fruit" value="バナナ">バナナ 
+
+   <br>
+
+  <h3>ラジオボックス</h3>
+   <input type="radio" name="place" value="島根">島根
+   <input type="radio" name="place" value="東京">東京
+   <input type="radio" name="place" value="大阪">大阪 
+
+   <br>
+
+  <h3>メニュー</h3>
+   <select name="sports">
+      <option value="野球">野球</option>
+      <option value="サッカー">サッカー</option>
+      <option value="テニス">テニス</option>
+   </select>
+
+   <br>
+
+  <h3>リセット</h3>
+   <input type="reset" value="リセット">
+
+   <br>
+
+  <h3>送信ボタン</h3>
+   <input type="submit" value="送信">
+
+</form>
+
+<hr>
+
+<form method="post" action="http://10.210.128.120:8080/~groupXX/Program2">
+
+  <h3>フォーム2です。</h3>
+  <input type="hidden" name="id" value="2">
+
+  <h3>送信ボタン</h3>
+   <input type="submit" value="送信">
+
+</form>
+
+</body>
+</html>

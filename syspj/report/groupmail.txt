@@ -1,0 +1,17 @@
+・送信側webページのURLの一覧
+　・顧客用webページ http://10.210.128.120:8080/~syspj9/forguest_home.html
+　・管理者用webページ http://10.210.128.120:8080/~syspj9/
+　・倉庫係用WEBページ http://10.210.128.120:8080/~syspj9/
+・添付ファイルの作成者
+　・伊藤
+forguest_home.html
+forguest_error.html
+forguest_login.html
+forguest_signup.html
+Report1.java~Report7.java
+　・小村
+order_list.html
+Report8.java,Report9.java
+　・松本
+touroku.html
+Program2.java~Program7.java
