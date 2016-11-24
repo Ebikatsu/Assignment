@@ -1,4 +1,6 @@
 \documentclass[a4paper]{jarticle}
+\usepackage{comment}
+\usepackage{slashbox}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
 \title{計算機工学実験A課題3レポート}
@@ -138,23 +140,66 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 課題9では、課題8と構造はほぼ同じだが、より大きく、複雑な回路を設計することになったので、回路の作成はより面倒な作業になった。
 \subsection{課題10}
 \subsubsection{目的}
+2:1マルチプレクサを設計し、入力と出力に適宜スイッチやLEDをつないで動作させる。
 \subsubsection{道のり}
 \begin{center}
 	\includegraphics[width=15cm]{work10.PNG}
 \end{center}
+上の図のようにSW2が0であればSW0の値がLEDR0に出力され、SW2が1であればSW1の値がLEDR0に出力されるように回路を設計し、動作させた。
 \subsubsection{結果}
+意図したとおりに、SW2が0であればSW0の値がLEDR0に出力され、SW2が1であればSW1の値がLEDR0に出力された。教科書P85図2.54の$D_0$がSW0に、$D_1$がSW1に、SがSW2に、YがLEDR0に対応している。
 \subsubsection{考察}
+課題10では、2:1マルチプレクサをAND,NOTゲートを用いて作成した。この問題を解決したことによって、複数の入力から一つの値を選び出力するマルチプレクサの原理を理解することが出来た。
 \subsection{課題11}
 \subsubsection{目的}
+4:1マルチプレクサを設計し、入力と出力を適宜スイッチやLEDをつないで確認する。
 \subsubsection{道のり}
 \begin{center}
 	\includegraphics[width=15cm]{work11.PNG}
 \end{center}
+上の図のように、SW4,SW5の値がそれぞれ00のときはSW0が、01のときはSW1が、10のときはSW2が、11のときはSW3がLEDR0として出力されるように回路を設計し、動作させた。
 \subsubsection{結果}
+意図したとおりに、SW4,SW5の値がそれぞれ00のときはSW0が、01のときはSW1が、10のときはSW2が、11のときはSW3がLEDR0として出力された。教科書P86図2.57の$D_0$がSW0に、$D_1$がSW1に、$D_2$がSW2に、$D_3$がSW3に、$S_{1:0}$がSW4とSW5に、YがLEDR0に対応している。
 \subsubsection{考察}
+課題10で作成した2:1マルチプレクサを拡張して、4:1マルチプレクサを作成した。2:1マルチプレクサも、4:1マルチプレクサも原理的には同じで、入力、配線、ゲートの個数が異なるだけであることが分かったが、回路がより複雑になり、GUIでの回路の作成が困難になることも分かった。
 \subsection{課題12}
 \subsubsection{目的}
+表\ref{Report12TruthTable}に示す真理値表のような3入力の多数決回路を設計し、動作を確認する。
+%\begin{comment}
+\begin{table}[ht]
+	\begin{center}
+		\caption{入力多数決回路の真理値表}
+		\label{Report12TruthTable}
+		\begin{tabular}{|c|c|c||c|}		\hline
+			A0	&A1	&A2	&Y\\	\hline\hline
+			0	&0	&0	&0\\	\hline
+			0	&0	&1	&0\\	\hline
+			0	&1	&0	&0\\	\hline
+			0	&1	&1	&1\\	\hline
+			1	&0	&0	&0\\	\hline
+			1	&0	&1	&1\\	\hline
+			1	&1	&0	&1\\	\hline
+			1	&1	&1	&1\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+%\end{comment}
 \subsubsection{道のり}
+%\begin{comment}
+\begin{table}[ht]
+	\begin{center}
+		\caption{入力多数決回路のカルノー図}
+		\label{Report12KarnaughMap}
+		\begin{tabular}{|c||c|c|}				\hline
+			\backslashbox{A1,A0}{A2}	&0	&1\\	\hline\hline
+			00				&0	&0\\	\hline
+			01				&0	&1\\	\hline
+			11				&1	&1\\	\hline
+			10				&0	&1\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+%\end{comment}
 \begin{center}
 	\includegraphics[width=15cm]{work12.PNG}
 \end{center}
