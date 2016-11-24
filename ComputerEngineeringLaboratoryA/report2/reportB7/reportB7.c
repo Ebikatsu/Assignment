@@ -19,6 +19,6 @@ int main(void)
 	int * i;
 	if(from > to)for(i = array; i < array + 10; i++)*i = i[from - to];
 	else for(i = array + 9; i >= array; i--)i[to - from] = *i;
-	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	return EXIT_SUCCESS;
 }

@@ -9,7 +9,7 @@ int main(void)
 	int * const to = array;
 	int * i;
 	for(i = array; i < array + 10; i++)*i = i[from - to];
-	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	return EXIT_SUCCESS;
 }
 
