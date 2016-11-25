@@ -13,14 +13,14 @@ QUARTUSを用いて様々な回路図をGUI上で設計し、それをコンパ�
 \section{実験結果}
 \subsection{課題1}
 \subsubsection{目的}
-フォルダex1-1を用意し、プロジェクトを開いて、トグルスイッチ(SW1~SW17)を、残りの赤色LED(LEDR1~LEDR17)に接続したものと、押しボタンスイッチ(KEY0~KEY3)を、緑色LED(LEDG0~LEDG3)に接続した回路を作成し、コンパイル・動作させる。
+フォルダex1-1を用意し、プロジェクトを開いて、トグルスイッチ(SW1 \textasciitilde SW17)を、残りの赤色LED(LEDR1 \textasciitilde LEDR17)に接続したものと、押しボタンスイッチ(KEY0 \textasciitilde KEY3)を、緑色LED(LEDG0 \textasciitilde LEDG3)に接続した回路を作成し、コンパイル・動作させる。
 \subsubsection{道のり}
 \begin{center}
 	\includegraphics[width=15cm]{work1.PNG}
 \end{center}
 上の図のように回路を設計し、コンパイルし、FPGAに流し込んで動作させた。
 \subsubsection{結果}
-意図したとおりにトグルスイッチ(SW1~SW17)と赤色LED(LEDR1~LEDR17)、押しボタンスイッチ(KEY0~KEY3)と緑色LED(LEDG0~LEDG3)が対応して光ったり光らなかったりした。
+意図したとおりにトグルスイッチ(SW1 \textasciitilde SW17)と赤色LED(LEDR1 \textasciitilde LEDR17)、押しボタンスイッチ(KEY0 \textasciitilde KEY3)と緑色LED(LEDG0 \textasciitilde LEDG3)が対応して光ったり光らなかったりした。
 \subsubsection{考察}
 課題1では、単純な回路を設計して、主に設計、コンパイル、動作の流れを把握した。GUIで回路を設計するのは大変だと思った。
 \subsection{課題2}
@@ -53,7 +53,7 @@ QUARTUSを用いて様々な回路図をGUI上で設計し、それをコンパ�
 \begin{itemize}
 	\item SW0とSW1が両方とも1(上)であればLEDR0が点灯する回路(ANDゲート)
 	\item SW2とSW3のうちひとつ以上が1であればLEDR2が点灯する回路(ORゲート)
-	\item SW4とSW5が1と0であればLEDR4が点灯する回路(XORゲート)
+	\item SW4とSW5のうち一方が1で他方が0であればLEDR4が点灯する回路(XORゲート)
 \end{itemize}
 \subsubsection{道のり}
 \begin{center}
@@ -62,7 +62,7 @@ QUARTUSを用いて様々な回路図をGUI上で設計し、それをコンパ�
 上の図のように回路を設計し、動作させた。
 \subsubsection{結果}
 %意図したとおりにSW0が1かつSW1が1のときLEDR0が光り、SW2が1またはSW3が1のときLEDR2が光り、SW4とSW5のうち一方が0で他方が1のときLEDR4が光った。
-TAさんにも確認して回路は正しく設計できていることが確認できたが、デバイス上では正しく動かなかった。
+回路は正しく設計できていることが確認できたが、デバイス上では正しく動かなかった。
 \subsubsection{考察}
 課題4では6つのスイッチからの入力を2つずつAND、OR、XORにつなげ、その出力をそれぞれ別の赤色LEDに出力するような回路を設計した。その過程で、2つの入力を必要とする論理ゲートを回路に組み入れる方法を習得した。
 \subsection{課題5}
@@ -116,7 +116,7 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 課題6の全加算器の場合と同様に、全加算器を作成して一つの部品として定義し、動作を確認することができた。構造化設計を用いて、ある程度複雑な回路も比較的効率的に設計することができると思った。
 \subsection{課題8}
 \subsubsection{目的}
-2:4でコーサを設計し、入力と出力に適宜スイッチやLEDをつないで動作を確認する。
+2:4デコーダを設計し、入力と出力に適宜スイッチやLEDをつないで動作を確認する。
 \subsubsection{道のり}
 \begin{center}
 	\includegraphics[width=15cm]{work8.PNG}
@@ -125,7 +125,7 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \subsubsection{結果}
 教科書P89図2.63の2:4デコーダの真理地表のとおりに動作した。
 \subsubsection{考察}
-課題8では基本的な論理ゲートを用いて2:4デコーダを作成した。それ以前の課題に比べて回路が複雑だったので、配線の接続や重なり理注意して作成する必要があった。
+課題8では基本的な論理ゲートを用いて2:4デコーダを作成した。それ以前の課題に比べて回路が複雑だったので、配線の接続や重なりに注意して作成する必要があった。
 \subsection{課題9}
 \subsubsection{目的}
 3:8デコーダを設計し、入力と出力に適宜スイッチやLEDをつないで動作を確認する。
@@ -185,6 +185,7 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \end{table}
 %\end{comment}
 \subsubsection{道のり}
+表\ref{Report12TruthTable}の真理値表をもとに表\ref{Report12KarnaughMap}に示しているカルノー図を書き、出力Yは入力A0,A1,A2を使って$Y=A0 \cdot A1+A1 \cdot A2 + A2 \cdot A0$と表されることがわかった。
 %\begin{comment}
 \begin{table}[ht]
 	\begin{center}
@@ -203,7 +204,11 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \begin{center}
 	\includegraphics[width=15cm]{work12.PNG}
 \end{center}
+次に、表\ref{Report12KarnaughMap}のカルノー図によって導き出した論理式に基いて、上の図のような回路を作成し実行した。
 \subsubsection{結果}
+意図したとおりに、入力A0.A1,A2の多数決によって出力Yが決まるように動作した。
 \subsubsection{考察}
+課題12では、入力多数決回路の真理値表からカルノー図を書いて論理式を導き出し、回路を作成することができた。今回は真理値表やカルノー図も小さく、回路もそれほど複雑ではなかったため、比較的容易に設計し、理解することができた。
 \section{実験の総括的なまとめ・感想}
+今回はソフトウェアのプログラミングというよりもGUI上で視覚的に回路を設計し実際に動作させるというものだった。GUI上でも回路の設計は比較的単純な回路の場合には設計・作成も簡単で、作成したあともひと目で見てそれがどのような回路かわかったが、複雑な回路では配線が複雑に重なりあい回路の作成中に配線が意図しないとろこに接続されてしまうこともあり、回路が完成してもとても見づらい回路になってしまった。また今回はLaTeXを用いてレポートを作成し画像や表の作り方などの基本的な機能を習得した。
 \end{document}
