@@ -25,12 +25,13 @@ int main(void)
 	int * i;
 	if(from > to)for(i = array; i < array + 10; i++)*i = i[from - to];
 	else for(i = array + 9; i >= array; i--)i[to - from] = *i;
-	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	return EXIT_SUCCESS;
 }
 ・完成したプログラムのリスト
 	.data
 array:	.word	0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+colon:	.asciiz ":"
 enter:	.asciiz	"\n"
 	.text
 	.align	2
@@ -76,6 +77,12 @@ print:
 	la	$t4,array
 	addu	$t4,$t4,$t5
 loop3:
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	lw	$t3,0($t2)
 	move	$a0,$t3
 	li	$v0,1
@@ -111,12 +118,13 @@ int main(void)
 	int * i;
 	if(from > to)for(i = array; i < array + 10; i++)*i = i[from - to];
 	else for(i = array + 9; i >= array; i--)i[to - from] = *i;
-	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	return EXIT_SUCCESS;
 }
 ・完成したプログラムのリスト
 	.data
 array:	.word	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0
+enter:	.asciiz	"\n"
 enter:	.asciiz	"\n"
 	.text
 	.align	2
@@ -162,6 +170,12 @@ print:
 	la	$t4,array
 	addu	$t4,$t4,$t5
 loop3:
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	lw	$t3,0($t2)
 	move	$a0,$t3
 	li	$v0,1
@@ -177,38 +191,38 @@ loop3:
 まずelseというラベルを作り、C言語版プログラムのfromにあたる$t0とtoにあたる$t1を比較し、toがfrom以上の場合はelseにジャンプする。elseにジャンプしなかった場合は課題B5と同じ方法で配列内のコピーを行い、elseにジャンプした場合は課題B6と同じ状態で配列内のコピーを行う。その後課題B5B6と同様に配列の内容を表示して終了する。
 ・実行結果、および、その実行結果の正しさの証明
 領域の重なり具合がB5と同じ場合
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-6
-7
-8
-9
-10
+6295648:1
+6295652:2
+6295656:3
+6295660:4
+6295664:5
+6295668:6
+6295672:7
+6295676:8
+6295680:9
+6295684:10
+6295688:6
+6295692:7
+6295696:8
+6295700:9
+6295704:10
 であった。課題B5の結果と一致するため、実行結果は正しい。
 領域の重なり具合がB6と同じ場合
-1
-2
-3
-4
-5
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
+6295648:1
+6295652:2
+6295656:3
+6295660:4
+6295664:5
+6295668:1
+6295672:2
+6295676:3
+6295680:4
+6295684:5
+6295688:6
+6295692:7
+6295696:8
+6295700:9
+6295704:10
 であった。課題B6の結果と一致するため、実行結果は正しい。
 ・考察
 fromとtoを大小比較して、コピーする順番の方向を決めるようにプログラムを拡張した。やはりアセンブリでは機能の拡張が高級言語に比べて困難であることを実感した。

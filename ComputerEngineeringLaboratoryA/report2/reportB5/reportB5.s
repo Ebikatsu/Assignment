@@ -4,6 +4,7 @@
 	#int array[15] = {0,0,0,0,0,1,2,3,4,5,6,7,8,9,10};
 array:	.word	0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 enter:	.asciiz	"\n"
+colon:	.asciiz	":"
 	#int main(void)
 	.text
 	.align	2
@@ -61,7 +62,8 @@ loop1:
 	addiu	$t2,$t2,4
 	#if $t2:i < $t6:(array + 10) then jump to loop1
 	blt	$t2,$t6,loop1
-	#	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	#older	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	#	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	#	//$t2:i
 	#	//$t3:*i
 	#	//$t4:array + 15
@@ -79,6 +81,14 @@ loop1:
 loop2:
 	#$t3:*i = *i:*$t2
 	lw	$t3,0($t2)
+	#print i:$t2
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	#print colon:":"
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	#print *i:*$t3
 	move	$a0,$t3
 	li	$v0,1

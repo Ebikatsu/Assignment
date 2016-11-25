@@ -3,6 +3,7 @@
 	.data
 	#int array[15] = {1,2,3,4,5,6,7,8,9,10,0,0,0,0,0};
 array:	.word	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0
+colon:	.asciiz ":"
 enter:	.asciiz	"\n"
 	#int main(void)
 	.text
@@ -72,9 +73,17 @@ loop1:
 	#$t4:(array + 15) = $t4:array + $t5:(15 << 2)
 	addu	$t4,$t4,$t5
 loop2:
+	#print i:$t2
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	#print colon:":"
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	#$t3:*i = *i:*$t2
 	lw	$t3,0($t2)
-	#print *i:*$t3
+	#print *i:*$t2:$t3
 	move	$a0,$t3
 	li	$v0,1
 	syscall

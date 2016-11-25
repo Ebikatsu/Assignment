@@ -3,6 +3,7 @@
 	.data
 	#int array[15] = {0,0,0,0,0,1,2,3,4,5,6,7,8,9,10};
 array:	.word	0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+colon:	.asciiz ":"
 enter:	.asciiz	"\n"
 	#int main(void)
 	.text
@@ -97,7 +98,8 @@ loop2:
 	#if $t2:i >= $t0:from:array then jump to loop2
 	bge	$t2,$t0,loop2
 print:
-	#	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	#olser	for(i = array; i < array + 15; i++)printf("%d\n", *i);
+	#	for(i = array; i < array + 15; i++)printf("%u:%d\n", i, *i);
 	#	//$t2:i
 	#	//$t3:*i
 	#	//$t4:array + 15
@@ -113,6 +115,14 @@ print:
 	#$t4:(array + 15) = $t4:array + $t5:(15 << 2)
 	addu	$t4,$t4,$t5
 loop3:
+	#print i:$t2
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	#print colon:":"
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	#$t3:*i = *i:*$t2
 	lw	$t3,0($t2)
 	#print *i:*$t3

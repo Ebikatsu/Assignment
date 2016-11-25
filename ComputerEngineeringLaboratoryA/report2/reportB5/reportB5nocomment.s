@@ -1,6 +1,7 @@
 	.data
 array:	.word	0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 enter:	.asciiz	"\n"
+colon:	.asciiz	":"
 	.text
 	.align	2
 	.globl	main
@@ -30,6 +31,12 @@ loop1:
 	addu	$t4,$t4,$t5
 loop2:
 	lw	$t3,0($t2)
+	move	$a0,$t2
+	li	$v0,1
+	syscall
+	la	$a0,colon
+	li	$v0,4
+	syscall
 	move	$a0,$t3
 	li	$v0,1
 	syscall
