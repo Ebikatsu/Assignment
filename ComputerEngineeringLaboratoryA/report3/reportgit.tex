@@ -56,15 +56,55 @@ QUARTUSを用いて様々な回路図をGUI上で設計し、それをコンパ�
 	\item SW4とSW5のうち一方が1で他方が0であればLEDR4が点灯する回路(XORゲート)
 \end{itemize}
 \subsubsection{道のり}
+まず、回路を正しく設計できた場合、その動作は表\ref{Report4ANDGate}、表\ref{Report4ORGate}、表\ref{Report4XORGate}の真理値表に従うはずであると考えた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{ANDゲートの真理値表}
+		\label{Report4ANDGate}
+		\begin{tabular}{|c|c|c|}				\hline
+			SW0	&SW1	&LED0($SW0\land SW1$)\\	\hline\hline
+			0	&0	&0\\				\hline
+			0	&1	&0\\				\hline
+			1	&0	&0\\				\hline
+			1	&1	&1\\				\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[ht]
+	\begin{center}
+		\caption{ORゲートの真理値表}
+		\label{Report4ORGate}
+		\begin{tabular}{|c|c|c|}			\hline
+			SW2	&SW3	&LED2($SW2\lor SW3$)\\	\hline\hline
+			0	&0	&0\\			\hline
+			0	&1	&1\\			\hline
+			1	&0	&1\\			\hline
+			1	&1	&1\\			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[ht]
+	\begin{center}
+		\caption{XORゲートの真理値表}
+		\label{Report4XORGate}
+		\begin{tabular}{|c|c|c|}				\hline
+			SW4	&SW5	&LED4($SW4\oplus SW5$)\\	\hline\hline
+			0	&0	&0\\				\hline
+			0	&1	&1\\				\hline
+			1	&0	&1\\				\hline
+			1	&1	&0\\				\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work4.PNG}
 \end{center}
 上の図のように回路を設計し、動作させた。
 \subsubsection{結果}
 %意図したとおりにSW0が1かつSW1が1のときLEDR0が光り、SW2が1またはSW3が1のときLEDR2が光り、SW4とSW5のうち一方が0で他方が1のときLEDR4が光った。
-回路は正しく設計できていることが確認できたが、デバイス上では正しく動かなかった。
+回路は正しく設計できていることが確認できたが、デバイス上では表\ref{Report4ANDGate}、表\ref{Report4ORGate}、表\ref{Report4XORGate}の通りに動かなかった。
 \subsubsection{考察}
-課題4では6つのスイッチからの入力を2つずつAND、OR、XORにつなげ、その出力をそれぞれ別の赤色LEDに出力するような回路を設計した。その過程で、2つの入力を必要とする論理ゲートを回路に組み入れる方法を習得した。
+課題4では6つのスイッチからの入力を2つずつAND、OR、XORにつなげ、その出力をそれぞれ別の赤色LEDに出力するような回路を設計した。その過程で、2つの入力を必要とする論理ゲートを回路に組み入れる方法を習得した。また、デバイスにバグがあることを知った。
 \subsection{課題5}
 \subsubsection{目的}
 SW0からSW17のすべてを1にした時のみLEDR0が点灯する回路を設計する。
@@ -81,10 +121,25 @@ SW0からSW17のすべてを1にした時のみLEDR0が点灯する回路を設�
 \subsubsection{目的}
 NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成し、それをmyhaと名づけて部品として定義し、myhaを用いて、入力AとBをトグルスイッチに、出力$C_{out}$とSをLEDにつないでテストする。
 \subsubsection{道のり}
+まず、これから作成する半加算器myhaは、正しく設計することができれば以下の表\ref{Report6myha}の真理値表のとおりに動作すると考えた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{半加算器の真理値表}
+		\label{Report6myha}
+		\begin{tabular}{|c|c|c|c|}	\hline
+			A	&B	&$C_{out}$	&S\\	\hline\hline
+			0	&0	&0		&0\\	\hline
+			0	&1	&0		&1\\	\hline
+			1	&0	&0		&1\\	\hline
+			1	&1	&1		&0\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+表\ref{Report6myha}より、$C_{out} = A \land B$そして$S = \lnot C_{out} \land \left( A \land B \right)$であることがわかった。
 \begin{center}
 	\includegraphics[width=15cm]{work6.PNG}
 \end{center}
-まず、上の図のような回路を設計し、これをmyhaと名づけて部品として定義した。
+次に、上の図のような回路を設計し、これをmyhaと名づけて部品として定義した。
 \begin{center}
 	\includegraphics[width=15cm]{work6main.PNG}
 \end{center}
@@ -102,6 +157,24 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \end{itemize}
 そして、半加算器の場合と同様に、構造化設計を用いて作成した全加算器をmyfaと名づけて定義し、トップレベルの回路図に貼り付けてテストする。
 \subsubsection{道のり}
+まず、これから作成する半加算器myfaは、正しく設計することができれば以下の表\ref{Report7myfa}の真理値表のとおりに動作すると考えた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{全加算器の真理値表}
+		\label{Report7myfa}
+		\begin{tabular}{|c|c|c|c|c|}					\hline
+			A	&B	&$C_{in}$	&$C_{out}$	&S\\	\hline\hline
+			0	&0	&0		&0		&0\\	\hline
+			0	&0	&1		&0		&1\\	\hline
+			0	&1	&0		&0		&1\\	\hline
+			0	&1	&1		&1		&0\\	\hline
+			1	&0	&0		&0		&1\\	\hline
+			1	&0	&1		&1		&0\\	\hline
+			1	&1	&0		&1		&0\\	\hline
+			1	&1	&1		&1		&1\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work7myfa.PNG}
 \end{center}
@@ -118,6 +191,20 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \subsubsection{目的}
 2:4デコーダを設計し、入力と出力に適宜スイッチやLEDをつないで動作を確認する。
 \subsubsection{道のり}
+SW0とSW1を入力に、LEDR0からLEDR3までを出力として、表\ref{Report8decoder}の真理値表に従うデコーダを設計することにした。
+\begin{table}[ht]
+	\begin{center}
+		\caption{2:4デコーダの真理値表}
+		\label{Report8decoder}
+		\begin{tabular}{|c|c|c|c|c|c|}					\hline
+			SW0	&SW1	&LEDR0	&LEDR1	&LEDR2	&LEDR3\\	\hline\hline
+			0	&0	&0	&0	&0	&1\\		\hline
+			0	&1	&0	&0	&1	&0\\		\hline
+			1	&0	&0	&1	&0	&0\\		\hline
+			1	&1	&1	&0	&0	&0\\		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work8.PNG}
 \end{center}
@@ -130,18 +217,54 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \subsubsection{目的}
 3:8デコーダを設計し、入力と出力に適宜スイッチやLEDをつないで動作を確認する。
 \subsubsection{道のり}
+SW0とSW1とSW2を入力に、LEDR0からLEDR7までを出力として、表\ref{Report9decoder}の真理値表に従うデコーダを設計することにした。
+\begin{table}[ht]
+	\begin{center}
+		\caption{3:8デコーダの真理値表}
+		\label{Report9decoder}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}								\hline
+			SW0	&SW1	&SW2	&LEDR0	&LEDR1	&LEDR2	&LEDR3	&LEDR4	&LEDR5	&LEDR6	&LEDR7\\	\hline\hline
+			0	&0	&0	&0	&0	&0	&0	&0	&0	&0	&1\\		\hline
+			0	&0	&0	&0	&0	&0	&0	&0	&0	&1	&0\\		\hline
+			0	&0	&0	&0	&0	&0	&0	&0	&1	&0	&0\\		\hline
+			0	&0	&0	&0	&0	&0	&0	&1	&0	&0	&0\\		\hline
+			0	&0	&0	&0	&0	&0	&1	&0	&0	&0	&0\\		\hline
+			0	&0	&0	&0	&0	&1	&0	&0	&0	&0	&0\\		\hline
+			0	&0	&0	&0	&1	&0	&0	&0	&0	&0	&0\\		\hline
+			0	&0	&0	&1	&0	&0	&0	&0	&0	&0	&0\\		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work9.PNG}
 \end{center}
 上の図のように回路を設計し、動作させた。
 \subsubsection{結果}
-入力のSW0,SW1,SW2の値を並べた2進数をnとした時、LEDRnが光った。
+表\ref{Report9decoder}の通りに、入力のSW0,SW1,SW2の値を並べた2進数をnとした時、LEDRnが光った。
 \subsubsection{考察}
 課題9では、課題8と構造はほぼ同じだが、より大きく、複雑な回路を設計することになったので、回路の作成はより面倒な作業になった。
 \subsection{課題10}
 \subsubsection{目的}
 2:1マルチプレクサを設計し、入力と出力に適宜スイッチやLEDをつないで動作させる。
 \subsubsection{道のり}
+入力はSW0からSW2で、SW2が0のときはSW0を、SW2が1のときはSW1を、LEDR0に出力するような2:1マルチプレクサを作成することにした。正しく作成できた場合、動作は表\ref{Report10Multiplexer}の真理値表に従うと考えた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{2:1マルチプレクサの真理値表}
+		\label{Report10Multiplexer}
+		\begin{tabular}{|c|c|c|c|}			\hline
+			SW2	&SW0	&SW1	&LEDR0\\	\hline\hline
+			0	&0	&0	&0\\		\hline
+			0	&0	&1	&0\\		\hline
+			0	&1	&0	&1\\		\hline
+			0	&1	&1	&1\\		\hline
+			1	&0	&0	&0\\		\hline
+			1	&0	&1	&1\\		\hline
+			1	&1	&0	&0\\		\hline
+			1	&1	&1	&1\\		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work10.PNG}
 \end{center}
@@ -154,6 +277,24 @@ NOT,AND,OR,XORゲートのみを用いて、1ビットの半加算器を作成�
 \subsubsection{目的}
 4:1マルチプレクサを設計し、入力と出力を適宜スイッチやLEDをつないで確認する。
 \subsubsection{道のり}
+入力はSW0からSW5で、SW4,SW5の値がそれぞれ00のときはSW0が、01のときはSW1が、10のときはSW2が、11のときはSW3がLEDR0として出力するような4:1マルチプレクサを作成することにした。正しく作成できた場合、動作は表\ref{Report11Multiplexer}の真理値表に従うと考えた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{4:1マルチプレクサの真理値表}
+		\label{Report11Multiplexer}
+		\begin{tabular}{|c|c|c|c|c|c|c|}					\hline
+			SW4	&SW5	&SW0	&SW1	&SW2	&SW3	&LEDR0\\	\hline\hline
+			0	&0	&0	&x	&x	&x	&0\\		\hline
+			0	&0	&1	&x	&x	&x	&1\\		\hline
+			0	&1	&x	&0	&x	&x	&0\\		\hline
+			0	&1	&x	&1	&x	&x	&1\\		\hline
+			1	&0	&x	&x	&0	&x	&0\\		\hline
+			1	&0	&x	&x	&1	&x	&1\\		\hline
+			1	&1	&x	&x	&x	&0	&0\\		\hline
+			1	&1	&x	&x	&x	&1	&1\\		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \begin{center}
 	\includegraphics[width=15cm]{work11.PNG}
 \end{center}
