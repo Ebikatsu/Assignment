@@ -1,6 +1,6 @@
 module testbench();
-	logic data[0:3],segments[0:6] ;
-	sevenseg dut(data[0:3], segments[0:6]);
+	logic data[0:3],segments [0:6] ;
+	sevenseg dut(data [0:3], segments [0:6]);
 	initial begin
 		data = '{0,0,0,0};	#10;
 		data = '{0,0,0,1};	#10;
