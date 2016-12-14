@@ -1,0 +1,15 @@
+C:/Users/s153047/Desktop/5/testbench.sv {1 {vlog -work work -sv {C:\Users\s153047\Desktop\5\testbench.sv}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+
+} {} {}} C:/Users/s153047/Desktop/5/work5.sv {1 {vlog -work work -sv {C:\Users\s153047\Desktop\5\work5.sv}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module sevenseg
+
+Top level modules:
+	sevenseg
+
+} {} {}}
