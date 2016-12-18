@@ -1,3 +1,4 @@
+/*
 module sevenseg(input logic [0:3] data,
 		output logic [0:6] segments);
 	always_comb
@@ -20,4 +21,27 @@ module sevenseg(input logic [0:3] data,
 		15: segments = 7'b100_0111;
 		default: segments = 7'b000_0000;
 	endcase
+endmodule
+*/
+module sevenseg(	input	logic	[3:0]	data,
+			output	logic	[6:0]	segments);
+	always_comb
+		case(data)
+			4'h0:sevenseg=7'b111_1110;
+			4'h1:sevenseg=7'b000_0000;
+			4'h2:sevenseg=7'b000_0000;
+			4'h3:sevenseg=7'b000_0000;
+			4'h4:sevenseg=7'b000_0000;
+			4'h5:sevenseg=7'b000_0000;
+			4'h6:sevenseg=7'b000_0000;
+			4'h7:sevenseg=7'b000_0000;
+			4'h8:sevenseg=7'b000_0000;
+			4'h9:sevenseg=7'b000_0000;
+			4'ha:sevenseg=7'b000_0000;
+			4'hb:sevenseg=7'b000_0000;
+			4'hc:sevenseg=7'b000_0000;
+			4'hd:sevenseg=7'b000_0000;
+			4'he:sevenseg=7'b000_0000;
+			4'hf:sevenseg=7'b000_0000;
+		endcase
 endmodule

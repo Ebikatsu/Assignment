@@ -19,8 +19,10 @@ module testbench();
 		data = '{1,1,1,0};	#10;
 		data = '{1,1,1,1};	#10;
 	end
+	/*
 	initial begin
 		$dumpfile("dump.vcd");
 		$dumpvars(0,sevenseg);
 	end
+	*/
 endmodule

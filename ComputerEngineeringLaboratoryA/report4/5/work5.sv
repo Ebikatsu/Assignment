@@ -1,5 +1,5 @@
-module sevenseg(input logic [3:0] data,
-		output logic [6:0] segments);
+module sevenseg(input logic  [0:3]data,
+		output logic  [0:6]segments);
 	always_comb
 	case(data)
 		0: segments = 7'b111_1110;
