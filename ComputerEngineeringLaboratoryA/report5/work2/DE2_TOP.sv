@@ -81,8 +81,8 @@ module DE2_TOP (
 	assign	oLEDR[6]	=	iSW[5];
 	assign	oLEDR[7]	=	iSW[4]	|	iSW[5];
 
-	assign	oLEDR[5]	=	iSW[6];
-	assign	oLEDR[6]	=	iSW[7];
-	assign	oLEDR[7]	=	iSW[6]	^	iSW[7];
+	assign	oLEDR[8]	=	iSW[6];
+	assign	oLEDR[9]	=	iSW[7];
+	assign	oLEDR[10]	=	iSW[6]	^	iSW[7];
 endmodule
 

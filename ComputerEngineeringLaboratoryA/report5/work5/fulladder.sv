@@ -7,7 +7,7 @@ module fulladder
 
 	assign	p	=	a	^	b;
 	assign	g	=	a	&	b;
-	assign	s	=	p	^	cin;
-	assign	cout	=	g	|	(p	&	cin);
-end module
+	assign	s	=	p	^	ci;
+	assign	cout	=	g	|	(p	&	ci);
+endmodule
 
