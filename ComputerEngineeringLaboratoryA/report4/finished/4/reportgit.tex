@@ -392,6 +392,26 @@ workフォルダからコピーしてきたSystem Verilogのソースコード�
 \lstinputlisting[caption=$testbench\_example1.sv$,label=work1testbench1]{1/testbench_example1.sv}
 \lstinputlisting[caption=$testbench\_example2.sv$,label=work1testbench2]{1/testbench_example2.sv}
 \lstinputlisting[caption=$testbench\_example3.sv$,label=work1testbench3]{1/testbench_example3.sv}
+モジュールsillyfunctionの真理値表は表\ref{Work1TruthTable}のとおりになる。
+\begin{table}[ht]
+	\begin{center}
+		\caption{sillyfunctionの真理値表}
+		\label{Work1TruthTable}
+		\begin{tabular}{|c|c|c||c|}
+			\hline
+			\multicolumn{3}{|c|}{入力} & \multicolumn{1}{|c|}{出力}\\ \hline\hline
+			a	&b	&c	&y\\	\hline\hline
+			0	&0	&0	&1\\	\hline
+			0	&0	&1	&0\\	\hline
+			0	&1	&0	&0\\	\hline
+			0	&1	&1	&0\\	\hline
+			1	&0	&0	&1\\	\hline
+			1	&0	&1	&1\\	\hline
+			1	&1	&0	&0\\	\hline
+			1	&1	&1	&0\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 ModelSim上で新しいプロジェクトを作成し、これらのソースコードを加えてすべてコンパイルし、エラーが出ないことを確認した後各々のテストベッドについてシミュレーションを行い、a,b,cの値に応じてyの値が同じように振る舞うことを確認した。
 \subsubsection{結果}
 \begin{center}
@@ -419,13 +439,14 @@ ModelSim上で新しいプロジェクトを作成し、これらのソースコ
 	\includegraphics[width=15cm]{2-l-1.PNG}
 \end{center}
 そして、回路の出力$y,z$について式変形をすると、
-\begin{eqnarray}
-	y = a\&b\&c | a\&b\& \tilde{c} | a\&\tilde{b}\&c \nonumber \\
-	  = a \left( b\&c | b\&\tilde{c} | tilde{b}\&c \right) \nonumber \\
-	  = a \left( b | c \right) \nonumber \\
-	z = a \& b | \tilde{a} \& \tilde{b} \nonumber \\
-	  = \lnot \left( a \bigoplus b \right) \nonumber \\
-\end{eqnarray}
+\begin{eqnarray*}
+	y & = & a \land b \land c \lor a \land b \land \tilde{c} \lor a \land \lnot b \land c \nonumber \\
+	  & = & a \left( b \land c \lor b \land \lnot c \lor \left( \lnot b \right) \land c \right) \nonumber \\
+	  & = & a \left( b \lor c \right) \nonumber \\
+	z & = & a \land b \lor \left( \lnot a \right) \land \left( \lnot b \right) \nonumber \\
+	  & = & \lnot \left( a \bigoplus b \right) \nonumber \\
+\end{eqnarray*}
+となる。
 \subsubsection{結果}
 \begin{center}
 	簡略化した後の回路図
@@ -433,45 +454,194 @@ ModelSim上で新しいプロジェクトを作成し、これらのソースコ
 \end{center}
 \subsubsection{考察}
 HDL記述から回路図を描き、さらに式変形によってゲート数を最小化することが出来た。
-\begin{comment}
 \subsection{課題3}
 \subsubsection{目的}
-4入力のXOR関数を計算するSystemVerilogのモジュールとそのテストヘッドを書き、シミュレーションで検証する。
+4入力のXOR関数を計算するSystemVerilogのモジュールとそのテストベッドを書き、シミュレーションで検証する。
 \subsubsection{道のり}
+まず、複数入力のxor関数の出力は奇数個の入力が1であるとき1であるから、真理値表は以下の表\ref{Work3TruthTable}のようになる。
+\begin{table}[ht]
+	\begin{center}
+		\caption{4入力xor関数の真理値表}
+		\label{Work3ruthTable}
+		\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			\multicolumn{4}{|c|}{入力} & \multicolumn{1}{|c|}{出力}\\ \hline\hline
+			a[0]	&a[1]	&a[2]	&a[3]	&y\\	\hline\hline
+			0	&0	&0	&0	&0\\	\hline
+			0	&0	&0	&1	&1\\	\hline
+			0	&0	&1	&0	&1\\	\hline
+			0	&0	&1	&1	&0\\	\hline
+			0	&1	&0	&0	&1\\	\hline
+			0	&1	&0	&1	&0\\	\hline
+			0	&1	&1	&0	&0\\	\hline
+			0	&1	&1	&1	&1\\	\hline
+			1	&0	&0	&0	&1\\	\hline
+			1	&0	&0	&1	&0\\	\hline
+			1	&0	&1	&0	&0\\	\hline
+			1	&0	&1	&1	&1\\	\hline
+			1	&1	&0	&0	&0\\	\hline
+			1	&1	&0	&1	&1\\	\hline
+			1	&1	&1	&0	&1\\	\hline
+			1	&1	&1	&1	&0\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+xor関数を計算するSystemVerilogのモジュールをソースコード\ref{work3sv}のように定義した。
+\lstinputlisting[caption=$work3.sv$,label=work3sv]{3/work3.sv}
+次に、ソースコード\ref{work3sv}に対するテストベッドをソースコード\ref{work3testbench}のように定義し、シミュレーションを実行した。
+\lstinputlisting[caption=$testbench.sv$,label=work3testbench]{3/testbench.sv}
 \subsubsection{結果}
+シミュレーションを実行した結果、下の図のような奇数個の入力が1のときに出力が1となる波形となった。
+\begin{center}
+	課題3シミュレーション結果
+	\includegraphics[width=15cm]{3-m.PNG}
+\end{center}
 \subsubsection{考察}
+課題3ではSystemVerilogで単純な回路を設計し、それが正常に動くかどうかを確認するためにテストベッドを作ってシミュレーションを実行した。これにより、SystemVerilogで回路を設計して動作を確認する一連の手順を理解することができた。
 \subsection{課題4}
 \subsubsection{目的}
+minorityという名のSystemVerilogモジュールとそのテストベッドを書き、シミュレーションで検証せよ。minorityは3つの入力a,b,cを受け、1つの出力yを生成する。少なくとも2つの入力がFALSEならyはTRUEになるようにする。
 \subsubsection{道のり}
+まず、モジュールminorityを下のソースコード\ref{work4sv}のように定義した。
+\lstinputlisting[caption=$work4.sv$,label=work4sv]{4/work4.sv}
+次に、そのテストベッドとして下のソースコード\ref{work4testbench}を定義し、シミュレーションを実行した。
+\lstinputlisting[caption=$work4testbench.sv$,label=work4testbench]{4/work4testbench.sv}
 \subsubsection{結果}
+シミュレーションをじっこうした結果、下の図のように入力a,b,cのうち少なくとも2つがFALSEならば出力yがTRUEになる波形が得られた。
+\begin{center}
+	課題4シミュレーション結果
+	\includegraphics[width=15cm]{4-m.PNG}
+\end{center}
 \subsubsection{考察}
+課題4では、目的にあった回路を作成するために、論理式を立ててそれを元にSystemVerilogでモジュールを定義してシミュレーションで動作を確認した。また、モジュールの入力で課題3とは異なり配列を使わずに複数の入力を受け付ける方法を知った。
 \subsection{課題5}
 \subsubsection{目的}
+16進7セグメントディスプレイ用デコーダのSystemVerilogモジュールとそのテストベッドを書き、シミュレーションで検証せよ。これは0\~9の場合と同様にA,B,C,D,E,Fを数字として扱うものとする。
 \subsubsection{道のり}
+まず、16進7セグメントディスプレイは以下の図のように数字やアルファベットを７つのセグメントa,b,c,d,e,f,gの表示、非表示によって表現するものである。
+\begin{center}
+	16進7セグメントディスプレイ
+	\includegraphics[width=15cm]{5-2.PNG}
+\end{center}
+そして、入力を表示する16進数、出力をそれぞれのセグメントa,b,c,d,e,f,gを表示させるならばTRUE、表示させないならばFALSEとするデコーダの入出力は以下の表のようになる。
+\begin{center}
+	デコーダの入出力
+	\includegraphics[width=15cm]{5-1.PNG}
+\end{center}
+これを元に、以下のようにモジュールを以下のソースコード\ref{work5sv}のように定義した。
+\lstinputlisting[caption=$work5.sv$,label=work5sv]{5/work5.sv}
+さらに、そのモジュールに対するテストベッドを以下のソースコード\ref{work4testbench}のように定義し、シミュレーションを実行した。
+\lstinputlisting[caption=$testbench.sv$,label=work4testbench]{5/testbench.sv}
 \subsubsection{結果}
+シミュレーションをじっこうした結果、下の表のような波形が得られた。
+\begin{center}
+	課題4シミュレーション結果
+	\includegraphics[width=15cm]{5-m.PNG}
+\end{center}
 \subsubsection{考察}
+課題5では、SystemVerologを用いて16進7セグメントのデコーダを定義した。入力と出力に配列を用いて、配列のすべての要素に一気に値を入力する方法を知った。
 \subsection{課題6}
 \subsubsection{目的}
+mux8という名の8:1マルチプレクサのモジュールを書き、これを使って論理関数$y = a \land \lnot b \lor \lnot \left( b \land c \right) \lor \lnot a \land b \land c$を計算する構造モジュールとそのテストヘッドを書き、シミュレーションで検証せよ。マルチプレクサの入力は$s\left[ 2:0 \right],d0,d1,d2,d3,d4,d5,d6,d7,$出力は$y$とする。
 \subsubsection{道のり}
+まず、8:1マルチプレクサの真理値表は以下の表\ref{Work6Mux8TruthTable}のようになる。
+\begin{table}[ht]
+	\begin{center}
+		\caption{8:1マルチプレクサの真理値表}
+		\label{Work6Mux8TruthTable}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c||c|}
+			\hline
+			\multicolumn{11}{|c|}{入力} & \multicolumn{1}{|c|}{出力}\\	\hline\hline
+			s[2]	&s[1]	&s[0]	&d0	&d1	&d2	&d3	&d4	&d5	&d6	&d7	&y\\	\hline\hline
+			0	&0	&0	&0	&x	&x	&x	&x	&x	&x	&x	&0\\	\hline
+			0	&0	&0	&1	&x	&x	&x	&x	&x	&x	&x	&1\\	\hline
+			0	&0	&1	&x	&0	&x	&x	&x	&x	&x	&x	&0\\	\hline
+			0	&0	&1	&x	&1	&x	&x	&x	&x	&x	&x	&1\\	\hline
+			0	&1	&0	&x	&x	&0	&x	&x	&x	&x	&x	&0\\	\hline
+			0	&1	&0	&x	&x	&1	&x	&x	&x	&x	&x	&1\\	\hline
+			0	&1	&1	&x	&x	&x	&0	&x	&x	&x	&x	&0\\	\hline
+			0	&1	&1	&x	&x	&x	&1	&x	&x	&x	&x	&1\\	\hline
+			1	&0	&0	&x	&x	&x	&x	&0	&x	&x	&x	&0\\	\hline
+			1	&0	&0	&x	&x	&x	&x	&1	&x	&x	&x	&1\\	\hline
+			1	&0	&1	&x	&x	&x	&x	&x	&0	&x	&x	&0\\	\hline
+			1	&0	&1	&x	&x	&x	&x	&x	&1	&x	&x	&1\\	\hline
+			1	&1	&0	&x	&x	&x	&x	&x	&x	&0	&x	&0\\	\hline
+			1	&1	&0	&x	&x	&x	&x	&x	&x	&1	&x	&1\\	\hline
+			1	&1	&1	&x	&x	&x	&x	&x	&x	&x	&0	&0\\	\hline
+			1	&1	&1	&x	&x	&x	&x	&x	&x	&x	&1	&1\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+これをもとに、8:1マルチプレクサを以下のソースコード\ref{Work6Mux8}のように定義した。
+\lstinputlisting[caption=$mux8.sv$,label=Work6Mux8]{6/mux8.sv}
+次に、このマルチプレクサを使って$y = a \land \lnot b \lor \lnot \left( b \land c \right) \lor \lnot a \land b \land c$を計算する構造モジュールを定義する。
+この関数の真理値表は以下の表\ref{Work6TruthTable}のようになる。
+\begin{table}[ht]
+	\begin{center}
+		\caption{課題6論理関数の真理値表}
+		\label{Work6TruthTable}
+		\begin{tabular}{|c|c|c||c|}
+			\hline
+			\multicolumn{3}{|c|}{入力} & \multicolumn{1}{|c|}{出力}\\	\hline\hline
+			a	&b	&c	&y\\	\hline\hline
+			0	&0	&0	&1\\	\hline
+			0	&0	&1	&1\\	\hline
+			0	&1	&0	&1\\	\hline
+			0	&1	&1	&1\\	\hline
+			1	&0	&0	&1\\	\hline
+			1	&0	&1	&1\\	\hline
+			1	&1	&0	&1\\	\hline
+			1	&1	&1	&0\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+これをもとにして、モジュールwork6を以下のソースコード\ref{Work6SV}のように定義した。
+\lstinputlisting[caption=$work6.sv$,label=Work6SV]{6/work6.sv}
+さらに、このモジュールの動作を検証するテストベッドを以下のソースコード\ref{Work6TestBench}のように定義し、シミュレーションを実行した。
+\lstinputlisting[caption=$testbench.sv$,label=Work6TestBench]{6/testbench6.sv}
 \subsubsection{結果}
+シミュレーションを実行した結果、以下のように真理値表通りの波形が得られた。
+\begin{center}
+	課題6シミュレーション結果
+	\includegraphics[width=15cm]{6-m.PNG}
+\end{center}
 \subsubsection{考察}
+課題6では、8:1マルチプレクサのモジュールを定義して、そのモジュールを使用して肝痰な回路を設計した。これにより、あるモジュールの回路の中に、別のモジュールの回路を埋め込む方法を知った。
 \subsection{課題7}
 \subsubsection{目的}
+2:4デコーダのSystemVerilogモジュールとそのテストベッドを書き、シミュレーションで検証せよ。
 \subsubsection{道のり}
+まず、2:4デコーダの真理値表は以下の表\ref{Work7TruthTable}のようになる。
+\begin{table}[ht]
+	\begin{center}
+		\caption{2:4デコーダの真理値表}
+		\label{Work7TruthTable}
+		\begin{tabular}{|c|c||c|c|c|c|}
+			\hline
+			\multicolumn{2}{|c|}{入力} & \multicolumn{4}{|c|}{出力}\\	\hline\hline
+			x[0]	&x[1]	&y[0]	&y[1]	&y[2]	&y[3]\\	\hline\hline
+			0	&0	&1	&0	&0	&0\\	\hline
+			0	&1	&0	&1	&0	&0\\	\hline
+			1	&0	&0	&0	&1	&0\\	\hline
+			1	&1	&0	&0	&0	&1\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+これをもとにして、モジュールdecoderを以下のように定義した。
+\lstinputlisting[caption=$work7.sv$,label=Work7SV]{7/work7.sv}
+さらに、このモジュールの動作を検証するテストヘッドを以下のソースコード\ref{Work7TestBench}のように定義し、シミュレーションを実行した。
+\lstinputlisting[caption=$testbench.sv$,label=Work7TestBench]{7/testbench.sv}
 \subsubsection{結果}
+シミュレーションを実行した結果、以下のように真理値表通りの波形が得られた。
+\begin{center}
+	課題6シミュレーション結果
+	\includegraphics[width=15cm]{7-m.PNG}
+\end{center}
 \subsubsection{考察}
-\subsection{課題8}
-\subsubsection{目的}
-\subsubsection{道のり}
-\subsubsection{結果}
-\subsubsection{考察}
+課題7では、2:4デコーダをSystemVerilogで設計し、その動作を検証するテストベッドを定義してシミュレーションを実行した。これにより、デコーダが複数の入力から特定の一つを選ぶ仕組みを理解することができた。
 \subsection{課題9}
 \subsubsection{目的}
-\subsubsection{道のり}
-\subsubsection{結果}
-\subsubsection{考察}
-\subsection{課題10}
-\subsubsection{目的}
+
 \subsubsection{道のり}
 \subsubsection{結果}
 \subsubsection{考察}
@@ -487,5 +657,4 @@ HDL記述から回路図を描き、さらに式変形によってゲート数�
 \subsubsection{考察}
 \section{実験の総括的なまとめ、感想}
 今回の実験ではSystem Verilogの文法やModelSimの使い方をあまり理解できないまま進めていったのでとても苦戦し、時間がかかった。他のグループの人の助けも借りながらなんとか課題を完了させた。
-\end{comment}
 \end{document}
