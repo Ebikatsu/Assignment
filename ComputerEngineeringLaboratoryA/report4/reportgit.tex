@@ -73,10 +73,14 @@ ModelSim上で新しいプロジェクトを作成し、これらのソースコ
 	\includegraphics[width=15cm]{1-m-2.PNG}
 \end{center}
 \begin{center}
+	$testbench\_example2.sv$によるシミュレーション時のエラー
+	\includegraphics[width=15cm]{testbench2error.PNG}
+\end{center}
+\begin{center}
 	$testbench\_example3.sv$のシミュレーション結果
 	\includegraphics[width=15cm]{1-m-3.PNG}
 \end{center}
-上の図のように、$testbench\_example1.sv$と$testbench\_example2.sv$のシミュレーション結果では$sillyfinction$の入力$a,b,c$に対して出力$y$は同じように振る舞ったが、$testbench\_example3.sv$では$a,b,c,y$の波形は赤線で表示され、正常に動作しなかった。
+上の図のように、$testbench\_example1.sv$と$testbench\_example2.sv$のシミュレーション結果では$sillyfinction$の入力$a,b,c$に対して出力$y$は同じように振る舞ったが、$testbench\_example2.sv$によるシミュレーションでは上の図のようなエラーが表示され、$testbench\_example3.sv$では$a,b,c,y$の波形は赤線で表示され、正常に動作しなかった。
 \subsubsection{考察}
 ハードウェア記述言語であらわされた回路をModelSim上でシミュレーションするのはこの課題が初めてだった。新しいプロジェクトを作成し、プロジェクトにソースコードを加えてシミュレーションを行い、波形を確認するというModelSimの一連の使い方を習得することが出来た。
 \subsection{課題2}
