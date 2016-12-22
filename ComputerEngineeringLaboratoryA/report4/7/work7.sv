@@ -1,5 +1,5 @@
-module decoder(input logic x[1:0],
-		output logic y[3:0]);
+module decoder(input logic x[0:1],
+		output logic y[0:3]);
 	always_comb
 	begin
 		y[0] =	~x[1]&	~x[0];

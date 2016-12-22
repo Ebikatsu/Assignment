@@ -1,5 +1,5 @@
 module testbench();
-	logic a[0,3],y;
+	logic a[0:3],y;
 	xor4 dut(a[0:3],y);
 	initial begin
 		a = '{0,0,0,0};	#10;
