@@ -8,6 +8,6 @@ module fulladder
 	assign	p	=	a	^	b;
 	assign	g	=	a	&	b;
 	assign	s	=	p	^	ci;
-	assign	cout	=	g	|	(p	&	ci);
+	assign	co	=	g	|	(p	&	ci);
 endmodule
 

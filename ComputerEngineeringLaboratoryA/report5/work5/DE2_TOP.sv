@@ -73,18 +73,3 @@ module DE2_TOP (
 	fulladder fulladder1(iSW[0],iSW[1],iSW[2],oLEDR[0],oLEDR[1]);
 
 endmodule
-
-/*
-module fulladder
-(
-	input	logic	a,b,ci,
-	output	logic	co,s
-);
-	wire	p,g;
-
-	assign	p	=	a	^	b;
-	assign	g	=	a	&	b;
-	assign	s	=	p	^	cin;
-	assign	cout	=	g	|	(p	&	cin);
-end module
-*/
