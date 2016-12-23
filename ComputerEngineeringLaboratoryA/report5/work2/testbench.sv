@@ -33,13 +33,23 @@ module testbench();
 		iUART_RXD
 	);
 	initial begin
-		iSW[2:0]=3'b000;#10;
-		iSW[2:0]=3'b001;#10;
-		iSW[2:0]=3'b010;#10;
-		iSW[2:0]=3'b011;#10;
-		iSW[2:0]=3'b100;#10;
-		iSW[2:0]=3'b101;#10;
-		iSW[2:0]=3'b110;#10;
-		iSW[2:0]=3'b111;#10;
+		//assign	oLEDR[1]	=	~iSW[0];
+		iSW[0]=0;#10;
+		iSW[0]=1;#10;
+		//assign	oLEDR[4]	=	iSW[1]	&	iSW[2];
+		iSW[2]=0;iSW[1]=0;#10;
+		iSW[2]=0;iSW[1]=1;#10;
+		iSW[2]=1;iSW[1]=0;#10;
+		iSW[2]=1;iSW[1]=1;#10;
+		//assign	oLEDR[7]	=	iSW[3]	|	iSW[4];
+		iSW[4]=0;iSW[3]=0;#10;
+		iSW[4]=0;iSW[3]=1;#10;
+		iSW[4]=1;iSW[3]=0;#10;
+		iSW[4]=1;iSW[3]=1;#10;
+		//assign	oLEDR[10]	=	iSW[5]	^	iSW[6];
+		iSW[6]=0;iSW[5]=0;#10;
+		iSW[6]=0;iSW[5]=1;#10;
+		iSW[6]=1;iSW[5]=0;#10;
+		iSW[6]=1;iSW[5]=1;#10;
 	end
 endmodule

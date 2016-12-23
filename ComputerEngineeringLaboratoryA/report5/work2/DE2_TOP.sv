@@ -71,18 +71,18 @@ module DE2_TOP (
 //assign oLEDR[0] = iSW[0];
 //assign oLEDG[0] = iKEY[0];
 	assign	oLEDR[0]	=	iSW[0];
-	assign	oLEDR[1]	=	~iSW[1];
+	assign	oLEDR[1]	=	~iSW[0];
 
-	assign	oLEDR[2]	=	iSW[2];
-	assign	oLEDR[3]	=	iSW[3];
-	assign	oLEDR[4]	=	iSW[2]	&	iSW[3];
+	assign	oLEDR[2]	=	iSW[1];
+	assign	oLEDR[3]	=	iSW[2];
+	assign	oLEDR[4]	=	iSW[1]	&	iSW[2];
 
-	assign	oLEDR[5]	=	iSW[4];
-	assign	oLEDR[6]	=	iSW[5];
-	assign	oLEDR[7]	=	iSW[4]	|	iSW[5];
+	assign	oLEDR[5]	=	iSW[3];
+	assign	oLEDR[6]	=	iSW[4];
+	assign	oLEDR[7]	=	iSW[3]	|	iSW[4];
 
-	assign	oLEDR[8]	=	iSW[6];
-	assign	oLEDR[9]	=	iSW[7];
-	assign	oLEDR[10]	=	iSW[6]	^	iSW[7];
+	assign	oLEDR[8]	=	iSW[5];
+	assign	oLEDR[9]	=	iSW[6];
+	assign	oLEDR[10]	=	iSW[5]	^	iSW[6];
 endmodule
 

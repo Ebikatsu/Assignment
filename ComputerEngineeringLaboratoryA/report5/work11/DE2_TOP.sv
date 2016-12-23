@@ -70,6 +70,6 @@ module DE2_TOP (
 //=============================================================================
 //assign oLEDR[0] = iSW[0];
 //assign oLEDG[0] = iKEY[0];
-	adder adder1(iSW[7:0],iSW[15:8],oLEDR[7:0]);
+	assign	oLEDR[8:0]=iSW[7:0]+iSW[15:8];
 endmodule
 

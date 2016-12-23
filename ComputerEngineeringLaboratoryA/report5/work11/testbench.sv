@@ -33,13 +33,6 @@ module testbench();
 		iUART_RXD
 	);
 	initial begin
-		iSW[2:0]=3'b000;#10;
-		iSW[2:0]=3'b001;#10;
-		iSW[2:0]=3'b010;#10;
-		iSW[2:0]=3'b011;#10;
-		iSW[2:0]=3'b100;#10;
-		iSW[2:0]=3'b101;#10;
-		iSW[2:0]=3'b110;#10;
-		iSW[2:0]=3'b111;#10;
+		iSW[7:0]=8'b01100100;iSW[15:8]=8'b01100100;#10;
 	end
 endmodule
