@@ -71,5 +71,6 @@ module DE2_TOP (
 //assign oLEDR[0] = iSW[0];
 //assign oLEDG[0] = iKEY[0];
 	fulladder fulladder1(iSW[0],iSW[1],iSW[2],oLEDR[0],oLEDR[1]);
+	fulladderUsingHalfadder fulladder2(iSW[3],iSW[4],iSW[5],oLEDR[2],oLEDR[3]);
 
 endmodule
