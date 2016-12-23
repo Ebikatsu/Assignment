@@ -68,8 +68,6 @@ module DE2_TOP (
 //=============================================================================
 // Structural coding
 //=============================================================================
-//assign oLEDR[0] = iSW[0];
-//assign oLEDG[0] = iKEY[0];
 	count4dre dut(iCLK_50,iSW[0],iKEY[0],oLEDR[3:0],oLEDG[0]);
 endmodule
 
