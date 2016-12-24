@@ -1,0 +1,54 @@
+\documentclass[a4paper]{jsarticle}
+\title{マルチメディア工学}
+\author{学生番号 氏名 \\ 学生番号 氏名}
+\date{2016/12/24}
+\usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{type1cm}
+\begin{document}
+\maketitle
+\section{配布資料の内容のまとめ}
+\subsection{第五章　離散フーリエ変換}
+\subsubsection{サンプル値のフーリエ変換}
+連続時間信号$x\left(t\right)$を間隔$T$でサンプリングした信号$x_{sampling} \left( t \right)$を、
+\begin{equation}
+x_{sampling} \left( t \right) = \sum_{n=0}^{ \infty } x \left( n\right) \delta \left( t-nT \right)
+\end{equation}
+と定義する。ここで、$\delta$関数は次の性質を持つ関数である。
+\begin{equation}
+\int_{- \infty }^{ \infty } f \left( x \right) \delta \left( x \right) dx = f \left( 0 \right)
+\end{equation}
+$x_{sampling} \left( t \right)$をフーリエ変換すると、
+\begin{eqnarray}
+	\mathfrak{I} \bigl\{ x_{sampling} \left( \omega \right) \bigr\} &=& X_{sampling} \left( t \right) \nonumber \\
+	&=& \int _{ - \infty } ^{ \infty } \sum _{ n = 0 } ^{ \infty } x \left( n \right) \delta \left( t-nT \right) e ^ { -j \omega t } dt \nonumber \\
+	&=& \sum _{ n = 0 } ^{ \infty } x \left( n \right) \int_{- \infty } ^{ \infty} \delta \left( t-nT \right) e ^{ -j \omega t } dt \nonumber \\
+	&=& \sum _{ n = 0 } ^{ \infty } x \left( n \right) \int_{- \infty } ^{ \infty} \delta \left( t' \right) e ^{ -j \omega \left( t' + nT \right) } dt' \nonumber \\
+	&=& \sum _{ n = 0 } ^{ \infty } x \left( n \right) e ^ { -j \omega nT }
+\end{eqnarray}
+となる。\\
+ここで、$j$は虚数、$\omega$は指数関数の角周波数である。\\
+一般に信号は有限時間内に収まっているから、$x \left( n \right)$は$n$が$0$以上$N-1$以下の整数のときのみを考えればよいと考えることが出来る。よって、$n$が$0$より小さい、または$N$以上のとき$x \left( n \right) = 0$とすると、
+\begin{equation}
+\sum _{ n = 0 } ^{ \infty } x \left( n \right) e ^ { -j \omega nT } = \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \omega nT }
+\end{equation}
+となる。\\
+さらに、角周波数$\omega$について、波長が信号の時間幅である$NT$に等しくなる角周波数$\frac { 2 \pi } { TN }$を基本角周波数と呼び、$\omega$をその整数倍($k$倍)で表すと、
+\begin{equation}
+\sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \omega nT } = \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \frac { 2 \pi } { N } kn }
+\end{equation}
+となる。\\
+簡単のため$W = e ^{ -j \frac { 2 \pi } { N } kn}$とおくと、
+\begin{eqnarray}
+	\mathfrak{I} \bigl\{ x_{sampling} \left( \omega \right) \bigr\} &=& X_{sampling} \left( t \right) \nonumber = X \left( k \right) \\
+	&=& \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) W ^{ kn }
+\end{eqnarray}
+となる。これを離散フーリエ変換という。\\
+逆フーリエ変換は、
+\begin{equation}
+	x \left( n \right) = \frac { 1 } { N } \sum _{ k = 0 } ^{ N - 1 } X \left( k \right) W ^ { -kn }
+\end{equation}
+で与えられる。\\
+\subsubsection{離散フーリエ変換の性質}
+\end{document}
