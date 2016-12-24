@@ -233,7 +233,27 @@ endmodule
 \lstinputlisting[caption=$count4.sv$,label=Work14FixedModule]{work14/count4.sv}
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work14TOP]{work14/DE2_TOP.sv}
 \subsubsection{結果}
-実際のハードウェア上では、リセットとイネーブル付き10進カウンタとして正しく動作した。
+実際のハードウェア上では、次の状態遷移表\ref{Work14StateTransitionTable}のように動作した。リセットとイネーブル付き10進カウンタとして正しく動作した。
+\begin{table}[ht]
+	\begin{center}
+		\caption{カウンタの状態遷移表}
+		\label{Work14StateTransitionTable}
+		\begin{tabular}{|c||c|c|c|c|}
+			\hline
+			\backslashbox{現状態\\($q$の値)}{$\left(en,clr\right)$}	&$\left(0,0\right)$	&$\left(0,1\right)$	&$\left(1,0\right)$	&$\left(1,1\right)$\\	\hline
+			$0$							&$0$			&$0$			&$1$			&$0$\\			\hline
+			$1$							&$1$			&$0$			&$2$			&$0$\\			\hline
+			$2$							&$2$			&$0$			&$3$			&$0$\\			\hline
+			$3$							&$3$			&$0$			&$4$			&$0$\\			\hline
+			$4$							&$4$			&$0$			&$5$			&$0$\\			\hline
+			$5$							&$5$			&$0$			&$6$			&$0$\\			\hline
+			$6$							&$6$			&$0$			&$7$			&$0$\\			\hline
+			$7$							&$7$			&$0$			&$8$			&$0$\\			\hline
+			$8$							&$8$			&$0$			&$9$			&$0$\\			\hline
+			$9$							&$9$			&$0$			&$0$			&$0$\\			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \subsubsection{考察}
 問題文にあるソースコードを修正して、目的のカウンタを作り、正しく動作させることが出来た。ただ、ハードウェア上で実行したときに最初に$clr$を上げた状態でクロックを上げないと出力が初期化されないことに気付かず苦戦した。ソースコードを呼んで、どのような動きになるのか考えながら動作を確認する必要があると感じた。
 \subsection{課題15}
