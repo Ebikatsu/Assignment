@@ -209,7 +209,7 @@ $oLEDR \left[ 8:0 \right]$は、正しく$iSW \left[ 7:0 \right]$と$iSW \left[ 
 \subsubsection{考察}
 \subsection{課題14}
 \subsubsection{目的}
-ソースコード\ref{Work14UnfixedModule}にあるリセットとイネーブルの入力(en)と繰り上がり出力(co)がついた10進カウンタの記述の<考えてね>の部分を補完し完成させて、組み込んで、キーボタンやLED等を使って動作を確認する。
+ソースコード\ref{Work14UnfixedModule}にあるリセットとイネーブルの入力(en)と繰り上がり出力(co)がついた10進カウンタの記述の$<$考えてね$>$の部分を補完し完成させて、組み込んで、キーボタンやLED等を使って動作を確認する。
 \begin{lstlisting}[caption=count4.sv,label=Work14UnfixedModule]
 //count4.svの中身(3/3)
 //リセットとイネーブル付き10進カウンタ
@@ -268,9 +268,73 @@ endmodule
 \subsubsection{考察}
 \subsection{課題17}
 \subsubsection{目的}
+0以上9以下の4ビットの入力を受け取り、日の字型LED($oHEX0\_D\left[6:0\right]$)にその値を表示するためのモジュールを作成する。その際、以下のalways文を使ったソースコード\ref{Work17UnfixedModuleAlwaysVer}またはfunction文を使ったソースコード\ref{Work17UnfixedModuleFunctionVer}を修正して目的のモジュールを作成する。
+\begin{lstlisting}[caption=always文版,label=Work17UnfixedModuleAlwaysVer]
+module	deg7dec (
+	input	logic	[3:0]	bdc,
+	output	logic	[6:0]	seg);
+
+	always_comb
+		case	(bdc)
+			4'b0000:	seg = 7'b0のパターン;
+			4'b0001:	seg = 7'b1のパターン;
+			4'b0010:	seg = 7'b1111111;//これウソ
+			.....
+			default:	seg = 7'b1111111;//全部消灯
+		endcase
+endmodule
+\end{lstlisting}
+\begin{lstlisting}[caption=function文版,label=Work17UnfixedModuleFunctionVer]
+module deg7dec (
+	input	logic	[3:0]	bdc,
+	output	logic	[6:0]	seg);
+
+	assign seg = b7s(bdc);
+
+	function [6:0] b7s;
+		input	[3:0]	bdc;
+		case	(bdc)
+			4'b0000:	b7s = 7'b0に対応するパターン;
+		endcase
+endmodule
+\end{lstlisting}
 \subsubsection{道のり}
+まず、上のソースコード\ref{Work17UnfixedModuleAlwaysVer}とソースコード\ref{Work17UnfixedModuleFunctionVer}を修正して、それぞれ以下のソースコード\ref{Work17FixedModuleAlwaysVer}とソースコード\ref{Work17FixedModuleFunctionVer}を作成した。
+\lstinputlisting[caption=$always.sv$,label=Work17FixedModuleAlwaysVer]{work17/always.sv}
+\lstinputlisting[caption=$function.sv$,label=Work17FixedModuleFunctionVer]{work17/function.sv}
+その後、トップモジュールを以下のソースコード\ref{Work17TOP}のように作成して、ソースコード\ref{Work17FixedModuleAlwaysVer}とソースコード\ref{Work17TOP}を含むプロジェクトと、ソースコード\ref{Work17FixedModuleFunctionVer}とソースコード\ref{Work17TOP}を含むプロジェクトを作成し、それぞれコンパイルしてハードウェアに流し込み動作を確認した。
+\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work17TOP]{work17/DE2_TOP.sv}
 \subsubsection{結果}
+実際のハードウェア上での動作は、どちらのソースコードを用いても以下の真理値表に従い、0から9までの数字を正しく表示していた。
+\begin{table}[ht]
+	\begin{center}
+		\caption{課題17の結果の真理値表}
+		\label{Work17TruthTable}
+		\begin{tabular}{|c|c|c|c||c|c|c|c|c|c|c|}
+			\hline
+			\multicolumn{4}{|c|}{$iSW \left[ 3:0 \right]$}							&\multicolumn{7}{|c|}{$oHEX0\_D \left[ 6:0 \right]$}															\\	\hline
+			$\left[ 3 \right]$	&$\left[ 2 \right]$	&$\left[ 1 \right]$	&$\left[ 0 \right]$	&$\left[ 0 \right]$	&$\left[ 1 \right]$	&$\left[ 2 \right]$	&$\left[ 3 \right]$	&$\left[ 4 \right]$	&$\left[ 5 \right]$	&$\left[ 6 \right]$	\\	\hline\hline
+			$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$1$			\\	\hline
+			$0$			&$0$			&$0$			&$1$			&$1$			&$0$			&$0$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$0$			&$0$			&$1$			&$0$			&$0$			&$0$			&$1$			&$0$			&$0$			&$1$			&$0$			\\	\hline
+			$0$			&$0$			&$1$			&$1$			&$0$			&$0$			&$0$			&$0$			&$1$			&$1$			&$0$			\\	\hline
+			$0$			&$1$			&$0$			&$0$			&$1$			&$0$			&$0$			&$1$			&$1$			&$0$			&$0$			\\	\hline
+			$0$			&$1$			&$0$			&$1$			&$0$			&$1$			&$0$			&$0$			&$1$			&$0$			&$0$			\\	\hline
+			$0$			&$1$			&$1$			&$0$			&$0$			&$1$			&$0$			&$0$			&$0$			&$0$			&$0$			\\	\hline
+			$0$			&$1$			&$1$			&$1$			&$0$			&$0$			&$0$			&$1$			&$1$			&$0$			&$1$			\\	\hline
+			$1$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			&$0$			\\	\hline
+			$1$			&$0$			&$0$			&$1$			&$0$			&$0$			&$0$			&$0$			&$1$			&$0$			&$0$			\\	\hline
+			$1$			&$0$			&$1$			&$0$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$1$			&$0$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$1$			&$1$			&$0$			&$0$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$1$			&$1$			&$0$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$1$			&$1$			&$1$			&$0$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+			$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			&$1$			\\	\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \subsubsection{考察}
+日の字型LEDで数字を表示するという同じ働きをする二つのモジュールを作成し、それぞれ同一のトップモジュールに組み込んで動作を確認した。数字をひとつ表示するだけでも、かなり大きなデコーダの真理値表を基にして作ったので大変だった。日の字型LEDではなく、普通のディスプレイのような小さな画素の二次元配列上に文字を表示させるのはもっと大変なのだろうと感じた。
 \subsection{課題18}
 \subsubsection{目的}
 \subsubsection{道のり}
