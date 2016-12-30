@@ -49,7 +49,39 @@ $x_{sampling} \left( t \right)$をフーリエ変換すると、
 	x \left( n \right) = \frac { 1 } { N } \sum _{ k = 0 } ^{ N - 1 } X \left( k \right) W ^ { -kn }
 \end{equation}
 で与えられる。\\
-証明
+証明\\
+$x \left( n \right)$を離散フーリエ変換し、さらに逆離散フーリエ変換したものを$f \left( m \right)$とすると、
+\begin{eqnarray}
+	f \left( m \right) &=& \frac{1}{N} \sum _{k = 0} ^{N - 1} \left( \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \right) W ^{-km} \nonumber \\
+	&=& \frac{1}{N} \sum _{k = 0} ^{N - 1} \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{k \left( n - m \right) } \nonumber \\
+	&=& \frac{1}{N} \sum _{n = 0} ^{N - 1} \sum _{k = 0} ^{N - 1} x \left( n \right) W ^{k \left( n - m \right) } \nonumber \\
+	&=& \frac{1}{N} \sum _{n = 0} ^{N - 1} x \left( n \right) \sum _{k = 0} ^{N - 1} W ^{k \left( n - m \right) }
+\end{eqnarray}
+ここで、
+\begin{equation}
+\sum _{k = 0} ^{N - 1} W ^{k \left( n - m \right) } \nonumber
+\end{equation}
+について、\\
+$n = m$のとき、
+\begin{eqnarray}
+	\sum _{k = 0} ^{N - 1} W ^{k \left( n - m \right) } &=& \sum _{k = 0} ^{N - 1} W ^0 \nonumber \\
+	&=& \sum _{k = 0} ^{N - 1} 1 \nonumber \\
+	&=& N \nonumber \\
+\end{eqnarray}
+$n \neq m$のとき、
+\begin{eqnarray}
+	\sum _{k = 0} ^{N - 1} W ^{k \left( n - m \right) } &=& \frac { 1 - W ^{ N \left( n - m \right) } } { 1 - W ^{ \left( n - m \right) } } \nonumber \\
+	&=& \frac { 1 - \exp( -j \frac { 2 \pi } { N } N \left( n - m \right) ) } { 1 - W ^{ \left( n - m \right) } } \nonumber \\
+	&=& \frac { 1 - \exp( -2 \pi j \left( n - m \right) ) } { 1 - W ^{ \left( n - m \right) } } \nonumber \\
+	&=& \frac { 1 - 1 } { 1 - W ^{ \left( n - m \right) } } \nonumber \\
+	&=& 0
+\end{eqnarray}
+よって、
+\begin{eqnarray}
+	\frac{1}{N} \sum _{n = 0} ^{N - 1} x \left( n \right) \sum _{k = 0} ^{N - 1} W ^{k \left( n - m \right) } &=& \frac { 1 } { N } N x \left( m \right) \nonumber \\
+	&=& x \left( m \right)
+\end{eqnarray}
+よって、二つの関数$f$と$x$は等しく、逆離散フーリエ変換が離散フーリエ変換と逆変換の関係にあることが証明された。
 \subsection{離散フーリエ変換の性質}
 \subsubsection{線形性}
 $a$と$b$を任意の実定数、$x_1 \left( n \right), x_2 \left( n \right)$の離散フーリエ変換をそれぞれ$X_1 \left( k \right), X_2 \left( k \right)$とする。
