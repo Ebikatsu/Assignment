@@ -8,14 +8,13 @@
 \usepackage{type1cm}
 \begin{document}
 \maketitle
-\section{配布資料の内容のまとめ}
-\subsection{第五章　離散フーリエ変換}
-\subsubsection{サンプル値のフーリエ変換}
+\section{第五章　離散フーリエ変換}
+\subsection{サンプル値のフーリエ変換}
 連続時間信号$x\left(t\right)$を間隔$T$でサンプリングした信号$x_{sampling} \left( t \right)$を、
 \begin{equation}
 x_{sampling} \left( t \right) = \sum_{n=0}^{ \infty } x \left( n\right) \delta \left( t-nT \right)
 \end{equation}
-と定義する。ここで、$\delta$関数は次の性質を持つ関数である。
+と定義する。ここで、$\delta$関数は実数から実数への任意の連続関数$f \left( x \right)$について次の性質を持つ関数である。
 \begin{equation}
 \int_{- \infty }^{ \infty } f \left( x \right) \delta \left( x \right) dx = f \left( 0 \right)
 \end{equation}
@@ -34,7 +33,7 @@ $x_{sampling} \left( t \right)$をフーリエ変換すると、
 \sum _{ n = 0 } ^{ \infty } x \left( n \right) e ^ { -j \omega nT } = \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \omega nT }
 \end{equation}
 となる。\\
-さらに、角周波数$\omega$について、波長が信号の時間幅である$NT$に等しくなる角周波数$\frac { 2 \pi } { TN }$を基本角周波数と呼び、$\omega$をその整数倍($k$倍)で表すと、
+さらに、角周波数$\omega$について、波長が信号の時間幅である$NT$に等しくなる角周波数$\frac { 2 \pi } { TN }$を基本角周波数と呼び、$\omega$をその$k$倍($k$は$1$以上$N-1$以下の整数)で表すと、
 \begin{equation}
 \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \omega nT } = \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \frac { 2 \pi } { N } kn }
 \end{equation}
@@ -44,11 +43,65 @@ $x_{sampling} \left( t \right)$をフーリエ変換すると、
 	\mathfrak{I} \bigl\{ x_{sampling} \left( \omega \right) \bigr\} &=& X_{sampling} \left( t \right) \nonumber = X \left( k \right) \\
 	&=& \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) W ^{ kn }
 \end{eqnarray}
-となる。これを離散フーリエ変換という。\\
+となる。これを離散フーリエ変換(DFT:discrete Fourier transform)という。\\
 逆フーリエ変換は、
 \begin{equation}
 	x \left( n \right) = \frac { 1 } { N } \sum _{ k = 0 } ^{ N - 1 } X \left( k \right) W ^ { -kn }
 \end{equation}
 で与えられる。\\
-\subsubsection{離散フーリエ変換の性質}
+証明
+\subsection{離散フーリエ変換の性質}
+\subsubsection{線形性}
+$a$と$b$を任意の実定数、$x_1 \left( n \right), x_2 \left( n \right)$の離散フーリエ変換をそれぞれ$X_1 \left( k \right), X_2 \left( k \right)$とする。
+\begin{equation}
+x \left( n \right) = ax_1 \left( n \right) + bx_2 \left( n \right)
+\end{equation}
+を満たす信号があるとするとその$DFT$は、
+\begin{equation}
+X \left( k \right) = aX_1 \left( k \right) + bX_2 \left( k \right)
+\end{equation}
+となる。\\
+証明
+\begin{eqnarray}
+	X \left( k \right) &=& \sum _{n = 0} ^{N - 1} \left( ax_1 \left( n \right) + bx_2 \left( n \right) \right) W ^{kn} \nonumber \\
+	&=& a \sum _{n = 0} ^{N -1} x_1 \left( n \right) W ^{kn} + b \sum _{n = 0} ^{N - 1} x_2 \left( n \right) W ^{kn} \nonumber \\
+	&=& aX_1 \left( n \right) + bX_2 \left( n \right)
+\end{eqnarray}
+\subsubsection{周期性}
+$r$を任意の整数とすると、
+\begin{equation}
+X \left( k + rN \right) = X \left( k \right)
+\end{equation}
+が成り立つ。つまり、$X \left( k \right)$は周期関数である。\\
+証明
+\begin{eqnarray}
+	X \left( k + rN \right) &=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{\left( k + rN \right) n} \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} W ^{rNn} \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \exp(-j \frac{2 \pi}{N}rNn) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \exp(-2j \pi rn) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \left( \cos \left( -2 \pi rn \right) + j \sin \left(-2 \pi rn \right) \right) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \left( \cos 2 \pi rn - j \sin 2 \pi rn \right) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \nonumber \\
+	&=& X \left( k \right)
+\end{eqnarray}
+\subsubsection{対称性}
+\begin{equation}
+X \left( N - k \right) = X^\ast \left( k \right)
+\end{equation}
+ただし、$X^\ast \left( k \right)$は$X \left( k \right)$の共役複素数である。\\
+証明
+\begin{eqnarray}
+	X \left( N - k \right) &=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{\left( N - k \right) n} \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{Nn} W ^{-kn} \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W \exp \left(-j \frac{2 \pi}{N} Nn \right) \exp \left( -j \frac{2 \pi}{N} \left( -kn \right) \right) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) W \exp \left( -2 \pi nj \right) \exp \left( 2 \pi \frac{kn}{N} j \right) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) \left( \cos \left( -2 \pi n \right) + j \sin \left(-2 \pi n \right) \right) \left( \cos \left( 2 \pi \frac{kn}{N} \right) + j \sin \left( 2 \pi \frac{kn}{N} \right) \right) \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) \left( \cos \left( 2 \pi \frac{kn}{N} \right) - j \sin \left( 2 \pi \frac{kn}{N} \right) \right) ^\ast \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) \left( \cos \left( -2 \pi \frac{kn}{N} \right) + j \sin \left( -2 \pi \frac{kn}{N} \right) \right) ^\ast \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) \left( \exp \left( -2 \pi j \frac{kn}{N} \right) \right) ^\ast \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} x \left( n \right) \left( W ^{kn} \right) ^\ast \nonumber \\
+	&=& \sum _{n = 0} ^{N - 1} \left( x \left( n \right) W ^{kn} \right) ^\ast \nonumber \\
+	&=& \left( \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \right) ^\ast \nonumber \\
+	&=& X ^\ast \left( k \right)
+\end{eqnarray}
 \end{document}
