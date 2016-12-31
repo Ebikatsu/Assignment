@@ -1,0 +1,30 @@
+\documentclass[a4paper]{jsarticle}
+\usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{type1cm}
+\title{フーリエ級数展開}
+\author{伊藤　太清}
+\begin{document}
+\maketitle
+\section{フーリエ級数展開とは}
+関数$f: \mathbb{R} \longrightarrow \mathbb{R}$がディリクレの条件を満たし、かつ周期$T$を持つ、すなわち$\forall x \in \mathbb{R} , f \left( x + T \right) = f \left( x \right)$を満たすとき、$f \left( x \right)$は、
+\begin{equation}
+f \left( x \right) = \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right)
+\end{equation}
+の形であらわすことが出来る。またこの形で表したとき、係数$a_n,b_n$は、
+\begin{eqnarray}
+a_n = \frac { 2 } { T } \int _0 ^T f \left( x \right) \cos( \frac { 2 \pi nx } { T } ) dx \\
+b_n = \frac { 2 } { T } \int _0 ^T f \left( x \right) \sin( \frac { 2 \pi nx } { T } ) dx
+\end{eqnarray}
+となる。
+\section{係数の導出}
+フーリエ級数展開が成り立つ関数$f: \mathbb{R} \longrightarrow \mathbb{R}$について、
+\begin{equation}
+f \left( x \right) = \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right)
+\end{equation}
+両辺を$\left[ 0,T \right]$で積分して、
+\begin{eqnarray}
+\int _0 ^T f \left( x \right) dx &=& \int _0 ^T \left( \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right) \right) dx \nonumber \\
+&=& \left[ \frac { a_0 } { 2 } + \sum _{ n = 1} ^\infty \left( a_n \frac { T } { 2 \pi n } \sin( \frac { 2 \pi nx } { T } ) - b_n \frac { T } { 2 \pi n } \cos( \frac { 2 \pi nx } { T } ) \right) \right] _{ x = 0 } ^{ x = T } \nonumber \\
+\end{eqnarray}
+\end{document}
