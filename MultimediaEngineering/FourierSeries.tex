@@ -1,5 +1,5 @@
 \documentclass[a4paper]{jsarticle}
-\usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage[top=10truemm,bottom=10truemm,left=10truemm,right=10truemm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{type1cm}
 \title{フーリエ級数展開}
@@ -9,6 +9,7 @@
 \section{フーリエ級数展開とは}
 関数$f: \mathbb{R} \longrightarrow \mathbb{R}$がディリクレの条件を満たし、かつ周期$T$を持つ、すなわち$\forall x \in \mathbb{R} , f \left( x + T \right) = f \left( x \right)$を満たすとき、$f \left( x \right)$は、
 \begin{equation}
+\label{FourierSeries}
 f \left( x \right) = \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right)
 \end{equation}
 の形であらわすことが出来る。またこの形で表したとき、係数$a_n,b_n$は、
@@ -22,9 +23,90 @@ b_n = \frac { 2 } { T } \int _0 ^T f \left( x \right) \sin( \frac { 2 \pi nx } {
 \begin{equation}
 f \left( x \right) = \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right)
 \end{equation}
-両辺を$\left[ 0,T \right]$で積分して、
+まず、$a_0$を導出する。\\
+式\ref{FourierSeries}の両辺を$x \in \left[ 0,T \right]$で積分して、
 \begin{eqnarray}
-\int _0 ^T f \left( x \right) dx &=& \int _0 ^T \left( \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right) \right) dx \nonumber \\
-&=& \left[ \frac { a_0 } { 2 } + \sum _{ n = 1} ^\infty \left( a_n \frac { T } { 2 \pi n } \sin( \frac { 2 \pi nx } { T } ) - b_n \frac { T } { 2 \pi n } \cos( \frac { 2 \pi nx } { T } ) \right) \right] _{ x = 0 } ^{ x = T } \nonumber \\
+	\int _0 ^T f \left( x \right) dx &=& \int _0 ^T \left( \frac { a_0 } { 2 } + \sum _{ n = 1} ^{ \infty } \left( a_n \cos( \frac { 2 \pi nx } { T } ) + b_n \sin( \frac { 2 \pi nx } { T } ) \right) \right) dx \nonumber \\
+	&=& \left[ \frac { a_0 } { 2 } + \sum _{ n = 1} ^\infty \left( a_n \frac { T } { 2 \pi n } \sin( \frac { 2 \pi nx } { T } ) - b_n \frac { T } { 2 \pi n } \cos( \frac { 2 \pi nx } { T } ) \right) \right] _{ x = 0 } ^{ x = T } \nonumber \\
+	&=& \left( \frac { a_0T } { 2 } + \sum _{ n = 1 } ^\infty \left( \frac { a_0T } { 2 \pi n } \sin( 2 \pi n ) - \frac { b_nT } { 2 \pi n } \cos( 2 \pi n) \right) \right) - \left( \sum _{ m = 1 } ^\infty \left( - \frac { b_mT } { 2 \pi m } \right) \right) \nonumber \\
+	&=& \frac { a_0T } { 2 } + \sum _{ n = 1 } ^\infty \left( - \frac { b_nT } { 2 \pi n } \right) - \sum _{ m = 1 } ^\infty \left( - \frac { b_mT } { 2 \pi m } \right) \nonumber \\
+	&=& \frac { a_0T } { 2 }
 \end{eqnarray}
+よって、
+\begin{equation}
+a_0 = \frac { 2 } { T } \int _0 ^T f \left( x \right) dx
+\end{equation}
+次に、$a_m \left( m \in \mathbb{N} \right)$を導出する。
+また、式\ref{FourierSeries}の両辺に$\cos(\frac { 2 \pi mx } { T })$をかけると、
+\begin{equation}
+	f \left( x \right) \cos(\frac { 2 \pi mx } { T }) = \sum _{ n = 1 } ^\infty \left( a_n \cos(\frac { 2 \pi nx } { T }) \cos(\frac { 2 \pi mx } { T }) + b_n \sin(\frac { 2 \pi nx } { T }) \cos(\frac { 2 \pi mx } { T }) \right)
+\end{equation}
+ここで、$\cos(\alpha x) \cos(\beta x)$と、$\sin(\alpha x) \cos(\beta x)$について考えてみる。\\
+加法定理より、
+\begin{eqnarray}
+	\cos( \alpha x + \beta x ) = \cos( \alpha x ) \cos( \beta x ) - \sin( \alpha x ) \sin( \beta x ) \nonumber \\
+	\cos( \alpha x - \beta x ) = \cos( \alpha x ) \cos( \beta x ) + \sin( \alpha x ) \sin( \beta x ) \nonumber
+\end{eqnarray}
+上の二つの式を足し合わせると、
+\begin{equation}
+	\cos( \alpha x + \beta x ) + \cos( \alpha x - \beta x ) = 2 \cos( \alpha x ) \cos( \beta x )
+\end{equation}
+よって、
+\begin{equation}
+	\frac { 1 } { 2 } \cos( \alpha x + \beta x ) + \frac { 1 } { 2 } \cos( \alpha x - \beta x ) = \cos( \alpha x ) \cos( \beta x )
+\end{equation}
+同様に、
+\begin{eqnarray}
+	\sin( \alpha x + \beta x ) = \sin( \alpha x ) \cos( \beta x ) + \cos( \alpha x ) \sin( \beta x ) \nonumber \\
+	\sin( \alpha x - \beta x ) = \sin( \alpha x ) \cos( \beta x ) - \cos( \alpha x ) \sin( \beta x ) \nonumber
+\end{eqnarray}
+上の二つの式を足し合わせると、
+\begin{equation}
+	\sin( \alpha x + \beta x ) + \sin( \alpha x - \beta x ) = 2 \sin( \alpha x ) \cos( \beta x )
+\end{equation}
+よって、
+\begin{equation}
+	\frac { 1 } { 2 } \sin( \alpha x + \beta x ) + \frac { 1 } { 2 } \sin( \alpha x - \beta x ) = \sin( \alpha x ) \cos( \beta x )
+\end{equation}
+これらを適用すると、
+\begin{eqnarray}
+	&f& \left( x \right) \cos \frac { 2 \pi mx } { T } \nonumber \\
+	&=& \frac { a_0 } { 2 } \cos \frac { 2 \pi mx } { T } \nonumber \\
+	&+& \sum _{ n = 1} ^\infty \left( \frac { a_n } { 2 } \cos \frac { 2 \pi \left( n + m \right) x } { T } + \frac { a_n } { 2 } \cos \frac { 2 \pi \left( n - m \right) x } { T } + \frac { b_n } { 2 } \sin \frac { 2 \pi \left( n + m \right) x } { T } + \frac { b_n } { 2 } \sin \frac { 2 \pi \left( n - m \right) x } { T } \right)
+\end{eqnarray}
+両辺$x \in \left[ 0,T \right]$で積分すると、
+\begin{eqnarray}
+	&{\int _0 ^T}& f \left( x \right) \cos \frac { 2 \pi mx } { T } dx \nonumber \\
+	&=& \frac { a_0 } { 2 } \int _0 ^T \cos \frac { 2 \pi mx } { T } dx \nonumber \\
+	&+& \sum _{ n = 1 } ^\infty \left( \frac { a_n } { 2 } \int _0 ^T \cos \frac { 2 \pi \left( n + m \right) x } { T }  dx \right. \nonumber \\
+	&+& \frac { a_n } { 2 } \int _0 ^T \cos \frac { 2 \pi \left( n - m \right) x } { T } dx \nonumber \\
+	&+& \frac { b_n } { 2 } \int _0 ^T \sin \frac { 2 \pi \left( n + m \right) x } { T } dx \nonumber \\
+	&+& \left. \frac { b_n } { 2 } \int _0 ^T \sin \frac { 2 \pi \left( n - m \right) x } { T } dx \right) \nonumber \\
+	&=& \frac { a_0 } { 2 } \left[ \frac { T } { 2 \pi m } \sin \frac { 2 \pi mx } { T } \right] _{ x = 0 } ^{ x + T } \nonumber \\
+	&+& \sum _{ n = 1 } ^\infty \left( \frac { a_n } { 2 } \left[ \frac { T } { 2 \pi \left( n + m \right) } \sin \frac { 2 \pi \left( n + m \right) x } { T } \right] _{ x = 0 } ^{ x = T } \right. \nonumber \\
+	&+& \frac { a_n } { 2 } \left[ \frac { T } { 2 \pi \left( n - m \right) } \sin \frac { 2 \pi \left( n - m \right) x } { T } \right] _{ x = 0 } ^{ x = T } \nonumber \\
+	&+& \frac { b_n } { 2 } \left[ \frac { T } { 2 \pi \left( n + m \right) } \cos \frac { 2 \pi \left( n + m \right) x } { T } \right] _{ x = 0 } ^{ x = T } \nonumber \\
+	&+& \left. \frac { b_n } { 2 } \left[ \frac { T } { 2 \pi \left( n - m \right) } \cos \frac { 2 \pi \left( n - m \right) x } { T } \right] _{ x = 0 } ^{ x = T }\right) 
+\end{eqnarray}
+ここで、最初の項は$0$、シグマの中の四つの項についても、$n \neq m$のとき、いずれも$0$になるから、
+\begin{eqnarray}
+	&{\int _0 ^T}& f \left( x \right) \cos \frac { 2 \pi mx } { T } dx \nonumber \\
+	&=& \int _0 ^T \left( \frac { a_0 } { 2 } \cos \frac { 2 \pi mx } { T } \right. \nonumber \\
+	&+& \left. \sum _{ n = 1} ^\infty \left( \frac { a_n } { 2 } \cos \frac { 2 \pi \left( n + m \right) x } { T } + \frac { a_n } { 2 } \cos \frac { 2 \pi \left( n - m \right) x } { T } + \frac { b_n } { 2 } \sin \frac { 2 \pi \left( n + m \right) x } { T } + \frac { b_n } { 2 } \sin \frac { 2 \pi \left( n - m \right) x } { T } \right) \right) dx \nonumber \\
+	&=& \int _0 ^T \left( a_m \cos ^2 \frac { 2 \pi mx } { T } + b_m \sin \frac { 2 \pi mx } { T } \cos \frac { 2 \pi mx } { T } \right) dx \nonumber \\
+	&=& \int _0 ^T \left( a_m \left( \frac { 1 } { 2 } \left( 1 + \cos \frac { 4 \pi mx } { T } \right) \right) + \frac { b_m } { 2 } \sin \frac { 4 \pi mx } { T } \right) dx \nonumber \\
+	&=& \int _0 ^T \left( \frac { a_m } { 2 } + \frac { a_m } { 2 } \cos \frac { 4 \pi mx } { T } + \frac { b_m } { 2 } \sin \frac { 4 \pi mx } { T } \right) dx \nonumber \\
+	&=& \int _0 ^T \frac { a_m } { 2 } dx + \frac { a_m } { 2 } \int _0 ^T \cos \frac { 4 \pi mx } { T } dx + \frac { b_m } { 2 } \int _0 ^T \sin \frac { 4 \pi mx } { T } dx \nonumber \\
+	&=& \left[ \frac { a_m } { 2 } x \right] _{ x = 0 } ^{ x = T } + \frac { a_m } { 2 } \left[ \frac { T } { 4 \pi m } \sin \frac { 4 \pi mx } { T } \right] _{ x = 0 } ^{ x = T } + \frac { b_m } { 2 } \left[ - \frac { T } { 4 \pi m } \cos \frac { 4 \pi mx } { T } \right] _{ x = 0 } ^{ x = T } \nonumber \\
+	&=& \frac { a_mT } { 2 }
+\end{eqnarray}
+よって、
+\begin{equation}
+a_m = \frac { 2 } { T } \int _0 ^T f \left( x \right) \cos \frac { 2 \pi mx } { T } dx
+\end{equation}
+同様に、式\ref{FourierSeries}の両辺に$\sin \frac { 2 \pi mx } { T }$をかけ、$x \in \left[ 0,T \right]$で積分することによって、
+\begin{equation}
+b_m = \frac { 2 } { T } \int _0 ^T f \left( x \right) \sin \frac { 2 \pi mx } { T } dx
+\end{equation}
+を得ることが出来る。
 \end{document}
