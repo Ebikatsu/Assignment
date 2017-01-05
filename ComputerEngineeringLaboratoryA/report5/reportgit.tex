@@ -255,7 +255,8 @@ endmodule
 	\end{center}
 \end{table}
 \subsubsection{考察}
-問題文にあるソースコードを修正して、目的のカウンタを作り、正しく動作させることが出来た。ただ、ハードウェア上で実行したときに最初に$clr$を上げた状態でクロックを上げないと出力が初期化されないことに気付かず苦戦した。ソースコードを読んで、どのような動きになるのか考えながら動作を確認する必要があると感じた。
+問題文にあるソースコードを修正して、目的のカウンタを作った。ModelSimで波形を確認したところ、正しい波形を得ることが出来たが、ハードウェア上では正しく動作させることが出来なかった。ソースコード\ref{Work14Testbench}はModelSimで使用したテストベンチである。
+\lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
 \subsection{課題15}
 \subsubsection{目的}
 \subsubsection{道のり}
