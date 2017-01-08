@@ -217,6 +217,29 @@ $ c=n \left( n > 0 \right) $について、
 c_n = \frac { 1 } { T } \int _0 ^T f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx
 \end{equation}
 $ n < 0 $のときも同様に証明できる。
+\section{フーリエ級数展開からフーリエ変換へ}
+複素フーリエ級数展開の係数
+\begin{equation}
+c_n = \frac { 1 } { T } \int _0 ^T f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx
+\end{equation}
+について、両辺に$T$をかけて、
+\begin{eqnarray}
+	c_n T & = & \int _0 ^T f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx \nonumber \\
+	& = & \int _0 ^\frac { T } { 2 } f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx + \int _\frac { T } { 2 } ^T f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx \nonumber \\
+	& = & \int _0 ^\frac { T } { 2 } f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx + \int _{ - \frac { T } { 2 } } ^0 f \left( x + T \right) \exp \left( - \frac { 2 \pi in \left( x + T \right) } { T } \right) dx \nonumber \\
+	& = & \int _0 ^\frac { T } { 2 } f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx + \int _{ - \frac { T } { 2 } } ^0 f \left( x + T \right) \exp \left( - \frac { 2 \pi inx} { T } + 2 \pi in \right) dx \nonumber \\
+	& = & \int _0 ^\frac { T } { 2 } f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx + \int _{ - \frac { T } { 2 } } ^0 f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx \nonumber \\
+	& = & \int _{ - \frac { T } { 2 } } ^\frac { T } { 2 } f \left( x \right) \exp \left( - \frac { 2 \pi inx } { T } \right) dx
+\end{eqnarray}
+ここで、$ \omega = \frac { 2 \pi n } { T } $とすると、
+\begin{equation}
+c_\frac { \omega T } { 2 \pi } = \int _a ^a f \left( x \right) \exp \left( - i \omega x \right) dx
+\end{equation}
+ここで、今までは波長$ T $の関数$ f \left( x \right) $を想定していたが、この$ T $を無限大に近づけると、
+\begin{eqnarray}
+	\lim _{ T \to \infty } c_\frac { \omega T } { 2 \pi } & = & \lim _{ T \to \infty } \int _0 ^T f \left( x \right) \exp \left( - i \omega x \right) dx \nonumber \\
+	& = & \int _0 ^T f \left( x \right) \exp \left( - i \omega x \right) dx
+\end{eqnarray}
 \begin{thebibliography}{9}
 	\bibitem{FourierSeriesBibliography}高校数学の美しい物語　フーリエ級数展開の公式と意味$<$http://mathtrain.jp/fourierseries$>$
 	\bibitem{ComplexFourierSeriesBibliography}高校数学の美しい物語　複素数型のフーリエ級数展開とその導出
