@@ -4,8 +4,10 @@
 \date{2016/12/24}
 \usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amsthm,amssymb}
 \usepackage{type1cm}
+\newtheorem{theorem}{定理}[section]
+%\newtheorem{proof}{証明{
 \begin{document}
 \maketitle
 \section{第五章　離散フーリエ変換}
@@ -27,7 +29,7 @@ $x_{sampling} \left( t \right)$をフーリエ変換すると、
 	&=& \sum _{ n = 0 } ^{ \infty } x \left( n \right) e ^ { -j \omega nT }
 \end{eqnarray}
 となる。\\
-ここで、$j$は虚数、$\omega$は指数関数の角周波数である。\\
+ここで、$j$は虚数$ \left( j^2 = -1 \right)$、$\omega$は指数関数の角周波数である。\\
 一般に信号は有限時間内に収まっているから、$x \left( n \right)$は$n$が$0$以上$N-1$以下の整数のときのみを考えればよいと考えることが出来る。よって、$n$が$0$より小さい、または$N$以上のとき$x \left( n \right) = 0$とすると、
 \begin{equation}
 \sum _{ n = 0 } ^{ \infty } x \left( n \right) e ^ { -j \omega nT } = \sum _{ n = 0 } ^{ N - 1 } x \left( n \right) e ^ { -j \omega nT }
@@ -135,5 +137,53 @@ X \left( N - k \right) = X^\ast \left( k \right)
 	&=& \sum _{n = 0} ^{N - 1} \left( x \left( n \right) W ^{kn} \right) ^\ast \nonumber \\
 	&=& \left( \sum _{n = 0} ^{N - 1} x \left( n \right) W ^{kn} \right) ^\ast \nonumber \\
 	&=& X ^\ast \left( k \right)
+\end{eqnarray}
+\section{離散時間システム}
+\subsection{サンプリング定理}
+サンプリング信号
+\begin{equation}
+x_{sampling} \left( t \right) = \sum_{n=0}^{ \infty } x \left( n\right) \delta \left( t-nT \right)
+\end{equation}
+について、サンプリング周波数$ \frac { 1 } { T } $が低すぎると、元の信号$ x \left( t \right ) $に存在していた高い周波数成分が見えなくなり、見かけ上実際よりも低い周波数成分が現れているように見えてしまうことがある。この現象をエイリアシングという。\\
+では、どの程度高い周波数でサンプリングをすればエイリアシングが起きないのだろうか？その答えは次のサンプリング定理によって示されている。
+\begin{theorem}
+信号$ x \left( t \right) $の最大周波数が$ f_{max} $のとき、$ \left( t \right) $を$ 2 f_{max} $以上のサンプリング周波数でサンプリングを行うと元の信号を復元することが出来る。
+\end{theorem}
+\begin{proof}
+最大周波数$ f_{max} $の信号$ x \left( t \right) $のスペクトルを、虚数単位$ j \left( j^2 = -1 \right) $、角周波数$ \omega $を使って、
+\begin{equation}
+X \left( \omega \right) = \int _{ - \infty } ^\infty x \left( t \right) \exp \left( -j \omega t \right) dt
+\end{equation}
+とする。$x \left( t \right) $の最大周波数は$ f_{max} $より、最大角周波数は$ 2 \pi f_{max} $となる。よって$ X \left( \omega \right) $は$ | \omega | < 2 \pi f_{max} $の範囲に収まっているので$ X \left( \omega \right) $の波長を$ 4 \pi f_{max} $として複素フーリエ級数展開を適用すると、
+\begin{eqnarray}
+	X \left( \omega \right) & = & \sum _{ n = - \infty } ^\infty c_n \exp \left( - \frac { jn \omega } { 2 f_{max} } \right) \nonumber \\
+	c_n & = & \frac { 1 } { 4 \pi f_{max} } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } X \left( \omega \right) \exp \left( \frac { jn \omega } { 2 f_{max} } \right) d \omega
+\end{eqnarray}
+ここで、$ x \left( t \right) $の最大角周波数が$ 2 \pi f_{max} $であることを考慮すると、逆フーリエ変換の公式より、
+\begin{equation}
+x \left( t \right) = \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } X \left( \omega \right) \exp \left( j \omega t \right) d \omega
+\end{equation}
+より、
+\begin{eqnarray}
+	c_n & = & \frac { 1 } { 4 \pi f_{max} } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } X \left( \omega \right) \exp \left( \frac { jn \omega } { 2 f_{max} } \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 f_{max} } \left( \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } X \left( \omega \right) \exp \left( \frac { jn \omega } { 2 f_{max} } \right) d \omega \right) \nonumber \\
+	& = & \frac { 1 } { 2 f_{max} } x \left( \frac { n } { 2 f_{max} } \right) \nonumber \\
+\end{eqnarray}
+よって、サンプル点$ x \left( \frac { n } { 2 f_{max} } \right) \left( n \in \mathbb{Z} \right) $が与えられると、$ x \left( t \right) $のスペクトル$ X \left( \omega \right) $の複素フーリエ級数展開の係数が定まり、$ X \left( \omega \right) $が求められ、それに逆フーリエ変換を適用するとこで最終的に$ x \left( t \right) $を復元することが出来る。
+\end{proof}
+ここで、実際に$ x_n = x \left( \frac { n } { 2 f_{max} } \right) \left( n \in \mathbb{Z} \right) $を用いて$ x \left( t \right) $を表現してみる。
+\begin{eqnarray}
+	x \left( t \right) & = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } X \left( \omega \right) \exp \left( j \omega t \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \sum _{ n = - \infty } ^\infty c_n \exp \left( - \frac { jn \omega } { 2 f_{max} } \right) \exp \left( j \omega t \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \sum _{ n = - \infty } ^\infty \frac { 1 } { 2 f_{max} } x \left( \frac { n } { 2 f_{max} } \right) \exp \left( - \frac { jn \omega } { 2 f_{max} } \right) \exp \left( j \omega t \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \sum _{ n = - \infty } ^\infty \frac { x_n } { 2 f_{max} } \exp \left( - \frac { jn \omega } { 2 f_{max} } \right) \exp \left( j \omega t \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \sum _{ n = - \infty } ^\infty \frac { x_n } { 2 f_{max} } \exp \left( j \omega t - \frac { jn \omega } { 2 f_{max} } \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \frac { 1 } { 2 f_{max} } \sum _{ n = - \infty } ^\infty x_n \exp \left( j \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{max} } \exp \left( j \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) d \omega \nonumber \\
+	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \left[ \frac { 1 } { j \left( t - \frac { n } { 2 f_{max} } \right) } \exp \left( j \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) \right] _{ \omega = -2 \pi f_{max} } ^{ \omega = 2 \pi f_{max} } \nonumber \\
+	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \left( -j \frac { 2 f_{max} } { 2tf_{max} - n } \right) \left[ \exp \left( j \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) \right] _{ \omega = -2 \pi f_{max} } ^{ \omega = 2 \pi f_{max} } \nonumber \\
+	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \left( -j \frac { 2 f_{max} } { 2tf_{max} - n } \right) \left[ \cos \left( \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) + j \sin \left( \omega \left( t - \frac { n } { 2 f_{max} } \right) \right) \right] _{ \omega = -2 \pi f_{max} } ^{ \omega = 2 \pi f_{max} } \nonumber \\
+	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \left( -j \frac { 2 f_{max} } { 2tf_{max} - n } \right) \left( 2 j \sin \left( 2 \pi f_{max} t - n \pi \right) \right) \nonumber \\
+	& = & \frac { 1 } { \pi } \sum _{ n = - \infty } ^\infty \frac { x_n } { 2tf_{max} - n } \sin \left( 2 \pi f_{max} t - n \pi \right)
 \end{eqnarray}
 \end{document}
