@@ -186,4 +186,45 @@ x \left( t \right) = \frac { 1 } { 2 \pi } \int _{ -2 \pi f_{max} } ^{ 2 \pi f_{
 	& = & \frac { 1 } { 4 \pi f_{max} } \sum _{ n = - \infty } ^\infty x_n \left( -j \frac { 2 f_{max} } { 2tf_{max} - n } \right) \left( 2 j \sin \left( 2 \pi f_{max} t - n \pi \right) \right) \nonumber \\
 	& = & \frac { 1 } { \pi } \sum _{ n = - \infty } ^\infty \frac { x_n } { 2tf_{max} - n } \sin \left( 2 \pi f_{max} t - n \pi \right)
 \end{eqnarray}
+\subsection{伝達関数}
+離散時間システムの時刻$n$での入力と出力をそれぞれ$ x \left( n \right) , y \left( n \right) $で表すと、時刻$n$までのすべての入力と出力は一般に以下のような方程式で表すことができる。
+\begin{equation}
+\label{DiscreteTimeSystem}
+\sum _{ i = 0} ^I a_i y \left( n - i \right) = \sum _{ j = 0} ^J b_j x \left( n - j \right)
+\end{equation}
+但し$ a_0 = 1 $である。\\
+$ y \left( n \right) $について解くと、
+\begin{eqnarray}
+	\sum _{ i = 0} ^I a_i y \left( n - i \right) & = & \sum _{ j = 0} ^J b_j x \left( n - j \right) \nonumber \\
+	a_0 y \left( n \right) + \sum _{ i = 1} ^I a_i y \left( n - i \right) & = & \sum _{ j = 0} ^J b_j x \left( n - j \right) \nonumber \\
+	y \left( n \right) + \sum _{ i = 1} ^I a_i y \left( n - i \right) & = & \sum _{ j = 0} ^J b_j x \left( n - j \right) \nonumber \\
+	y \left( n \right) & = & \sum _{ j = 0} ^J b_j x \left( n - j \right) - \sum _{ i = 1} ^I a_i y \left( n - i \right)
+\end{eqnarray}
+となる。\\
+ここで、$ x \left( n \right) , y \left( n \right) $の$z$変換をそれぞれ
+\begin{equation}
+X \left( z \right) = \sum _{ n = - \infty } ^\infty x \left( n \right) z ^{ -n }
+\end{equation}
+\begin{equation}
+Y \left( z \right) = \sum _{ n = - \infty } ^\infty y \left( n \right) z ^{ -n }
+\end{equation}
+とする。\\
+ここで、式\ref{DiscreteTimeSystem}の両辺を$z$変換すると、
+\begin{eqnarray}
+	\sum _{ n = - \infty } ^\infty \left( z^{-n} \sum _{ i = 0} ^I a_i y \left( n - i \right) \right) & = & \sum _{ n = - \infty } ^\infty \left( z^{-n} \sum _{ j = 0} ^J b_j x \left( n - j \right) \right) \nonumber \\
+	\sum _{ n = - \infty } ^\infty \sum _{ i = 0} ^I z^{ -n } a_i y \left( n - i \right) & = & \sum _{ n = - \infty } ^\infty \sum _{ j = 0} ^J z ^{ -n } b_j x \left( n - j \right) \nonumber \\
+	\sum _{ i = 0} ^I \sum _{ n = - \infty } ^\infty z ^{ -n } a_i y \left( n - i \right) & = & \sum _{ j = 0} ^J \sum _{ n = - \infty } ^\infty z ^{ -n } b_j x \left( n - j \right) \nonumber \\
+	\sum _{ i = 0} ^I a_i \sum _{ n = - \infty } ^\infty z ^{ -n } y \left( n - i \right) & = & \sum _{ j = 0} ^J b_j \sum _{ n = - \infty } ^\infty z ^{ -n } x \left( n - j \right) \nonumber \\
+	\sum _{ i = 0} ^I a_i \sum _{ n = - \infty } ^\infty z ^{ - \left( n - i \right) } z ^{ -i } y \left( n - i \right) & = & \sum _{ j = 0} ^J b_j \sum _{ n = - \infty } ^\infty z ^{ - \left( n - j \right) } z ^{ -j } x \left( n - j \right) \nonumber \\
+	\sum _{ i = 0} ^I a_i z ^{ -i } \sum _{ n = - \infty } ^\infty z ^{ - \left( n - i \right) } y \left( n - i \right) & = & \sum _{ j = 0} ^J z ^{ -j } b_j \sum _{ n = - \infty } ^\infty z ^{ - \left( n - j \right) } x \left( n - j \right) \nonumber \\
+	\sum _{ i = 0} ^I a_i z ^{ -i } Y \left( z \right) & = & \sum _{ j = 0} ^J z ^{ -j } b_j X \left( z \right) \nonumber \\
+	Y \left( z \right) \sum _{ i = 0} ^I a_i z ^{ -i } & = & X \left( z \right) \sum _{ j = 0} ^J z ^{ -j } b_j \nonumber \\
+	\frac { Y \left( z \right) } { X \left( z \right) } & = & \frac { \sum _{ j = 0} ^J z ^{ -j } b_j } { \sum _{ i = 0} ^I a_i z ^{ -i } } \nonumber \\
+\end{eqnarray}
+これを離散時間システムの伝達関数といい、
+\begin{equation}
+H \left( z \right) = \frac { Y \left( z \right) } { X \left( z \right) }
+\end{equation}
+とする。これはシステムが静止状態にあるときの入力と出力の比を表し、システムの応答を示す重要な概念である。\\
+また、$ Y \left( z \right) = 0 $を満たす$z$を零点といい、$ X \left( z \right) = 0 $を満たす$z$を極という。
 \end{document}
