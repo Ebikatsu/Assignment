@@ -3,6 +3,9 @@
 \author{名前}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{ascmac}
+\usepackage{comment}
 \usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
 \begin{document}
 \maketitle
@@ -53,6 +56,16 @@ L \left( G \right) = \bigl\{ \omega \in \Sigma ^* | S \Rightarrow _G ^* \omega \
 \end{equation}
 を$ G = < N , \Sigma , P , S > $の言語という。\\
 但し、記号の有限集合$ \Sigma $に対して、$ \Sigma ^* $は$ \Sigma $の要素を0文字以上並べた語の集合を意味する。
+\subsection{等価}
+２つの形式文法$ G , H $が等しいことを
+\begin{equation}
+G = H
+\end{equation}
+と書き、
+\begin{equation}
+G = H \iff L \left( G \right) = L \left( H \right)
+\end{equation}
+と定義する。
 \subsection{言語クラス}
 形式文法の集合$ \mathbb{G} $について、
 \begin{equation}
@@ -97,4 +110,22 @@ P \subseteq \bigl\{ A \to a \alpha | A \in N \land a \in \Sigma \land \alpha \in
 \end{equation}
 を満たしているとき、$ G $はグライバッハの標準形であるという。\\
 \subsubsection{任意のチョムスキー標準形の形式文法をグライバッハの標準形にするアルゴリズム}
+このアルゴリズムでは、生成規則に関していかの二種類の置換えを行う。\\
+チョムスキーの標準形である$ \forall G = < N , \Sigma , P , S > \in cfg $から、グライバッハの標準形である$ G' = < N' , \Sigma , P' , S > $を構成する。
+\begin{itembox}[l]{置き換え処理1}
+$ A \to B \alpha \in P $であるとする。このとき$ G $はチョムスキーの標準形であるから$ A , B , \alpha \in N $である。また、$ B $を左辺とする$ P $の要素が$ r $個あり、$ B \to \beta _i \left( 1 \leq i \leq r \right) $とする。これについても、$ G $はチョムスキーの標準形であるから$ \beta _i \in N ^2 \cup \Sigma $である。ここで$ N^n $は$ N $の要素を二文字並べた希望列の集合である。このとき、$ A \to B \alpha $と$ B \to \beta _i $を$ A \to \beta _i \alpha $に置き換える。つまり$ A \to B \alpha $を削除して$ A \to \beta _i \alpha $を追加する。但し、他の生成規則の右辺に$ B $が現れている可能性があるので、$ B \to \beta _i $は削除してはならない。
+\end{itembox}
+\begin{proof}
+チョムスキーの標準形である$G$と、その生成規則$ A \to B \alpha $に対して上の置き換え処理を適用した$G'$が等価であることの証明\\
+$ G $と$ G' $がそれぞれ語$ \omega $と$ \omega ' $に対して生成規則をていようさせる。２つの語は初期状態で$ \omega = \omega ' $が成り立つとする。\\
+$ G $が$ \omega $の$ A $でない部分に対してある生成規則を適用させた場合、$ G $から$ G' $が構成される際に$ A \to B \alpha $以外の生成規則は削除されていないため、$ G' $も同じ生成規則を$ \omega ' $に対して適用することができる。$ G $が$ \omega $内の$ A $に対して$ A \to B \alpha $を適用した時、$ B \in N $より、$ G $は語を完成するまでに必ず$ B $を左辺に取る生成規則を適用しなければならない。$ G $がその$ B $に対して$ B \to \beta _i $を適用した時、$ G' $は$ \omega ' $に対して$ A \to \beta _i $を適用し、更に$ G $が$ \omega $に$ A \to B \alpha $を適用させてから$ B \to \beta _i $を適用させるまでの間に行われた適用を$ G' $が$ \omega ' $に対して行えば、再び$ \omega ' = \omega $となる。よって$ L \left( G \right) = L \left( G ' \right) $である。よって$ G = G ' $である。
+\end{proof}
+\begin{comment}
+\begin{itembox}[l]{置き換え処理1}
+\end{itembox}
+\begin{proof}
+\end{proof}
+\end{comment}
+\subsection{黒田の標準形}
+\subsection{ブックの標準形}
 \end{document}
