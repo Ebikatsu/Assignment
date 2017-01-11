@@ -1,0 +1,41 @@
+\documentclass[a4paper]{jarticle}
+\title{まとめ}
+\author{名前}
+\usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\begin{document}
+\maketitle
+\section{}
+\section{}
+\section{}
+\section{}
+\section{形式文法}
+\subsection{形式文法の形}
+\begin{equation}
+G = < N , \Sigma , P , S >
+\end{equation}
+但し
+\begin{equation}
+N \cap \Sigma = \phi
+\end{equation}
+\begin{equation}
+P \supseteq \bigl\{ A \to B | A , B \in \left( N \cup \Sigma \right) ^* \bigr\}
+\end{equation}
+\begin{equation}
+S \in N
+\end{equation}
+$G$:形式文法\\
+$N$:非終端記号の有限集合\\
+$\sigma$:終端器号の有限集合\\
+$P$:生成規則の有限集合\\
+$S$:初期非終端記号
+\subsubsection{適用可能}
+形式文法$ G = < N , \Sigma , P , S > $において、記号列$ \xi _1 , \alpha , \xi _2 \in \left( N \cup \Sigma \right) ^+ $からなる記号列$ \xi _1 \alpha \xi _2 $が適応可能であることを
+\begin{equation}
+\xi _1 \alpha \xi _2 \Rightarrow _G \xi _1 \beta \xi _2
+\end{equation}
+と書き、
+\begin{equation}
+\xi _1 \alpha \xi _2 \Rightarrow _G \xi _1 \beta \xi _2 \iff \alpha \to \beta \in P
+\end{equation}
+と定義する。
+\end{document}
