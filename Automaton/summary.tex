@@ -1,6 +1,8 @@
 \documentclass[a4paper]{jarticle}
 \title{まとめ}
 \author{名前}
+\usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
 \begin{document}
 \maketitle
@@ -18,18 +20,18 @@ G = < N , \Sigma , P , S >
 N \cap \Sigma = \phi
 \end{equation}
 \begin{equation}
-P \supseteq \bigl\{ A \to B | A , B \in \left( N \cup \Sigma \right) ^* \bigr\}
+P \subseteq \bigl\{ A \to B | A , B \in \left( N \cup \Sigma \right) ^* \bigr\}
 \end{equation}
 \begin{equation}
 S \in N
 \end{equation}
 $G$:形式文法\\
 $N$:非終端記号の有限集合\\
-$\sigma$:終端器号の有限集合\\
+$\sigma$:終端記号の有限集合\\
 $P$:生成規則の有限集合\\
 $S$:初期非終端記号
-\subsubsection{適用可能}
-形式文法$ G = < N , \Sigma , P , S > $において、記号列$ \xi _1 , \alpha , \xi _2 \in \left( N \cup \Sigma \right) ^+ $からなる記号列$ \xi _1 \alpha \xi _2 $が適応可能であることを
+\subsection{適用可能}
+形式文法$ G = < N , \Sigma , P , S > $において、記号列$ \xi _1 , \alpha , \xi _2 \in \left( N \cup \Sigma \right) ^+ $からなる記号列$ \xi _1 \alpha \xi _2 $に生成規則$ \alpha \to \beta $が適応可能であることを
 \begin{equation}
 \xi _1 \alpha \xi _2 \Rightarrow _G \xi _1 \beta \xi _2
 \end{equation}
@@ -37,5 +39,62 @@ $S$:初期非終端記号
 \begin{equation}
 \xi _1 \alpha \xi _2 \Rightarrow _G \xi _1 \beta \xi _2 \iff \alpha \to \beta \in P
 \end{equation}
-と定義する。
+と定義する。\\
+但し、記号の有限集合$ \Sigma $に対して、$ \Sigma ^+ $は$ \Sigma $の要素を一文字以上並べた語の集合を意味する。
+\subsection{導出}
+記号列$ \xi $に、形式文法$ G $の生成規則を有限回適用させるとこで記号列$ \zeta $が得られることを
+\begin{equation}
+\xi \Rightarrow _G ^* \zeta
+\end{equation}
+と書く。
+\subsection{言語}
+\begin{equation}
+L \left( G \right) = \bigl\{ \omega \in \Sigma ^* | S \Rightarrow _G ^* \omega \bigr\}
+\end{equation}
+を$ G = < N , \Sigma , P , S > $の言語という。\\
+但し、記号の有限集合$ \Sigma $に対して、$ \Sigma ^* $は$ \Sigma $の要素を0文字以上並べた語の集合を意味する。
+\subsection{言語クラス}
+形式文法の集合$ \mathbb{G} $について、
+\begin{equation}
+\mathcal{L} \left( \mathbb{G} \right) = \bigl\{ L \left( G \right) | G \in \mathbb{G} \bigr\}
+\end{equation}
+を$ \mathbb{G} $の言語クラスという。
+\subsection{形式文法の型}
+４つの形式文法の型、句構造文法$psg$、文脈依存文法$csg$、文脈自由文法$cfg$、正規文法$rg$を次のように定義する。但し、$ \mathbb{G} $はすべての形式文法の集合である。
+\begin{eqnarray}
+psg & = & \mathbb{G} \\
+csg & = & \bigl\{ < N , \Sigma , P , S > \in \mathbb{G} | P \subseteq \bigl\{ \alpha _0 A \alpha _1 \to \alpha _0 \gamma \alpha _1 | \alpha _0 , \alpha _1 \in \left( N \cup \Sigma \right) ^* \land A \in N \land \gamma \in \left( N \cup \Sigma \right) ^+ \bigr\} \bigr\} \\
+cfg & = & \bigl\{ < N , \Sigma , P , S > \in \mathbb{G} | P \subseteq \bigl\{ A \to \beta | A \in N \land \beta \in \left( N \cup \Sigma \right) ^+ \bigr\} \bigr\} \\
+rg & = & \bigl\{ < N , \Sigma , P , S > \in \mathbb{G} | P \subseteq \bigl\{ A \to a | A \in N \land a \in \Sigma \bigr\} \cup \bigl\{ A \to aB | A , B \in N \land a \in \Sigma \land \bigr\} \bigr\}
+\end{eqnarray}
+\subsection{空語$ \epsilon $の生成}
+上の定義では、$csg$、$cfg$、$rg$の形式文法では、文字をひとつも含まない空語$ \epsilon $を生成することが出来ない。\\
+$ \epsilon $を生成できない形式文法$G$に対して、
+\begin{equation}
+G' = < N \cup \bigl\{ S_0 \bigr\} , \Sigma , P \cup \bigl\{ S_0 \to \epsilon \bigr\} \cup \bigl\{ S_0 \to \beta | S \to \beta \in P \bigr\} , S_0 >
+\end{equation}
+は
+\begin{equation}
+L \left( G' \right) = L \left( G \right) \cup \bigl\{ \epsilon \bigr\}
+\end{equation}
+を満たす。\\
+このようにして、$ \epsilon $を生成できない形式文法の言語に$ \epsilon $を追加することができる。
+\subsection{チョムスキーの標準形}
+\subsubsection{チョムスキーの標準形とは}
+形式文法$ G = < N , \Sigma , P , S > $が
+\begin{equation}
+P \subseteq \bigl\{ A \to a | A \in N \land a \in \Sigma \bigr\} \cup \bigl\{ A \to BC | A , B , C \in N \bigr\}
+\end{equation}
+を満たしているとき、$ G $はチョムスキーの標準形であるという。\\
+$cfg$の形式文法は全てチョムスキー標準形で表すことができる。\\
+\subsubsection{任意の$cfg$の形式文法をチョムスキーの標準形にするアルゴリズム}
+$ \forall G = < N , \Sigma , P , S > \in cfg $から、チョムスキーの標準形である$ G' = < N' , \Sigma , P' , S > $を構成する。について、先ず生成規則の右辺に現れることのない終端文字、非終端文字と、その非終端文字を左辺に持つ生成規則を削除する。つまり、無駄な文字や生成規則を削除する。次に、$ A , B \in N $である$ A \to B $が$ P $の要素にある場合は、$ B $を左辺に持つ生成規則それぞれと結合させてしまう。次に、$ N' $に$N$の要素をすべて追加しておく。次に$ P \cap \left( \bigl\{ A \to a | A \in N \land a \in \Sigma \bigr\} \cup \bigl\{ A \to BC | A , B , C \in N \bigr\} \right) $の要素である生成規則はそのまま$ P' $の要素とする。$ P - \left( \bigl\{ A \to a | A \in N \land a \in \Sigma \bigr\} \cup \bigl\{ A \to BC | A , B , C \in N \bigr\} \right) $の要素である生成規則については、先ずその右辺に含まれる終端文字$ n_i $を対応する新しい非終端文字$ B_i \in N' $に置き換え、$B_i \to n_i $を$ P' $の要素として加える。その置き換えを終えた生成規則$ A \to B_1 B_2 \cdots B_k $について、新しい非終端文字$ X_1 , X_2 , \cdots , X_{ k - 2 } \in N' $を用意して、新しい生成規則$ A \to B_1 X_1 , X_1 \to B_2 X_2 , \cdots , X_{ k - 2 } \to B_{ k - 1 } B_k \in P' $を追加する。$ P $の全要素について以上の操作を行って$ P' $に生成規則を追加すれば$ G' $を完成させることができる。
+\subsection{グライバッハの標準形}
+\subsubsection{グライバッハの標準形とは}
+形式文法$ G = < N , \Sigma , P , S > $が
+\begin{equation}
+P \subseteq \bigl\{ A \to a \alpha | A \in N \land a \in \Sigma \land \alpha \in N ^* \bigr\}
+\end{equation}
+を満たしているとき、$ G $はグライバッハの標準形であるという。\\
+\subsubsection{任意のチョムスキー標準形の形式文法をグライバッハの標準形にするアルゴリズム}
 \end{document}
