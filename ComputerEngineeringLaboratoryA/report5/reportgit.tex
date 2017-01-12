@@ -34,9 +34,104 @@
 \section{各課題の結果}
 \subsection{課題1}
 \subsubsection{目的}
+$iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$までに素通しする配線を$Verilog$で記述して、動作を確認する。
 \subsubsection{道のり}
+トップモジュールに以下のようなコードを追加し、コンパイルしてハードウェアに流し込み、動作を確認した。
+\includegraphics[width=15cm]{work1/1.PNG}
 \subsubsection{結果}
+意図したとおりに、以下の真理値表に従い、$iSW[0]$から$iSW[7]$までのON,OFFにに対応して、$oLEDR[0]$から$oLEDR[7]$までがそれぞれ光ったり光らなかったりした。
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表1}
+					\label{Work1TruthTable1}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[0]$	&$oLEDR[0]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表2}
+					\label{Work1TruthTable2}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[1]$	&$oLEDR[1]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表3}
+					\label{Work1TruthTable3}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[2]$	&$oLEDR[2]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表4}
+					\label{Work1TruthTable4}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[3]$	&$oLEDR[3]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表5}
+					\label{Work1TruthTable5}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[4]$	&$oLEDR[4]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作の真理値表6}
+					\label{Work2TruthTable6}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[5]$	&$oLEDR[5]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
 \subsubsection{考察}
+ハードウェア上の入力、出力にそれぞれつながっている$iSW[x]$と$oLEDR[x]$を単純に繋げ、とても単純な回路だが、正しくハードウェア上で実行することが出来た。$System Verilog$のコードを見ただけではわかりにくくても、実際にハードウェア上で実行することによってコードの意味をより理解できるだろうと感じた。
 \subsection{課題2}
 \subsubsection{目的}
 ビット毎の演算子$NOT,AND,OR,XOR$を試す論理回路を$Verilog$で記述して、働きを確認する。
@@ -114,9 +209,16 @@
 $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、加算や減算といった演算を実現できる演算子も用意されていることを知った。このような演算子が用意されていることによって、複雑な回路設計がより楽になるだろうと感じた。
 \subsection{課題4}
 \subsubsection{目的}
+半加算器を実現するモジュール$\left( halfadder.sv \right)$を定義し、スイッチや$LED$を接続して試す。
 \subsubsection{道のり}
+まず、以下の画像に示したようにモジュール$halfadder.sv$を定義した。\\
+\includegraphics[width=5cm]{work4/4-2.PNG}\\
+次に、以下の画像のように、$halfadder$のトップモジュールに組み込んだ。\\
+\includegraphics[width=15cm]{work4/4-1.PNG}
 \subsubsection{結果}
+意図したとおりに、$iSW[0]$と$iSW[1]$の和が$oLEDR[0]$に表示され、繰り上がりが$oLEDR[1]$に表示された。
 \subsubsection{考察}
+半加算器のモジュールを定義し、トップモジュールに組み込んでその動作を確認した。既成のモジュールをほかのモジュールに組み込んでより複雑な回路を設計する階層設計という方法を知った。階層設計によって、複雑で大きな回路も、単純な回路に分割してモジュールを作成し、そのモジュールを上位のモジュールで繋げることで設計しやすくなるだろうと感じた。
 \subsection{課題5}
 \subsubsection{目的}
 1ビットの全加算器を実現するモジュール$fulladder$を設計し、トップモジュールに組み込んで試す。
@@ -182,11 +284,20 @@ assign oLEDR[3:0] = iSW[7:4];
 \subsubsection{結果}
 \includegraphics[width=15cm]{work6/CircuitDiagram.jpg}
 \subsubsection{考察}
+一つの配列に複数の配列をつなげる方法を知ったが、どの配線がどの配線と繋がっているかのわかりやすさという点では、下の二行のように分けて書く方がよいと感じた。
 \subsection{課題7}
 \subsubsection{目的}
+全加算器のプロジェクトの中で、モジュール$halfadder$と$fulladder$を使って2ビットの加算器を$adder2.sv$として作成し、これをトップモジュールの中で使うようにし、スイッチや$LED$を使って試す。
 \subsubsection{道のり}
+まず、課題4で作成したモジュール$halfadder$と、課題5で作成した$fulladder$を使って、以下の画像のようにモジュール$adder2$を作成した。\\
+\includegraphics[width=10cm]{work7/7-4.PNG}\\
+次に、以下の画像のように$adder2$をトップモジュールに組み込んだ。\\
+\includegraphics[width=15cm]{work7/7-1.PNG}\\
+最後に、プロジェクトに半加算器、全加算器のソースコードと、$adder2.sv$を追加して、コンパイルしてハードウェア上で動作を確認した。
 \subsubsection{結果}
+意図したとおりに、$iSW[1:0]$と$iSW[3:2]$の加算の結果が$oLEDR[1:0]$に表示された。
 \subsubsection{考察}
+半加算器と全加算器を組み合わせて、多ビットの加算器を作成することが出来た。多ビットの加算の回路はすでに知っていたが、実際に自分たちで実装してみることでより細かく理解することが出来た。
 \subsection{課題8}
 \subsubsection{目的}
 \subsubsection{道のり}
@@ -199,9 +310,18 @@ assign oLEDR[3:0] = iSW[7:4];
 \subsubsection{考察}
 \subsection{課題10}
 \subsubsection{目的}
+8ビットの加算器を設計する。これには2つの方針が考えられる。1つ目は、8ビット加算器を4ビットの加算器のつなぎ合わせとして定義し、4ビットの加算器を2ビットの加算器のつなぎ合わせとして定義するというように設計する方針である。2つ目は、いきなり1ビットの全加算器を8つ用いて8ビットの全加算器を構成するという方針である。
 \subsubsection{道のり}
+ここでは、二つ目の方針を採用した。\\
+まず、以下の画像のようにモジュール$adder8$を定義した。\\
+\includegraphics[width=10cm]{work10/10-2.PNG}\\
+次に、以下の画像のようにモジュール$adder8$をトップモジュールに組み込んだ。\\
+\includegraphics[width=15cm]{work10/10-1.PNG}\\
+最後に、半加算器と全加算器のソースコードをプロジェクトに含め、コンパイルしてハードウェアに流し込み、動作を確認した。
 \subsubsection{結果}
+意図したとおりに、$iSW[7:0]$と$iSW[15:8]$の和が$oLEDR[7:0]$に表示された。
 \subsubsection{考察}
+ここでは二つ目の方針を採用した。課題7で2ビットの加算器を作成したが、二つ目の方針を採用した場合、入出力の大きさに応じて全加算器を追加することでより大きな加算器を作成することが出来ることが分かった。
 \subsection{課題11}
 \subsubsection{目的}
 「+」演算子を使った動作モデル化による設計法を用いて、8ビット同士の加算を行うモジュールを定義し、スイッチなどを使って動作確認する。

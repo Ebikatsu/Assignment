@@ -68,6 +68,25 @@ module DE2_TOP (
 //=============================================================================
 // Structural coding
 //=============================================================================
-
+	logic		clk1;
+	logic	[7:0]	co;
+	logic	[31:0]	q;
+	clkgen1m	clkgen1m(~iKEY[1],iCLK_50,clk1);
+	count4dre	count4dre0(clk1,~iKEY[0],~iKEY[1],q[3:0],co[0]);
+	count4dre	count4dre1(clk1,co[0],~iKEY[1],q[7:4],co[1]);
+	count4dre	count4dre2(clk1,co[1],~iKEY[1],q[11:8],co[2]);
+	count4dre	count4dre3(clk1,co[2],~iKEY[1],q[15:12],co[3]);
+	count4dre	count4dre4(clk1,co[3],~iKEY[1],q[19:16],co[4]);
+	count4dre	count4dre5(clk1,co[4],~iKEY[1],q[23:20],co[5]);
+	count4dre	count4dre6(clk1,co[5],~iKEY[1],q[27:24],co[6]);
+	count4dre	count4dre7(clk1,co[6],~iKEY[1],q[31:28],co[7]);
+	deg7dec		deg7dec0(q[3:0],oHEX0_D[6:0]);
+	deg7dec		deg7dec1(q[7:4],oHEX1_D[6:0]);
+	deg7dec		deg7dec2(q[11:8],oHEX2_D[6:0]);
+	deg7dec		deg7dec3(q[15:12],oHEX3_D[6:0]);
+	deg7dec		deg7dec4(q[19:16],oHEX4_D[6:0]);
+	deg7dec		deg7dec5(q[23:20],oHEX5_D[6:0]);
+	deg7dec		deg7dec6(q[27:24],oHEX6_D[6:0]);
+	deg7dec		deg7dec7(q[31:28],oHEX7_D[6:0]);
 endmodule
 

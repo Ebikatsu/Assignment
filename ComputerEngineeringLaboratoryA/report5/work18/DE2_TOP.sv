@@ -68,8 +68,7 @@ module DE2_TOP (
 //=============================================================================
 // Structural coding
 //=============================================================================
-	//clkgen1m dut(iSW[1],iKEY[0],oLEDR[0],oLEDR[6:1]);
-	clkgen1m dut(iSW[1],iKEY[0],oLEDR[0]);
+	clkgen1m dut(iKEY[0],oLEDR[0]);
   endmodule
 	
 
