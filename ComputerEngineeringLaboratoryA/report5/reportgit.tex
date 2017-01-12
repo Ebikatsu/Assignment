@@ -45,7 +45,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表1}
+					\caption{動作結果の真理値表1}
 					\label{Work1TruthTable1}
 					\begin{tabular}{|c|c|}
 						\hline
@@ -57,7 +57,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 			\end{minipage}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表2}
+					\caption{動作結果の真理値表2}
 					\label{Work1TruthTable2}
 					\begin{tabular}{|c|c|}
 						\hline
@@ -75,7 +75,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表3}
+					\caption{動作結果の真理値表3}
 					\label{Work1TruthTable3}
 					\begin{tabular}{|c|c|}
 						\hline
@@ -87,7 +87,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 			\end{minipage}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表4}
+					\caption{動作結果の真理値表4}
 					\label{Work1TruthTable4}
 					\begin{tabular}{|c|c|}
 						\hline
@@ -105,7 +105,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表5}
+					\caption{動作結果の真理値表5}
 					\label{Work1TruthTable5}
 					\begin{tabular}{|c|c|}
 						\hline
@@ -117,11 +117,41 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 			\end{minipage}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\caption{動作の真理値表6}
+					\caption{動作結果の真理値表6}
 					\label{Work2TruthTable6}
 					\begin{tabular}{|c|c|}
 						\hline
 						$iSW[5]$	&$oLEDR[5]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作結果の真理値表7}
+					\label{Work1TruthTable7}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[6]$	&$oLEDR[6]$\\	\hline\hline
+						$0$		&$0$\\		\hline
+						$1$		&$1$\\		\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{動作結果の真理値表8}
+					\label{Work2TruthTable8}
+					\begin{tabular}{|c|c|}
+						\hline
+						$iSW[7]$	&$oLEDR[7]$\\	\hline\hline
 						$0$		&$0$\\		\hline
 						$1$		&$1$\\		\hline
 					\end{tabular}
@@ -217,6 +247,20 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 \includegraphics[width=15cm]{work4/4-1.PNG}
 \subsubsection{結果}
 意図したとおりに、$iSW[0]$と$iSW[1]$の和が$oLEDR[0]$に表示され、繰り上がりが$oLEDR[1]$に表示された。
+\begin{table}[!h]
+	\begin{center}
+		\caption{動作結果の真理値表}
+		\label{Work4TruthTable}
+		\begin{tabular}{|c|c||c|c|}
+			\hline
+			$iSW[1]$	&$iSW[0]$	&$oLEDR[1]$	&$oLEDR[0]$\\	\hline\hline
+			$0$		&$0$		&$0$		&$0$\\		\hline
+			$0$		&$1$		&$0$		&$1$\\		\hline
+			$1$		&$0$		&$0$		&$1$\\		\hline
+			$1$		&$1$		&$1$		&$0$\\		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 \subsubsection{考察}
 半加算器のモジュールを定義し、トップモジュールに組み込んでその動作を確認した。既成のモジュールをほかのモジュールに組み込んでより複雑な回路を設計する階層設計という方法を知った。階層設計によって、複雑で大きな回路も、単純な回路に分割してモジュールを作成し、そのモジュールを上位のモジュールで繋げることで設計しやすくなるだろうと感じた。
 \subsection{課題5}
@@ -346,9 +390,33 @@ $oLEDR \left[ 8:0 \right]$は、正しく$iSW \left[ 7:0 \right]$と$iSW \left[ 
 課題5で作成したモジュール$fulladder$を複数組み合わせることによって、多ビットの加算を実現する回路を作成することが出来た。単純なものを組み合わせて複雑で大きなものを作っていくという点ではC言語などのプログラミング言語に似ていると感じた。プログラミングと同じような感覚ではーをウェアを設計できるようにすることで、設計の効率化を図ったのだろうと思った。
 \subsection{課題13}
 \subsubsection{目的}
+クリアなしのDフリップフロップ、同期クリア付きDフリップフロップ、非同期リセット・プリセット付きDフリップフロップの組み込み、クロックにはキースイッチを、$d$や$clr$等にはスライドスイッチ、出力にはLEDを接続して、動作を確認する。
 \subsubsection{道のり}
+クリアなしのDフリップフロップを以下の画像のように作成した。\\
+\includegraphics[width=10cm]{work13/13-2.PNG}\\
+同期クリア付きDフリップフロップを以下の画像のように作成した。\\
+\includegraphics[width=10cm]{work13/13-3.PNG}\\
+非同期リセット・プリセット付きDフリップフロップを以下の画像のように作成した。\\
+\includegraphics[width=15cm]{work13/13-4.PNG}\\
+そして、作成した三つのDフリップフロップを以下の画像のようにトップモジュールに組み込んだ。また、テストベンチを作成してModelSimを使って波形を確認した。
 \subsubsection{結果}
+\includegraphics[width=15cm]{work13/13-1.PNG}\\
+クリアなしのDフリップフロップのシミュレーション結果は以下の画像のようになった。\\
+\includegraphics[width=15cm]{work13/13-m-1.PNG}\\
+同期クリア付きDフリップフロップのシミュレーション結果は以下の画像のようになった。\\
+\includegraphics[width=15cm]{work13/13-m-2.PNG}\\
+非同期リセット・プリセット付きDフリップフロップのシミュレーション結果は以下の画像のようになった。\\
+\includegraphics[width=15cm]{work13/13-m-3.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-1.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-2.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-3.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-4.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-5.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-6.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-7.PNG}\\
+\includegraphics[width=15cm]{work13/13-m-3-8.PNG}\\
 \subsubsection{考察}
+三種類のDフリップフロップを$Verilog$で作成したことで、Dフリップフロップの動きをより正確に知ることが出来た。また、Dフリップフロップといっても、さまざまなバリエーションがあることが分かった。
 \subsection{課題14}
 \subsubsection{目的}
 ソースコード\ref{Work14UnfixedModule}にあるリセットとイネーブルの入力(en)と繰り上がり出力(co)がついた10進カウンタの記述の$<$考えてね$>$の部分を補完し完成させて、組み込んで、キーボタンやLED等を使って動作を確認する。
@@ -401,14 +469,30 @@ endmodule
 \lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
 \subsection{課題15}
 \subsubsection{目的}
-$oHEX[6:0]$にスイッチ$iSW[6:0]$をつないで、日の字型のどの部分に対応しているのかを調べて、結果を表にまとめる。
+$oHEX0\_D[6:0]$にスイッチ$iSW[6:0]$をつないで、日の字型のどの部分に対応しているのかを調べて、結果を表にまとめる。
 \subsubsection{道のり}
 \subsubsection{結果}
+$oHEX0\_D[0]$から$oHEX0\_D[6]$までの配線と実際の日の字型LEDのそれぞれのセグメントは以下の画像のような対応関係となっていた。各セグメントは、値が0のときに光り、1のときに光らなかった。\\
+\includegraphics[width=15cm]{work15/SevenSegmentDisplay.jpg}
 \subsubsection{考察}
 \subsection{課題16}
 \subsubsection{目的}
+0から9までの数字を日の字型LEDに表示するための表を作成する。
 \subsubsection{道のり}
 \subsubsection{結果}
+\begin{comment}
+\begin{table}[!h]
+	\begin{center}
+		\caption{日の字型LEDで数字を表示するための表}
+		\label{Work16Table}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			数字	&2進数コード	&\multicolumn{7}{|c|c|c|c|c|c|c|}{点灯させるセグメント}	&$oHEX0\_D[0]$	&$oHEX0\_D[1]$	&$oHEX0\_D[2]$	&$oHEX0\_D[3]$	&$oHEX0\_D[4]$	&$oHEX0\_D[5]$	&$oHEX0\_D[6]$\\	\hline
+				&		&a	&b	&c	&d	&e	&f	&g	&		&		&		&		&		&		&\\			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\end{comment}
 \subsubsection{考察}
 \subsection{課題17}
 \subsubsection{目的}
