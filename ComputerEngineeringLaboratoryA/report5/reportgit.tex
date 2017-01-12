@@ -46,7 +46,7 @@
 その後、これをコンパイルしてハードウェアに流し込み、動作を確認した。
 \subsubsection{結果}
 実際のハードウェア上では、作成した回路は以下の表\ref{Work2NotGateTruthTable},\ref{Work2AndGateTruthTable},\ref{Work2OrGateTruthTable},\ref{Work2XorGateTruthTable}の真理値表のように動作した。
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{$NOT$回路の真理値表}
 		\label{Work2NotGateTruthTable}
@@ -58,7 +58,7 @@
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{$AND$回路の真理値表}
 		\label{Work2AndGateTruthTable}
@@ -72,7 +72,7 @@
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{$OR$回路の真理値表}
 		\label{Work2OrGateTruthTable}
@@ -86,7 +86,7 @@
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{$XOR$回路の真理値表}
 		\label{Work2XorGateTruthTable}
@@ -104,9 +104,14 @@
 モジュール$DE2\_TOP$に単純な回路を組み込むことによって、$Verilog$の基本的な論理演算子が正常に動作することを確認できた。単にスイッチからの配線を論理ゲートに通してからLEDにつなぐのではなく、スイッチからの配線を別のLEDにそのままつないだものも用意することによって、ハードウェア上で実行したときの結果が分かりやすかった。
 \subsection{課題3}
 \subsubsection{目的}
+算術の演算子$PLUS,MINUS$を$Verilog$で記述して、動きを確認する。
 \subsubsection{道のり}
+トップモジュールを以下のソースコード\ref{Work3TOP}のように編集して、加算と減算の回路を実現した。そしてコンパイルしてハードウェアに流し込み、動作を確認した。
+\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work3TOP]{work3/DE2_TOP.sv}
 \subsubsection{結果}
+意図したとおりに、$oLEDR[3:0]$は$iSW[3:0]$と$iSW[7:4]$の和のとおりに光り、$oLEDR[7:4]$は$iSW[11:8]$と$iSW[15:12]$の差のとおりに光った。
 \subsubsection{考察}
+$Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、加算や減算といった演算を実現できる演算子も用意されていることを知った。このような演算子が用意されていることによって、複雑な回路設計がより楽になるだろうと感じた。
 \subsection{課題4}
 \subsubsection{目的}
 \subsubsection{道のり}
@@ -122,7 +127,7 @@
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work5TOP]{work5/DE2_TOP.sv}
 \subsubsection{結果}
 実際のハードウェア上では、作成した回路は以下の表\ref{Work5FullAdderTruthTable},\ref{Work5FullAdderUsingHalfAdderTruthTable}の真理値表のように動作した。
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{モジュール$fulladder$の動作の真理値表}
 		\label{Work5FullAdderTruthTable}
@@ -141,7 +146,7 @@
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{モジュール$fulladderUsingHalfadder$の動作の真理値表}
 		\label{Work5FullAdderUsingHalfAdderTruthTable}
@@ -164,8 +169,18 @@
 今回は単純に入力から出力へと配線をつなぐ方法と、半加算器二つを使う方法で同じ動作をする全加算器を作成した。前者の方法は、真理値表通りに作られているので全加算器であることが分かりやすいが、後者の方は、これが全加算器であるといわれなければこれがどんな働きをするのか直感的にはわからないだろうと思った。また、二つの全加算器をトップモジュールに同時に組み込むことで、動作を確認するときに二つが同じ結果を出しているかどうか確認しやすかった。
 \subsection{課題6}
 \subsubsection{目的}
+以下のソースコード\ref{Work6Source}に対応する回路図を書く。
+\begin{lstlisting}[caption=信号を束ねる例,label=Work6Source]
+assign oLEDR[7:0] = {iSW[3:0], iSW[7:4]};
+//これはこう書いたのと同じ
+assign oLEDR[7:4] = iSW[3:0];
+assign oLEDR[3:0] = iSW[7:4];
+//あなたにとってはどっちがスマート？
+\end{lstlisting}
 \subsubsection{道のり}
+上のソースコード\ref{Work6Source}に対応する回路図を紙に書き出した。
 \subsubsection{結果}
+\includegraphics[width=15cm]{work6/CircuitDiagram.jpg}
 \subsubsection{考察}
 \subsection{課題7}
 \subsubsection{目的}
@@ -199,9 +214,16 @@ $oLEDR \left[ 8:0 \right]$は、正しく$iSW \left[ 7:0 \right]$と$iSW \left[ 
 「+」演算子を使ったモジュールを定義し、動作を確認することで、$Verilog$の「+」演算子は、プログラミング言語の加算と同等の意味を持つことが分かった。また、この演算子の出力は、入力よりも1ビット大きく出力されることが分かった。ハードウェア記述言語でこのような演算子が定義されていることによって、回路の設計がより楽になるだろうと感じた。
 \subsection{課題12}
 \subsubsection{目的}
+8ビットの2の補数表示の符号付き2進数どうしを加算して、9ビットの結果を得るモジュール$adder89$を定義し、スイッチなどを使って試す。
 \subsubsection{道のり}
+課題5で作成したモジュール$fulladder$を使って、モジュール$adder89$を以下のソースコード\ref{Work12Adder}のように作成した。
+\lstinputlisting[caption=$adder89.sv$,label=Work12Adder]{work12/adder89.sv}
+その後、以下のソースコード\ref{Work12TOP}のように$adder89$をトップモジュールに組み込んで、これをコンパイルし、ハードウェアに流し込んで動作を確認した。
+\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work12TOP]{work12/DE2_TOP.sv}
 \subsubsection{結果}
+意図したとおりに、二つの8ビットの入力$iSW[7:0],iSW[15:0]$の9ビットの和が、$oLEDR[8:0]$に表示された。
 \subsubsection{考察}
+課題5で作成したモジュール$fulladder$を複数組み合わせることによって、多ビットの加算を実現する回路を作成することが出来た。単純なものを組み合わせて複雑で大きなものを作っていくという点ではC言語などのプログラミング言語に似ていると感じた。プログラミングと同じような感覚ではーをウェアを設計できるようにすることで、設計の効率化を図ったのだろうと思った。
 \subsection{課題13}
 \subsubsection{目的}
 \subsubsection{道のり}
@@ -234,7 +256,7 @@ endmodule
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work14TOP]{work14/DE2_TOP.sv}
 \subsubsection{結果}
 実際のハードウェア上では、次の状態遷移表\ref{Work14StateTransitionTable}のように動作した。リセットとイネーブル付き10進カウンタとして正しく動作した。
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{カウンタの状態遷移表}
 		\label{Work14StateTransitionTable}
@@ -259,6 +281,7 @@ endmodule
 \lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
 \subsection{課題15}
 \subsubsection{目的}
+$oHEX[6:0]$にスイッチ$iSW[6:0]$をつないで、日の字型のどの部分に対応しているのかを調べて、結果を表にまとめる。
 \subsubsection{道のり}
 \subsubsection{結果}
 \subsubsection{考察}
@@ -307,7 +330,7 @@ endmodule
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work17TOP]{work17/DE2_TOP.sv}
 \subsubsection{結果}
 実際のハードウェア上での動作は、どちらのソースコードを用いても以下の真理値表に従い、0から9までの数字を正しく表示していた。
-\begin{table}[ht]
+\begin{table}[!h]
 	\begin{center}
 		\caption{課題17の結果の真理値表}
 		\label{Work17TruthTable}
