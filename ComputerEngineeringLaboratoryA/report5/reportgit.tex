@@ -1,12 +1,12 @@
 \documentclass[a4paper]{jarticle}
 \usepackage{comment}
-\usepackage{slashbox}
-\usepackage{listings,jlisting}
-\usepackage[dvipdfmx]{graphicx}
 \usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{listings,jlisting}
+\usepackage{slashbox}
 \title{計算機工学実験A課題3レポート}
 \author{学生番号 氏名}
-\date{2016/11/24}
 \lstset{%
 	basicstyle={\small},%
 	tabsize=8,
@@ -31,6 +31,7 @@
 \begin{document}
 \maketitle
 \section{実験の総括的な目的}
+ハードウェア記述言語によって様々な回路を設計し、その動作を実際に確かめていくことで、組み合わせ回路や順序回路の動作原理や、階層設計と言った技法を理解し、習得する。
 \section{各課題の結果}
 \subsection{課題1}
 \subsubsection{目的}
@@ -39,7 +40,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 トップモジュールに以下のようなコードを追加し、コンパイルしてハードウェアに流し込み、動作を確認した。
 \includegraphics[width=15cm]{work1/1.PNG}
 \subsubsection{結果}
-意図したとおりに、以下の真理値表に従い、$iSW[0]$から$iSW[7]$までのON,OFFにに対応して、$oLEDR[0]$から$oLEDR[7]$までがそれぞれ光ったり光らなかったりした。
+意図したとおりに、以下の真理値表に従い、$iSW[0]$から$iSW[7]$までのON,OFFに対応して、$oLEDR[0]$から$oLEDR[7]$までがそれぞれ光ったり光らなかったりした。
 \begin{table}[!h]
 	\begin{center}
 		\begin{tabular}{c}
@@ -166,11 +167,11 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 \subsubsection{目的}
 ビット毎の演算子$NOT,AND,OR,XOR$を試す論理回路を$Verilog$で記述して、働きを確認する。
 \subsubsection{道のり}
-まず、$DE2\_TOP.sv$をコピーペーストし、その中で定義されているモジュール$DE2\_TOP$に、ビット毎の演算子$NOT,AND,OR,XOR$を試す論理回路を定義したソースコード\ref{Work2TOP}を作成した。
+まず、$DE2\_TOP.sv$をコピーペーストし、その中で定義されているモジュール$DE2\_TOP$に、ビット毎の演算子$NOT,AND,OR,XOR$を試す論理回路を追加したソースコード\ref{Work2TOP}を作成した。
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work2TOP]{work2/DE2_TOP.sv}
 その後、これをコンパイルしてハードウェアに流し込み、動作を確認した。
 \subsubsection{結果}
-実際のハードウェア上では、作成した回路は以下の表\ref{Work2NotGateTruthTable},\ref{Work2AndGateTruthTable},\ref{Work2OrGateTruthTable},\ref{Work2XorGateTruthTable}の真理値表のように動作した。
+実際のハードウェア上では、作成した回路は以下の表\ref{Work2NotGateTruthTable},\ref{Work2AndGateTruthTable},\ref{Work2OrGateTruthTable},\ref{Work2XorGateTruthTable}の真理値表のように正しく動作した。
 \begin{table}[!h]
 	\begin{center}
 		\caption{$NOT$回路の真理値表}
@@ -342,6 +343,7 @@ assign oLEDR[3:0] = iSW[7:4];
 意図したとおりに、$iSW[1:0]$と$iSW[3:2]$の加算の結果が$oLEDR[1:0]$に表示された。
 \subsubsection{考察}
 半加算器と全加算器を組み合わせて、多ビットの加算器を作成することが出来た。多ビットの加算の回路はすでに知っていたが、実際に自分たちで実装してみることでより細かく理解することが出来た。
+\begin{comment}
 \subsection{課題8}
 \subsubsection{目的}
 \subsubsection{道のり}
@@ -353,6 +355,7 @@ assign oLEDR[3:0] = iSW[7:4];
 \subsubsection{結果}
 \subsubsection{考察}
 \subsection{課題10}
+\end{comment}
 \subsubsection{目的}
 8ビットの加算器を設計する。これには2つの方針が考えられる。1つ目は、8ビット加算器を4ビットの加算器のつなぎ合わせとして定義し、4ビットの加算器を2ビットの加算器のつなぎ合わせとして定義するというように設計する方針である。2つ目は、いきなり1ビットの全加算器を8つ用いて8ビットの全加算器を構成するという方針である。
 \subsubsection{道のり}
@@ -387,10 +390,10 @@ $oLEDR \left[ 8:0 \right]$は、正しく$iSW \left[ 7:0 \right]$と$iSW \left[ 
 \subsubsection{結果}
 意図したとおりに、二つの8ビットの入力$iSW[7:0],iSW[15:0]$の9ビットの和が、$oLEDR[8:0]$に表示された。
 \subsubsection{考察}
-課題5で作成したモジュール$fulladder$を複数組み合わせることによって、多ビットの加算を実現する回路を作成することが出来た。単純なものを組み合わせて複雑で大きなものを作っていくという点ではC言語などのプログラミング言語に似ていると感じた。プログラミングと同じような感覚ではーをウェアを設計できるようにすることで、設計の効率化を図ったのだろうと思った。
+課題5で作成したモジュール$fulladder$を複数組み合わせることによって、多ビットの加算を実現する回路を作成することが出来た。単純なものを組み合わせて複雑で大きなものを作っていくという点ではC言語などのプログラミング言語に似ていると感じた。プログラミングと同じような感覚でハードウェアを設計できるようにすることで、設計の効率化を図ったのだろうと思った。
 \subsection{課題13}
 \subsubsection{目的}
-クリアなしのDフリップフロップ、同期クリア付きDフリップフロップ、非同期リセット・プリセット付きDフリップフロップの組み込み、クロックにはキースイッチを、$d$や$clr$等にはスライドスイッチ、出力にはLEDを接続して、動作を確認する。
+クリアなしのDフリップフロップ、同期クリア付きDフリップフロップ、非同期リセット・プリセット付きDフリップフロップを組み込み、クロックにはキースイッチを、$d$や$clr$等にはスライドスイッチ、出力にはLEDを接続して、動作を確認する。
 \subsubsection{道のり}
 クリアなしのDフリップフロップを以下の画像のように作成した。\\
 \includegraphics[width=10cm]{work13/13-2.PNG}\\
@@ -443,10 +446,11 @@ endmodule
 \lstinputlisting[caption=$count4.sv$,label=Work14FixedModule]{work14/count4.sv}
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work14TOP]{work14/DE2_TOP.sv}
 \subsubsection{結果}
-実際のハードウェア上では、次の状態遷移表\ref{Work14StateTransitionTable}のように動作した。リセットとイネーブル付き10進カウンタとして正しく動作した。
+ModelSimで波形を確認したところ、以下の表\ref{Work14StateTransitionTable}に従った正しい波形を得ることが出来たが、ハードウェア上では正しく動作させることが出来なかった。ソースコード\ref{Work14Testbench}はModelSimで使用したテストベンチである。
+\lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
 \begin{table}[!h]
 	\begin{center}
-		\caption{カウンタの状態遷移表}
+		\caption{カウンタの状態遷移表(表の中の値は次状態を表す。)}
 		\label{Work14StateTransitionTable}
 		\begin{tabular}{|c||c|c|c|c|}
 			\hline
@@ -464,9 +468,10 @@ endmodule
 		\end{tabular}
 	\end{center}
 \end{table}
+課題14のシミュレーション結果\\
+\includegraphics[width=10cm]{work14/Simulation.png}
 \subsubsection{考察}
-問題文にあるソースコードを修正して、目的のカウンタを作った。ModelSimで波形を確認したところ、正しい波形を得ることが出来たが、ハードウェア上では正しく動作させることが出来なかった。ソースコード\ref{Work14Testbench}はModelSimで使用したテストベンチである。
-\lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
+リセットとイネーブルつき10進カウンタを作成し、トップモジュールに組み込んで、トップモジュールに対してテストベンチを作成してシミュレーションを実行したところ正しく動いたが、ハードウェア上では正しく動かなかった。原因はわからないが、シミュレーションが正しく実行できたとしても、ハードウェア上で正しく動くかはわからないということを実感した。
 \subsection{課題15}
 \subsubsection{目的}
 $oHEX0\_D[6:0]$にスイッチ$iSW[6:0]$をつないで、日の字型のどの部分に対応しているのかを調べて、結果を表にまとめる。
@@ -487,6 +492,7 @@ $oHEX0\_D[0]$から$oHEX0\_D[6]$までの配線と実際の日の字型LEDのそ
 	\end{center}
 \end{table}
 \subsubsection{考察}
+値を0にすると光り、1にすると光らなくなるというのが意外に思った。なぜわざわざそのような仕様にするのかよく理解できなかった。セグメントの並び順に関しては、上から始まり時計回りに進んで最後に中というようにわかりやすい並び方となっていた。
 \subsection{課題16}
 \subsubsection{目的}
 0から9までの数字を日の字型LEDに表示するための表を作成する。
@@ -499,7 +505,7 @@ $oHEX0\_D[0]$から$oHEX0\_D[6]$までの配線と実際の日の字型LEDのそ
 		\label{Work16Table}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 		\hline
-		{数字}	&2進数コード	&\multicolumn{7}{|c|}{点灯させるセグメント}		&oHEX\_D[0]\\	\cline{3-9}
+		{数字}	&2進数コード	&\multicolumn{7}{|c|}{点灯させるセグメント}		&oHEX\_D[6:0]\\	\cline{3-9}
 			&		&a	&b	&c	&d	&e	&f	&g	&\\		\hline
 		0	&0000		&1	&1	&1	&1	&1	&1	&0	&7'b1000000\\	\hline
 		1	&0001		&0	&1	&1	&0	&0	&0	&0	&7'b1111001\\	\hline
@@ -587,6 +593,7 @@ endmodule
 日の字型LEDで数字を表示するという同じ働きをする二つのモジュールを作成し、それぞれ同一のトップモジュールに組み込んで動作を確認した。数字をひとつ表示するだけでも、かなり大きなデコーダの真理値表を基にして作ったので大変だった。日の字型LEDではなく、普通のディスプレイのような小さな画素の二次元配列上に文字を表示させるのはもっと大変なのだろうと感じた。
 \subsection{課題18}
 \subsubsection{目的}
+ソースコード\ref{Work18Unfixed}を完成させて、先ず、テストベッドを組んで、そこでシミュレーションを行って、正しく動作することを確認する。そして、キースイッチからクロック信号を与え、LEDで出力を観察して、クロックが50分周されていることを確認する。
 \begin{lstlisting}[caption=モジュール$clkgen1m$,label=Work18Unfixed]
 module clkgen1m(
 	input logic clk50,	//50MHz入力
@@ -605,20 +612,187 @@ always_ff @(posedge clk50)
 endmodule
 \end{lstlisting}
 \subsubsection{道のり}
+まず、ソースコード\ref{Work18Unfixed}を修正して、以下のソースコード\ref{Work18Clkgen50}を作成した。
 \lstinputlisting[caption=$clkgen50.sv$,label=Work18Clkgen50]{work18/clkgen50.sv}
+次に、テストベッドを以下のソースコード\ref{Work18TestBench}のように作成してシミュレーションを実行した。
+\lstinputlisting[caption=$testbench.sv$,label=Work18TestBench]{work18/testbench.sv}
+最後に、作成したモジュールをソースコード\ref{Work18TOP}のようにトップモジュールに組み込み、コンパイルしてハードウェアに流し込み、動作を確認した。
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work18TOP]{work18/DE2_TOP.sv}
 \subsubsection{結果}
+\includegraphics[width=15cm]{work18/Simulation.png}\\
+シミュレーションの結果、モジュールは正しく動作しなかった。モジュールの出力が初期化されていないことが原因であると考えられる。
+\lstinputlisting[caption=$clkgen25.sv$,label=Work18Clkgen25]{work18/clkgen25.sv}
+ハードウェア上では、意図したとおり、キースイッチを50回押すごとに、LEDが光ったり光らなかったりした。以下の状態遷移表\ref{Work18StateTransitionTable1},\ref{Work18StateTransitionTable2},\ref{Work18StateTransitionTable3},\ref{Work18StateTransitionTable4}に従った動作をした。
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{モジュール$clkgen1m$の状態遷移表1}
+					\label{Work18StateTransitionTable1}
+					\begin{tabular}{|c|c|c|}
+					\hline
+					現状態	&次状態	&出力\\	\hline\hline
+					0	&1	&0\\	\hline
+					1	&2	&0\\	\hline
+					2	&3	&0\\	\hline
+					3	&4	&0\\	\hline
+					4	&5	&0\\	\hline
+					5	&6	&0\\	\hline
+					6	&7	&0\\	\hline
+					7	&8	&0\\	\hline
+					8	&9	&0\\	\hline
+					9	&10	&0\\	\hline
+					10	&11	&0\\	\hline
+					11	&12	&0\\	\hline
+					12	&13	&0\\	\hline
+					13	&14	&0\\	\hline
+					14	&15	&0\\	\hline
+					15	&16	&0\\	\hline
+					16	&17	&0\\	\hline
+					17	&18	&0\\	\hline
+					18	&19	&0\\	\hline
+					19	&20	&0\\	\hline
+					20	&21	&0\\	\hline
+					21	&22	&0\\	\hline
+					22	&23	&0\\	\hline
+					23	&24	&0\\	\hline
+					24	&25	&0\\	\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{モジュール$clkgen1m$の状態遷移表2}
+					\label{Work18StateTransitionTable2}
+					\begin{tabular}{|c|c|c|}
+					\hline
+					現状態	&次状態	&出力\\	\hline\hline
+					25	&26	&0\\	\hline
+					26	&27	&0\\	\hline
+					27	&28	&0\\	\hline
+					28	&29	&0\\	\hline
+					29	&30	&0\\	\hline
+					30	&31	&0\\	\hline
+					31	&32	&0\\	\hline
+					32	&33	&0\\	\hline
+					33	&34	&0\\	\hline
+					34	&35	&0\\	\hline
+					35	&36	&0\\	\hline
+					36	&37	&0\\	\hline
+					37	&38	&0\\	\hline
+					38	&39	&0\\	\hline
+					39	&40	&0\\	\hline
+					40	&41	&0\\	\hline
+					41	&42	&0\\	\hline
+					42	&43	&0\\	\hline
+					43	&44	&0\\	\hline
+					44	&45	&0\\	\hline
+					45	&46	&0\\	\hline
+					46	&47	&0\\	\hline
+					47	&48	&0\\	\hline
+					48	&49	&0\\	\hline
+					49	&50	&0\\	\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{モジュール$clkgen1m$の状態遷移表3}
+					\label{Work18StateTransitionTable3}
+					\begin{tabular}{|c|c|c|}
+					\hline
+					現状態	&次状態	&出力\\	\hline\hline
+					50	&51	&1\\	\hline
+					51	&52	&1\\	\hline
+					52	&53	&1\\	\hline
+					53	&54	&1\\	\hline
+					54	&55	&1\\	\hline
+					55	&56	&1\\	\hline
+					56	&57	&1\\	\hline
+					57	&58	&1\\	\hline
+					58	&59	&1\\	\hline
+					59	&60	&1\\	\hline
+					60	&61	&1\\	\hline
+					61	&62	&1\\	\hline
+					62	&63	&1\\	\hline
+					63	&64	&1\\	\hline
+					64	&65	&1\\	\hline
+					65	&66	&1\\	\hline
+					66	&67	&1\\	\hline
+					67	&68	&1\\	\hline
+					68	&69	&1\\	\hline
+					69	&70	&1\\	\hline
+					70	&71	&1\\	\hline
+					71	&72	&1\\	\hline
+					72	&73	&1\\	\hline
+					73	&74	&1\\	\hline
+					74	&75	&1\\	\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\caption{モジュール$clkgen1m$の状態遷移表4}
+					\label{Work18StateTransitionTable4}
+					\begin{tabular}{|c|c|c|}
+					\hline
+					現状態	&次状態	&出力\\	\hline\hline
+					75	&76	&1\\	\hline
+					76	&77	&1\\	\hline
+					77	&78	&1\\	\hline
+					78	&79	&1\\	\hline
+					79	&80	&1\\	\hline
+					80	&81	&1\\	\hline
+					81	&82	&1\\	\hline
+					82	&83	&1\\	\hline
+					83	&84	&1\\	\hline
+					84	&85	&1\\	\hline
+					85	&86	&1\\	\hline
+					86	&87	&1\\	\hline
+					87	&88	&1\\	\hline
+					88	&89	&1\\	\hline
+					89	&90	&1\\	\hline
+					90	&91	&1\\	\hline
+					91	&92	&1\\	\hline
+					92	&93	&1\\	\hline
+					93	&94	&1\\	\hline
+					94	&95	&1\\	\hline
+					95	&96	&1\\	\hline
+					96	&97	&1\\	\hline
+					97	&98	&1\\	\hline
+					98	&99	&1\\	\hline
+					99	&0	&1\\	\hline
+					\end{tabular}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{table}
 \subsubsection{考察}
+分周比1/50のカウンタを作成することが出来た。シミュレーションがうまく行かなかったが、ハードウェア上では正しく動作した。このことから、ハードウェア上では自動的な初期化が行われていると予想される。
 \subsection{課題19}
 \subsubsection{目的}
+これまでに設計してきた部品を使って、ストップウォッチのモジュールを設計し、回路全体を組み込んで、クロックやキースイッチを接続して、ストップウォッチを完成させる。
 \subsubsection{道のり}
-\lstinputlisting[caption=$clkgen25.sv$,label=Work18Clkgen25]{work18/clkgen25.sv}
+まず、プロジェクトに課題14の$count4dre$と、課題17の$deg7dec$と、課題18の$clkgen1m$を追加し、トップモジュールに以下のソースコード\ref{Work19TOP}のように回路を組み込み、コンパイルしてハードウェアに流し込み、動作を確認した。
+\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work19TOP]{work19/DE2_TOP.sv}
 \subsubsection{結果}
+最初に動作を確認した時、ストップウォッチの進みが遅かった。そこで、課題18の$clkgen1m$を以下のソースコード\ref{Work18Clkgen25}のようにクロックを25分周するように修正したところ、スマートフォンのストップウォッチと同じ速度で時間が表示されるようになった。
+\lstinputlisting[caption=$clkgen25.sv$,label=Work18Clkgen25]{work18/clkgen25.sv}
 \subsubsection{考察}
+今まで作成してきた部品を組み合わせて、ストップウォッチを完成させることが出来た。階層設計によって、複雑な回路を複数の単純な回路に分割し、それらをつなぎ合わせることによって楽に開発できることを実感した。
 \subsection{課題20}
 \subsubsection{目的}
 \subsubsection{道のり}
 \subsubsection{結果}
 \subsubsection{考察}
 \section{実験の総括的なまとめや感想}
+今回はハードウェア記述言語によって様々な回路を設計し、その動作を実際に確かめていった。階層設計によって小さな部品を作って、それを集めてストップウォッチを作成することが出来た。階層設計によって、複雑な回路でも、時間はかかるが比較的簡単に作成することができることを実感した。また、シミュレーションは正しく実行できたが、ハードウェア上で正しく実行できない、シミュレーションでは正しい波形は得られないが、ハードウェア上では正しく実行できる、ということがあった。原因は予想することしか出来なかったが、もっと開発しやすい環境がほしいと感じた。
 \end{document}
