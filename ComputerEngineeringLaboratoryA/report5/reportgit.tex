@@ -8,7 +8,7 @@
 \title{計算機工学実験A課題3レポート}
 \author{学生番号 氏名}
 \lstset{%
-	basicstyle={\small},%
+	basicstyle={\small\ttfamily},%
 	tabsize=8,
 	identifierstyle={\small},%
 	commentstyle={\small\itshape},%
@@ -788,11 +788,13 @@ endmodule
 \lstinputlisting[caption=$clkgen25.sv$,label=Work18Clkgen25]{work18/clkgen25.sv}
 \subsubsection{考察}
 今まで作成してきた部品を組み合わせて、ストップウォッチを完成させることが出来た。階層設計によって、複雑な回路を複数の単純な回路に分割し、それらをつなぎ合わせることによって楽に開発できることを実感した。
+\begin{comment}
 \subsection{課題20}
 \subsubsection{目的}
 \subsubsection{道のり}
 \subsubsection{結果}
 \subsubsection{考察}
+\end{comment}
 \section{実験の総括的なまとめや感想}
 今回はハードウェア記述言語によって様々な回路を設計し、その動作を実際に確かめていった。階層設計によって小さな部品を作って、それを集めてストップウォッチを作成することが出来た。階層設計によって、複雑な回路でも、時間はかかるが比較的簡単に作成することができることを実感した。また、シミュレーションは正しく実行できたが、ハードウェア上で正しく実行できない、シミュレーションでは正しい波形は得られないが、ハードウェア上では正しく実行できる、ということがあった。原因は予想することしか出来なかったが、もっと開発しやすい環境がほしいと感じた。
 \end{document}
