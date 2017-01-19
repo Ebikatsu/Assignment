@@ -269,7 +269,7 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 1ビットの全加算器を実現するモジュール$fulladder$を設計し、トップモジュールに組み込んで試す。
 \subsubsection{道のり}
 まず、1ビットの全加算器を実現するモジュールを、ソースコード\ref{Work5FullAdder}で定義した。ここでは、単純にassignで配線をつないだモジュール$fulladder$と、課題4で作成した半加算器のモジュール$halfadder$を二つ使用した$fulladderUsingHalfadder$を作成した。
-\lstinputlisting[caption=$fulladder.sv$,label=Work5FullAdder]{work5/fulladder.sv}
+\lstinputlisting[caption=$fulladder.sv$,label=Work5FullAdder]{work5/fulladderwithcomments.sv}
 次に、ソースコード\ref{Work5TOP}にあるように、ソースコード\ref{Work5FullAdder}で定義した二つの全加算器をトップモジュールに組み込み、コンパイルしてハードウェアに流し込み動作を確認した。
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work5TOP]{work5/DE2_TOP.sv}
 \subsubsection{結果}
