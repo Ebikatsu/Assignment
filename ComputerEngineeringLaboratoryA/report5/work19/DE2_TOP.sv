@@ -71,7 +71,7 @@ module DE2_TOP (
 	logic		clk1;
 	logic	[7:0]	co;
 	logic	[31:0]	q;
-	clkgen1m	clkgen1m(~iKEY[1],iCLK_50,clk1);
+	clkgen1m	clkgen1m(iCLK_50,clk1);
 	count4dre	count4dre0(clk1,~iKEY[0],~iKEY[1],q[3:0],co[0]);
 	count4dre	count4dre1(clk1,co[0],~iKEY[1],q[7:4],co[1]);
 	count4dre	count4dre2(clk1,co[1],~iKEY[1],q[11:8],co[2]);
