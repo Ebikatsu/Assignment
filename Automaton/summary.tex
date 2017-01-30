@@ -110,22 +110,33 @@ P \subseteq \bigl\{ A \to a \alpha | A \in N \land a \in \Sigma \land \alpha \in
 \end{equation}
 を満たしているとき、$ G $はグライバッハの標準形であるという。\\
 \subsubsection{任意のチョムスキー標準形の形式文法をグライバッハの標準形にするアルゴリズム}
-このアルゴリズムでは、生成規則に関していかの二種類の置換えを行う。\\
-チョムスキーの標準形である$ \forall G = < N , \Sigma , P , S > \in cfg $から、グライバッハの標準形である$ G' = < N' , \Sigma , P' , S > $を構成する。
+チョムスキーの標準形である$ \forall G = < N , \Sigma , P , S > \in cfg $から、グライバッハの標準形である$ G' = < N' , \Sigma , P' , S > $を構成する。\\
+このアルゴリズムでは、生成規則に関して以下の二種類の置換えを行う。
 \begin{itembox}[l]{置き換え処理1}
-$ A \to B \alpha \in P $であるとする。このとき$ G $はチョムスキーの標準形であるから$ A , B , \alpha \in N $である。また、$ B $を左辺とする$ P $の要素が$ r $個あり、$ B \to \beta _i \left( 1 \leq i \leq r \right) $とする。これについても、$ G $はチョムスキーの標準形であるから$ \beta _i \in N ^2 \cup \Sigma $である。ここで$ N^n $は$ N $の要素を二文字並べた希望列の集合である。このとき、$ A \to B \alpha $と$ B \to \beta _i $を$ A \to \beta _i \alpha $に置き換える。つまり$ A \to B \alpha $を削除して$ A \to \beta _i \alpha $を追加する。但し、他の生成規則の右辺に$ B $が現れている可能性があるので、$ B \to \beta _i $は削除してはならない。
+$ A \to B \alpha \in P $であるとする。このとき$ G $はチョムスキーの標準形であるから$ A , B , \alpha \in N $である。また、$ B $を左辺とする$ P $の要素が$ r $個あり、$ B \to \beta _i \left( 1 \leq i \leq r \right) $とする。これについても、$ G $はチョムスキーの標準形であるから$ \beta _i \in N ^2 \cup \Sigma $である。ここで$ N^n $は$ N $の要素を$ n $文字並べた記号列の集合である。このとき、$ A \to B \alpha $と$ B \to \beta _i $を$ A \to \beta _i \alpha $に置き換える。つまり$ A \to B \alpha $を削除して$ A \to \beta _i \alpha $を追加する。但し、他の生成規則の右辺に$ B $が現れている可能性があるので、$ B \to \beta _i $は削除してはならない。
 \end{itembox}
 \begin{proof}
 チョムスキーの標準形である$G$と、その生成規則$ A \to B \alpha $に対して上の置き換え処理を適用した$G'$が等価であることの証明\\
-$ G $と$ G' $がそれぞれ語$ \omega $と$ \omega ' $に対して生成規則をていようさせる。２つの語は初期状態で$ \omega = \omega ' $が成り立つとする。\\
+$ G $と$ G' $がそれぞれ語$ \omega $と$ \omega ' $に対して生成規則を適用させる。２つの語は初期状態で$ \omega = \omega ' $が成り立つとする。\\
 $ G $が$ \omega $の$ A $でない部分に対してある生成規則を適用させた場合、$ G $から$ G' $が構成される際に$ A \to B \alpha $以外の生成規則は削除されていないため、$ G' $も同じ生成規則を$ \omega ' $に対して適用することができる。$ G $が$ \omega $内の$ A $に対して$ A \to B \alpha $を適用した時、$ B \in N $より、$ G $は語を完成するまでに必ず$ B $を左辺に取る生成規則を適用しなければならない。$ G $がその$ B $に対して$ B \to \beta _i $を適用した時、$ G' $は$ \omega ' $に対して$ A \to \beta _i $を適用し、更に$ G $が$ \omega $に$ A \to B \alpha $を適用させてから$ B \to \beta _i $を適用させるまでの間に行われた適用を$ G' $が$ \omega ' $に対して行えば、再び$ \omega ' = \omega $となる。よって$ L \left( G \right) = L \left( G ' \right) $である。よって$ G = G ' $である。
 \end{proof}
-\begin{comment}
-\begin{itembox}[l]{置き換え処理1}
+\begin{itembox}[l]{置き換え処理2}
+左辺が$ A $で右辺の左端も$ A $である生成規則が$ r $個あるとき、それらの生成規則を$ A \to A \alpha _i \left( 1 \leq i \leq r , A \in N , \alpha _i \in N \right)$とする。また、左辺が$ A $で右辺の左端が$ A $でない生成規則が$ s $個あるとき、それらの生成規則を$ A \to \beta _j \left( 1 \leq j \leq s , A \in N , \beta _j \in N \cup \Sigma \right)$とする。このとき、新しい非終端記号$ Z $を導入して$ A \to A \alpha _i $を$ A \to \beta _j Z , Z \to \alpha _i , Z \to \alpha Z$に置き換える。
 \end{itembox}
 \begin{proof}
+チョムスキーの標準形である$G$と、上の置き換え処理を適用した$G'$が等価であることの証明\\
+$ G $と$ G' $がそれぞれ語$ \omega $と$ \omega ' $に対して生成規則を適用させる。２つの語は初期状態で$ \omega = \omega ' $が成り立つとする。\\
+	$ G $が$ \omega $内の$ A $でない部分に対してある生成規則を適用させた場合、$ G ' $にも同じ生成規則が含まれているためそれを適用することによってふたたび$ \omega = \omega ' $を成り立たせることができる。$ G $が$ \omega $の$ A $に対して$ A \to \beta _j $を適用した場合、$ G ' $にも同じ生成規則が含まれているためそれを適用することによってふたたび$ \omega = \omega ' $を成り立たせることができる。$ G $が$ \omega $の$ A $に対して$ A \to A \alpha _i $を適用した場合、$ A $は非終端記号であるから左辺の$ A $に対してさらに$ A \to A \alpha _i $( $ i $ の値は異なっていてもよい )を$ 0 $回以上適用し、最後に$ A \to \beta _j $を適用することとなる。このとき$ G ' $がまず$ A \to \beta _j Z $を適用し、次に$ Z \to \alpha _i Z $($ i $の値は異なっていてもよい。$ G $が適用した生成規則に合わせて、$ \omega = \omega ' $となるようにする。)を$ 0 $回以上適用し、最後に$ Z \to \alpha _i $を適用することによって再び$ \omega = \omega ' $を成り立たせることができる。よって$ L \left( G \right) = L \left( G ' \right) $である。よって$ G = G ' $である。
 \end{proof}
-\end{comment}
+まず、$ G ' $に$ G $を代入し、チョムスキーの標準形である$ G ' $の非終端記号に番号を付け、$ N ' = \bigl\{ A_i | i \in \mathbb{N} \land 1 \leq i \leq m \bigr\} $とする。置き換え処理1を使って、$ A _i \to A _j \alpha \in P ' \Rightarrow i < j \left( \alpha \in N ^+ \right) $が満たされるように変換する。
+\begin{itembox}[l]{変換作業1}
+まず、$ A _1 $について、$ A _1 \to A _j \alpha \left( \alpha \in N \subseteq N ^+ \right) $のとき、$ 1 = j $ならば新しい非終端文字$ Z _1 $を導入して置き換え処理2を適用することによって解決できる。$ 1 < j $ならば変換する必要はない。次に、$ \forall i \in \mathbb{N} , 1 \leq i \leq k \land A _i \to A _j \alpha \in P ' \Rightarrow i < j $が満たされるとき、$ A _{k + 1} \to A _j \alpha \land k + 1 > j $を満たす生成規則は変換しなければならない。この生成規則に高々$ k + 1 - j $回置き換え処理1を適用すると生成規則$ A _{ k + 1 } \to A _l \gamma \left( \gamma \in N ^+ , k + 1 \leq l \right) $を得ることができる。$ k + 1 = l $のときは、新しい非終端文字$ Z _{ k + 1 } $を導入して置き換え処理2を適用することによって解決できる。
+\end{itembox}
+$ k $に$ 1 $から$ m $までの自然数を代入して変換作業1を行うことによって、
+\begin{equation}
+	P' \subseteq \bigl\{ A _i \to a \alpha | a \in \Sigma \land \alpha \in N' \bigr\} \cup \bigl\{ A _i \to A _j \alpha | i < j \land \alpha \in N' \bigr\} \cup \bigl\{ Z _i \to \alpha | \alpha \in N' \bigr\}
+\end{equation}
+となる。
 \subsection{黒田の標準形}
 \subsection{ブックの標準形}
 \end{document}
