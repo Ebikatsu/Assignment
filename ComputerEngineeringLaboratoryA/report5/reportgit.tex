@@ -5,7 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings,jlisting}
 \usepackage{slashbox}
-\title{計算機工学実験A課題3レポート}
+\usepackege{float}
+\title{計算機工学実験A課題3レポートe
 \author{学生番号 氏名}
 \lstset{%
 	basicstyle={\small\ttfamily},%
@@ -41,7 +42,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 \includegraphics[width=15cm]{work1/1.PNG}
 \subsubsection{結果}
 意図したとおりに、以下の真理値表に従い、$iSW[0]$から$iSW[7]$までのON,OFFに対応して、$oLEDR[0]$から$oLEDR[7]$までがそれぞれ光ったり光らなかったりした。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
@@ -71,7 +72,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
@@ -101,7 +102,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
@@ -131,7 +132,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
@@ -172,7 +173,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 その後、これをコンパイルしてハードウェアに流し込み、動作を確認した。
 \subsubsection{結果}
 実際のハードウェア上では、作成した回路は以下の表\ref{Work2NotGateTruthTable},\ref{Work2AndGateTruthTable},\ref{Work2OrGateTruthTable},\ref{Work2XorGateTruthTable}の真理値表のように正しく動作した。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{$NOT$回路の真理値表}
 		\label{Work2NotGateTruthTable}
@@ -184,7 +185,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{$AND$回路の真理値表}
 		\label{Work2AndGateTruthTable}
@@ -198,7 +199,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{$OR$回路の真理値表}
 		\label{Work2OrGateTruthTable}
@@ -212,7 +213,7 @@ $iSW[0]$から$iSW[7]$までのスイッチ入力を$oLEDR[0]$から$oLEDR[7]$�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{$XOR$回路の真理値表}
 		\label{Work2XorGateTruthTable}
@@ -248,7 +249,7 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 \includegraphics[width=15cm]{work4/4-1.PNG}
 \subsubsection{結果}
 意図したとおりに、$iSW[0]$と$iSW[1]$の和が$oLEDR[0]$に表示され、繰り上がりが$oLEDR[1]$に表示された。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{動作結果の真理値表}
 		\label{Work4TruthTable}
@@ -274,7 +275,7 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work5TOP]{work5/DE2_TOP.sv}
 \subsubsection{結果}
 実際のハードウェア上では、作成した回路は以下の表\ref{Work5FullAdderTruthTable},\ref{Work5FullAdderUsingHalfAdderTruthTable}の真理値表のように動作した。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{モジュール$fulladder$の動作の真理値表}
 		\label{Work5FullAdderTruthTable}
@@ -293,7 +294,7 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{モジュール$fulladderUsingHalfadder$の動作の真理値表}
 		\label{Work5FullAdderUsingHalfAdderTruthTable}
@@ -448,7 +449,7 @@ endmodule
 \subsubsection{結果}
 ModelSimで波形を確認したところ、以下の表\ref{Work14StateTransitionTable}に従った正しい波形を得ることが出来たが、ハードウェア上では正しく動作させることが出来なかった。ソースコード\ref{Work14Testbench}はModelSimで使用したテストベンチである。
 \lstinputlisting[caption=$testbench.sv$,label=Work14Testbench]{work14/testbench.sv}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{カウンタの状態遷移表(表の中の値は次状態を表す。)}
 		\label{Work14StateTransitionTable}
@@ -479,7 +480,7 @@ $oHEX0\_D[6:0]$にスイッチ$iSW[6:0]$をつないで、日の字型のどの�
 \subsubsection{結果}
 $oHEX0\_D[0]$から$oHEX0\_D[6]$までの配線と実際の日の字型LEDのそれぞれのセグメントは以下の画像のような対応関係となっていた。各セグメントは、値が0のときに光り、1のときに光らなかった。\\
 \includegraphics[width=15cm]{work15/SevenSegmentDisplay.jpg}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{日の字型LEDのそれぞれのセグメント$ \left( a,b,c,d,e,f,g \right) $と$oHEX0\_D[6:0]$の各信号線との対応}
 		\label{Work15Table}
@@ -499,7 +500,7 @@ $oHEX0\_D[0]$から$oHEX0\_D[6]$までの配線と実際の日の字型LEDのそ
 \subsubsection{道のり}
 課題15の結果に基づいて0から9までの数字を表示させるにはどのセグメントを表示させれば良いかを考え、表を作成した。
 \subsubsection{結果}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{日の字型LEDで数字を表示するための表。点灯させるセグメントと、$oHEX[6:0]$の値}
 		\label{Work16Table}
@@ -562,7 +563,7 @@ endmodule
 \lstinputlisting[caption=$DE2\_TOP.sv$,label=Work17TOP]{work17/DE2_TOP.sv}
 \subsubsection{結果}
 実際のハードウェア上での動作は、どちらのソースコードを用いても以下の真理値表に従い、0から9までの数字を正しく表示していた。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\caption{課題17の結果の真理値表}
 		\label{Work17TruthTable}
@@ -623,7 +624,7 @@ endmodule
 シミュレーションの結果、モジュールは正しく動作しなかった。モジュールの出力が初期化されていないことが原因であると考えられる。
 \lstinputlisting[caption=$clkgen25.sv$,label=Work18Clkgen25]{work18/clkgen25.sv}
 ハードウェア上では、意図したとおり、キースイッチを50回押すごとに、LEDが光ったり光らなかったりした。以下の状態遷移表\ref{Work18StateTransitionTable1},\ref{Work18StateTransitionTable2},\ref{Work18StateTransitionTable3},\ref{Work18StateTransitionTable4}に従った動作をした。
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
@@ -699,7 +700,7 @@ endmodule
 		\end{tabular}
 	\end{center}
 \end{table}
-\begin{table}[!h]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
