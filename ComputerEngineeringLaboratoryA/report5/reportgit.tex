@@ -5,8 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings,jlisting}
 \usepackage{slashbox}
-\usepackege{float}
-\title{計算機工学実験A課題3レポートe
+\usepackage{float}
+\title{計算機工学実験A課題5レポート}
 \author{学生番号 氏名}
 \lstset{%
 	basicstyle={\small\ttfamily},%
@@ -245,10 +245,10 @@ $Verilog$では、$AND$や$OR$のような論理ゲートだけではなく、�
 半加算器を実現するモジュール$\left( halfadder.sv \right)$を定義し、スイッチや$LED$を接続して試す。
 \subsubsection{道のり}
 まず、以下のソースコード\ref{Work4HalfAdder}に示したようにモジュール$halfadder.sv$を定義した。\\
-\lstinputlisting[caption=$halfadder.sv$,label=Work3HalfAdder]{work3/halfaddersakai.sv}
+\lstinputlisting[caption=$halfadder.sv$,label=Work4HalfAdder]{work4/halfaddersakai.sv}
 %\includegraphics[width=5cm]{work4/4-2.PNG}\\
 次に、以下の画像のように、$halfadder$のトップモジュールに組み込んだ。\\
-\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work3TOP]{work3/DE2_TOP.sv}
+\lstinputlisting[caption=$DE2\_TOP.sv$,label=Work4TOP]{work4/DE2_TOP.sv}
 %\includegraphics[width=15cm]{work4/4-1.PNG}
 \subsubsection{結果}
 意図したとおりに、$iSW[0]$と$iSW[1]$の和が$oLEDR[0]$に表示され、繰り上がりが$oLEDR[1]$に表示された。

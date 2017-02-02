@@ -1,2 +1,2 @@
-Download and save jlisting.sty, float.ins and float.dtx in this directory.
+Download and save jlisting.sty and float.sty in this directory.
  
