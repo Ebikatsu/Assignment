@@ -46,7 +46,7 @@ module DE2_TOP (
   output logic [6:0] oHEX6_D,				//	Seven Segment Digit 6
   output logic [6:0] oHEX7_D,				//	Seven Segment Digit 7
 ////////////////////////////	LED		////////////////////////////
-  output logic [8:0] oLEDG,				//	LED Green[8:0]
+  output logic [7:0] oLEDG,				//	LED Green[8:0]
   output logic [17:0] oLEDR,				//	LED Red[17:0]
 ////////////////////////////	UART	////////////////////////////
   output logic oUART_TXD,				//	UART Transmitter
@@ -68,6 +68,8 @@ module DE2_TOP (
 //=============================================================================
 // Structural coding
 //=============================================================================
-
+	df d0(iKEY[0],iSW[0],oLEDR[0]);
+	dffsclr d1(iKEY[1],iSW[1],iSW[2],oLEDR[1]);
+	dffsclr2 d2(iKEY[2],iSW[3],iSW[4],iSW[5],oLEDR[2]);
 endmodule
 

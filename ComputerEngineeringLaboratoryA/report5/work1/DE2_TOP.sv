@@ -46,7 +46,7 @@ module DE2_TOP (
   output logic [6:0] oHEX6_D,				//	Seven Segment Digit 6
   output logic [6:0] oHEX7_D,				//	Seven Segment Digit 7
 ////////////////////////////	LED		////////////////////////////
-  output logic [8:0] oLEDG,				//	LED Green[8:0]
+  output logic [7:0] oLEDG,				//	LED Green[8:0]
   output logic [17:0] oLEDR,				//	LED Red[17:0]
 ////////////////////////////	UART	////////////////////////////
   output logic oUART_TXD,				//	UART Transmitter
@@ -69,7 +69,13 @@ module DE2_TOP (
 // Structural coding
 //=============================================================================
   assign oLEDR[0] = iSW[0];
-  assign oLEDG[0] = iKEY[0];
+  assign oLEDR[1] = iSW[1];
+  assign oLEDR[2] = iSW[2];
+  assign oLEDR[3] = iSW[3];
+  assign oLEDR[4] = iSW[4];
+  assign oLEDR[5] = iSW[5];
+  assign oLEDR[6] = iSW[6];
+  assign oLEDR[7] = iSW[7];
 
 endmodule
 
