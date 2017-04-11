@@ -1,1 +1,1 @@
-celb-report.cls
+template.texをコンパイルしたときに自分のパソコンではsample-figure.epsを読み込むことができなかった。
