@@ -191,10 +191,32 @@
 \subsection{実行結果に対する考察}
 CRC符号では1ビットの符号誤りが発生した場合でも誤りが発生したビットを特定することができるので、今回の実験結果に送信データと受信データが異なるパターンは現れなかった。しかし、今回のプログラムのような誤り発生位置の特定は誤りが発生した符号がひとつ以下であるという仮定に基づいているので、2ビット以上の誤りが発生した場合は、符号語を訂正することができなくなることが推測される。
 \subsection{課題}
-e成多項式$ G \left( x \right) = x ^3 + x + 1 $を用いて4ビットの情報語$ \left( 0101 \right) _2 $から7ビットの符号語を生成するとき、符号語が$ G \left( x \right) $で割り切れることを示せ。また、符号語のどこか1ビットを変更した碁を作成し、これが$ G \left( x \right) $で割り切れないことを示せ。\\
+生成多項式$ G \left( x \right) = x ^3 + x + 1 $を用いて4ビットの情報語$ \left( 0101 \right) _2 $から7ビットの符号語を生成するとき、符号語が$ G \left( x \right) $で割り切れることを示せ。また、符号語のどこか1ビットを変更した語を作成し、これが$ G \left( x \right) $で割り切れないことを示せ。\\
 \\
 $ G \left( x \right) $を2進数で表したものを$ g = \left( 1011 \right) _2 $、4ビットの情報語を$ i = \left( 0101 \right) _2 $とする。$ G \left( x \right) $は3次式なので、$ i $を3回左シフトさせたものを$ g $で割ると、
-
+\begin{equation}
+	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots \left( 100 \right) _2
+\end{equation}
+よって符号語$ c $は、
+\begin{equation}
+	c = \left( 0101000 \right) _2 + \left( 100 \right) _2 = \left( 0101100 \right) _2
+\end{equation}
+となる。この符号語$ c $を$ g $で割ると、
+\begin{equation}
+	c \div g = \left( 0101100 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots 0
+\end{equation}
+となり、$ c $は$ g $で割り切れる。\\
+また、$ c $のどこか1ビットを変更した語を$ g $で割ると、
+\begin{eqnarray}
+	\left( 1101100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1111 \right) _2 \cdots \left( 101 \right) _2 \\
+	\left( 0001100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1000 \right) _2 \cdots \left( 111 \right) _2 \\
+	\left( 0111100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 110 \right) _2 \cdots \left( 110 \right) _2 \\
+	\left( 0100100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 101 \right) _2 \cdots \left( 11 \right) _2 \\
+	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 100 \right) _2 \\
+	\left( 0101110 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 10 \right) _2 \\
+	\left( 0101101 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 1 \right) _2
+\end{eqnarray}
+このように全て割り切れない。
 %....
 
 %%% ------------------------------------------------------------------
