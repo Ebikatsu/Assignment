@@ -1,5 +1,7 @@
 \documentclass[a4j]{celb-report}
+\usepackage{amsmath,amssymb}
 \usepackage{comment}
+\usepackage{type1cm}
 %%%
 %%% 計算機工学実験Bレポートテンプレート
 %%%  このテンプレートを使う場合，celb-report.clsとjlisting.styが必要です．
@@ -195,26 +197,26 @@ CRC符号では1ビットの符号誤りが発生した場合でも誤りが発�
 \\
 $ G \left( x \right) $を2進数で表したものを$ g = \left( 1011 \right) _2 $、4ビットの情報語を$ i = \left( 0101 \right) _2 $とする。$ G \left( x \right) $は3次式なので、$ i $を3回左シフトさせたものを$ g $で割ると、
 \begin{equation}
-	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots \left( 100 \right) _2
+	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots \left( 100 \right) _2 \nonumber
 \end{equation}
 よって符号語$ c $は、
 \begin{equation}
-	c = \left( 0101000 \right) _2 + \left( 100 \right) _2 = \left( 0101100 \right) _2
+	c = \left( 0101000 \right) _2 + \left( 100 \right) _2 = \left( 0101100 \right) _2 \nonumber
 \end{equation}
 となる。この符号語$ c $を$ g $で割ると、
 \begin{equation}
-	c \div g = \left( 0101100 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots 0
+	c \div g = \left( 0101100 \right) _2 \div \left( 1011 \right) _2 = \left( 100 \right) _2 \cdots 0 \nonumber
 \end{equation}
 となり、$ c $は$ g $で割り切れる。\\
 また、$ c $のどこか1ビットを変更した語を$ g $で割ると、
 \begin{eqnarray}
-	\left( 1101100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1111 \right) _2 \cdots \left( 101 \right) _2 \\
-	\left( 0001100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1000 \right) _2 \cdots \left( 111 \right) _2 \\
-	\left( 0111100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 110 \right) _2 \cdots \left( 110 \right) _2 \\
-	\left( 0100100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 101 \right) _2 \cdots \left( 11 \right) _2 \\
-	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 100 \right) _2 \\
-	\left( 0101110 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 10 \right) _2 \\
-	\left( 0101101 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 1 \right) _2
+	\left( 1101100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1111 \right) _2 \cdots \left( 101 \right) _2 \nonumber \\
+	\left( 0001100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 1000 \right) _2 \cdots \left( 111 \right) _2 \nonumber \\
+	\left( 0111100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 110 \right) _2 \cdots \left( 110 \right) _2 \nonumber \\
+	\left( 0100100 \right) _2 \div \left( 1011 \right) _2 & = & \left( 101 \right) _2 \cdots \left( 11 \right) _2 \nonumber \\
+	\left( 0101000 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 100 \right) _2 \nonumber \\
+	\left( 0101110 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 10 \right) _2 \nonumber \\
+	\left( 0101101 \right) _2 \div \left( 1011 \right) _2 & = & \left( 100 \right) _2 \cdots \left( 1 \right) _2 \nonumber
 \end{eqnarray}
 このように全て割り切れない。
 %....
@@ -222,7 +224,18 @@ $ G \left( x \right) $を2進数で表したものを$ g = \left( 1011 \right) _
 %%% ------------------------------------------------------------------
 \newpage
 \section{第3回 暗号化技術(1):共通鍵暗号}
+\subsection{サンプルプログラム}
 まず、caesar\_encrypt.cとcaesar\_decrypt.cを修正し完成させ、コンパイルしてそれぞれcaesar\_encryptとcaesar\_decryptという実行可能ファイルを作成した。その後、caesar\_sample.txtを作成し、そこにエディタでabcdefgという文字列を打ち込んで保存した。最後に、caesar\_sample.txtを入力とし、caesar\_encrypted.txtを出力としてcaesar\_encryptを実行し、caesar\_encrypted.txtを入力とし、caesar\_decrypted.txtを出力としてcaesar\_decryptを実行した。caesar\_encrypted.txtとcaesar\_decrypted.txtの中身を確認したところそれぞれdefghijと、abcdefgになっていた。
+\subsection{独自のアルゴリズム}
+まず、アスキーコードの値の集合を
+\begin{equation}
+	C = \bigl\{ n \in \mathbb{Z} \mid 0 \leq n \leq 127 \bigr\} \nonumber
+\end{equation}
+とし、$ C $から$ C $への全単射
+\begin{eqnarray}
+	f : C \leftarrow C
+\end{eqnarray}
+を共通鍵として使い、送信側は送るデータを1バイトずつ関数$ f $で変換したものを暗号化したデータとして作成して送信し、受信側は$ f $の逆関数を受信したデータに1バイトずつ適用することでデータを複合することができる。
 %...．
 
 %%% ------------------------------------------------------------------
