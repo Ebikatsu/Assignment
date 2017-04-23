@@ -1,6 +1,9 @@
 \documentclass[a4j]{celb-report}
 \usepackage{amsmath,amssymb}
 \usepackage{comment}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{listings,jlisting}
 \usepackage{type1cm}
 %%%
 %%% 計算機工学実験Bレポートテンプレート
@@ -15,7 +18,27 @@
 \stunum{S153012} % ← 学生番号
 \author{学生 伊藤　太清} % ← 学生氏名
 \date{\today} % ← レポート提出日
-
+\lstset{%
+	basicstyle={\small\ttfamily},%
+	tabsize=8,
+	identifierstyle={\small},%
+	commentstyle={\small\itshape},%
+	keywordstyle={\small\bfseries},%
+	ndkeywordstyle={\small},%
+	stringstyle={\small\ttfamily},
+	frame={tb},
+	breaklines=true,
+	columns=[1]{fullflexible},%
+	numbers=left,%
+	xrightmargin=0zw,%
+	xleftmargin=3zw,%
+	numberstyle={\scriptsize},%
+	stepnumber=1,
+	numbersep=1zw,%
+	lineskip=-0.5ex,%
+	keepspaces=true,
+	showstringspaces=false
+}
 \begin{document}
 
 \maketitle
@@ -225,7 +248,21 @@ $ G \left( x \right) $を2進数で表したものを$ g = \left( 1011 \right) _
 \newpage
 \section{第3回 暗号化技術(1):共通鍵暗号}
 \subsection{サンプルプログラム}
-まず、caesar\_encrypt.cとcaesar\_decrypt.cを修正し完成させ、コンパイルしてそれぞれcaesar\_encryptとcaesar\_decryptという実行可能ファイルを作成した。その後、caesar\_sample.txtを作成し、そこにエディタでabcdefgという文字列を打ち込んで保存した。最後に、caesar\_sample.txtを入力とし、caesar\_encrypted.txtを出力としてcaesar\_encryptを実行し、caesar\_encrypted.txtを入力とし、caesar\_decrypted.txtを出力としてcaesar\_decryptを実行した。caesar\_encrypted.txtとcaesar\_decrypted.txtの中身を確認したところそれぞれdefghijと、abcdefgになっていた。
+まず、caesar\_encrypt.cとcaesar\_decrypt.cを以下のように修正・完成させた。
+\lstinputlisting[caption=$caesar\_encrypt.c$,label=CaesarEncryptC]{../caesar/caesar_encrypt.c}
+\lstinputlisting[caption=$caesar\_decrypt.c$,label=CaesarDecryptC]{../caesar/caesar_decrypt.c}
+そして原文caesar\_sample.txtを以下のように作成した。
+\lstinputlisting[caption=$caesar\_sample.txt$,label=CaesarSampleTxt]{../caesar/caesar_sample.txt}
+そして
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+gcc caesar_encrypt.c -o caesar_encrypt
+gcc caesar_decrypt.c -o caesar_decrypt
+./caesar_encrypt caesar_sample.txt caesar_encrypt.txt
+./caesar_decrypt caesar_encrypted.txt caesar_decrypted.txt
+\end{lstlisting}
+を実行した。共通鍵は3とした。caesar\_encrypted.txtとcaesar\_decrypted.txtはそれぞれ以下のようになっていた。
+\lstinputlisting[caption=$caesar\_encrypted.txt$,label=CaesarEncryptedTxt]{../caesar/caesar_encrypted.txt}
+\lstinputlisting[caption=$caesar\_decrypted.txt$,label=CaesarDecryptedTxt]{../caesar/caesar_decrypted.txt}
 \subsection{独自のアルゴリズム}
 まず、アスキーコードの値の集合を
 \begin{equation}
@@ -233,9 +270,32 @@ $ G \left( x \right) $を2進数で表したものを$ g = \left( 1011 \right) _
 \end{equation}
 とし、$ C $から$ C $への全単射
 \begin{eqnarray}
-	f : C \leftarrow C
+	f : C \rightarrow C \nonumber
 \end{eqnarray}
-を共通鍵として使い、送信側は送るデータを1バイトずつ関数$ f $で変換したものを暗号化したデータとして作成して送信し、受信側は$ f $の逆関数を受信したデータに1バイトずつ適用することでデータを複合することができる。
+を共通鍵として使い、送信側は送るデータを1バイトずつ関数$ f $で変換したものを暗号化したデータとして作成して送信し、受信側は$ f $の逆関数を受信したデータに1バイトずつ適用することでデータを複合することができる。\\
+\includegraphics[width=15cm]{../caesar/algorithm.jpg}\\
+このアルゴリズムに基づいて、original\_encrypt.cとoriginal\_decrypt.cを以下のように作成した。
+\lstinputlisting[caption=$original\_encrypt.c$,label=OriginalEncryptC]{../caesar/original_encrypt.c}
+\lstinputlisting[caption=$original\_decrypt.c$,label=OriginalDecryptC]{../caesar/original_decrypt.c}
+また、共通鍵の入力が面倒なので乱数で共通鍵を作成するプログラムkey.cを以下のように作成した。
+\lstinputlisting[caption=$key.c$,label=KeyC]{../caesar/key.c}
+そして
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+gcc key.c -o key
+./key > key.txt
+\end{lstlisting}
+を実行し、以下のようなkey.txtを得た。
+\lstinputlisting[caption=$key.txt$,label=KeyTxt]{../caesar/key.txt}
+そして、これを共通鍵として以下のコマンドを実行した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+gcc original_encrypt.c -o original_encrypt
+gcc original_decrypt.c -o original_decrypt
+./original_encrypt caesar_sample.txt original_encrypted.txt < key.txt
+./original_decrypt original_encrypted.txt original_decrypted.txt < key.txt
+\end{lstlisting}
+original\_encrypted.txtとoriginal\_decrypted.txtは以下のようになっていた。
+%\lstinputlisting[caption=$original\_encrypted.txt$,label=OriginalEncryptedTxt]{../caesar/original_encrypted.txt}
+\lstinputlisting[caption=$original\_decrypted.txt$,label=OriginalDecryptedTxt]{../caesar/original_decrypted.txt}
 %...．
 
 %%% ------------------------------------------------------------------
