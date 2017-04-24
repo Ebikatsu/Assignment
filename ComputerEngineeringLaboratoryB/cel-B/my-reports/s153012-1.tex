@@ -293,8 +293,9 @@ gcc original_decrypt.c -o original_decrypt
 ./original_encrypt caesar_sample.txt original_encrypted.txt < key.txt
 ./original_decrypt original_encrypted.txt original_decrypted.txt < key.txt
 \end{lstlisting}
-original\_encrypted.txtとoriginal\_decrypted.txtは以下のようになっていた。
-%\lstinputlisting[caption=$original\_encrypted.txt$,label=OriginalEncryptedTxt]{../caesar/original_encrypted.txt}
+original\_encrypted.txtは文字化けしているためtexで直接表示させることができなかったため、catコマンドでoriginal\_encrypted.txtを表示させた画像をここに掲載する。\\
+\includegraphics[width=15cm]{../caesar/original_encrypted.png}\\
+original\_decrypted.txtは以下のようになっていた。\\
 \lstinputlisting[caption=$original\_decrypted.txt$,label=OriginalDecryptedTxt]{../caesar/original_decrypted.txt}
 %...．
 
