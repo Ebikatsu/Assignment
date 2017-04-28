@@ -5,15 +5,15 @@
 
 int main(void)
 {
-	int numbers[ASCIIMAX + 1];	//‚Ü‚¾o—Í‚³‚ê‚Ä‚¢‚È‚¢”‚Ìˆê——
-	int i,j;	//ƒ‹[ƒv—p
+	int numbers[ASCIIMAX + 1];	//ã¾ã å‡ºåŠ›ã•ã‚Œã¦ã„ãªã„æ•°ã®ä¸€è¦§
+	int i,j;	//ãƒ«ãƒ¼ãƒ—ç”¨
 	srand((unsigned int)time(NULL));
-	for(i = 0; i <= ASCIIMAX; i++)numbers[i] = i;//”z—ñ‚Ì‰Šú‰»
+	for(i = 0; i <= ASCIIMAX; i++)numbers[i] = i;//é…åˆ—ã®åˆæœŸåŒ–
 	for(i = 0; i <= ASCIIMAX; i++)
 	{
-		int number = rand() % (ASCIIMAX + 1 - i);//o—Í‚·‚é”š‚Ì”z—ñã‚ÌˆÊ’u‚ğ—”‚ÅŒˆ‚ß‚éB
-		printf("%d\n",numbers[number]);//”š‚ğo—Í‚·‚é
-		for(j = number; j < ASCIIMAX - i; j++)numbers[j] = numbers[j + 1];//o—Í‚³‚ê‚½”š‚æ‚èŒã‚Ì—v‘f‚ğ‘S‚Ä‚Ğ‚Æ‚Â‘O‚ÉˆÚ“®‚³‚¹‚éB
+		int number = rand() % (ASCIIMAX + 1 - i);//å‡ºåŠ›ã™ã‚‹æ•°å­—ã®é…åˆ—ä¸Šã®ä½ç½®ã‚’ä¹±æ•°ã§æ±ºã‚ã‚‹ã€‚
+		printf("%d\n",numbers[number]);//æ•°å­—ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
+		for(j = number; j < ASCIIMAX - i; j++)numbers[j] = numbers[j + 1];//å‡ºåŠ›ã•ã‚ŒãŸæ•°å­—ã‚ˆã‚Šå¾Œã®æ•°å­—ã‚’å…¨ã¦ä¸€ã¤å‰ã«ç§»å‹•ã•ã›ã‚‹ã€‚
 		numbers[ASCIIMAX - i] = 0;
 	}
 	return EXIT_SUCCESS;

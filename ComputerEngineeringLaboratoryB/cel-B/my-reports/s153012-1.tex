@@ -300,6 +300,24 @@ original\_decrypted.txtは以下のようになっていた。\\
 %...．
 
 %%% ------------------------------------------------------------------
+\newpage
+\section{第4回 暗号化技術(2):公開鍵暗号}
+\subsection{RSA暗号の実験(その1)}
+まず、サンプルプログラムをコピーして以下のように修正した。
+\lstinputlisting[caption=$rsa\_encrypt.c$,label=RSAEncryptC]{../rsa/rsa_encrypt.c}
+\lstinputlisting[caption=$rsa\_decrypt.c$,label=RSADecryptC]{../rsa/rsa_decrypt.c}
+これらをコンパイルしてrsa\_encryptとrsa\_decryptという実行可能ファイルを作成した。次に、以下のような原文を用意した。
+\lstinputlisting[caption=$rsa\_sample.txt$,label=RSASampleTxt]{../rsa/rsa_sample.txt}
+この原文に対して、$ e = 13, d = 149, n = 392 $とし、以下のコマンドで暗号化と復号化をした。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+./rsa_encrypt rsa_sample.txt rsa_encrypted.txt
+./rsa_decrypt rsa_encrypted.txt rsa_decrypted.txt
+\end{lstlisting}
+rsa\_encrypted.txtは以下のようになった。\\
+\includegraphics[width=15cm]{../rsa/rsa_encrypted.png}\\
+rsa\_decrypted.txtは以下のようになった。
+\lstinputlisting[caption=$rsa\_decrypted.txt$,label=RSADecryptedTxt]{../rsa/rsa_decrypted.txt}
+また、鍵の効力の確認として$ d = 2, n = 202 $として以下のコマンドを実行して復号化した。
 % --- 参考文献リストここから
 %\newpage
 \begin{thebibliography}{9}
