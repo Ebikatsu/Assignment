@@ -318,6 +318,25 @@ rsa\_encrypted.txtは以下のようになった。\\
 rsa\_decrypted.txtは以下のようになった。
 \lstinputlisting[caption=$rsa\_decrypted.txt$,label=RSADecryptedTxt]{../rsa/rsa_decrypted.txt}
 また、鍵の効力の確認として$ d = 2, n = 202 $として以下のコマンドを実行して復号化した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+./rsa_decrypt rsa_encrypted.txt rsa_decrypted_by_wrong_keys.txt
+\end{lstlisting}
+rsa\_decrypted\_by\_wrong\_keys.txtは以下のようになった。\\
+\includegraphics[width=15cm]{../rsa/rsa_decrypted_by_wrong_keys.png}\\
+\subsection{RSA暗号の実験(その2)}
+２つの画像clover.pngとusagi.pngをコピーして以下のコマンドを実行して、RSA暗号が画像に対しても有効であることを確認した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+./rsa_encrypt clover.png clover_encrypted.png
+./rsa_encrypt usagi.png usagi_encrypted.png
+./rsa_decrypt clover_encrypted.png clover_decrypted.png
+./rsa_decrypt usagi_encrypted.png usagi_decrypted.png
+\end{lstlisting}
+clover\_encrypted.pngとusagi\_encrypted.pngは表示することが出来なかったが、clover\_decrypted.pngとusagi\_decrypted.pngはそれぞれclover.pngとusagi.pngと全く同じように表示された。 また、鍵の効力の確認として$ d = 2, n = 202 $として以下のコマンドを実行して復号化した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+./rsa_decrypt clover_encrypted.png clover_decrypted_by_wrong_keys.png
+./rsa_decrypt usagi_encrypted.png usagi_decrypted_by_wrong_keys.png
+\end{lstlisting}
+clover\_decrypted\_by\_wrong\_keys.pngとusagi\_decrypted\_by\_wrong\_keys.pngは表示することが出来なかった。
 % --- 参考文献リストここから
 %\newpage
 \begin{thebibliography}{9}
