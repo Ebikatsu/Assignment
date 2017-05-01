@@ -1,0 +1,3 @@
+int atoi(const char *str);
+
+stdlib.hをインクルードすると使用できる。文字列で表現された10進数をint型の数値に変換する。
