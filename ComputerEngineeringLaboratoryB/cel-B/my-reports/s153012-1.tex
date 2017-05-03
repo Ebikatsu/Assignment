@@ -337,6 +337,71 @@ clover\_encrypted.pngとusagi\_encrypted.pngは表示することが出来なか
 ./rsa_decrypt usagi_encrypted.png usagi_decrypted_by_wrong_keys.png
 \end{lstlisting}
 clover\_decrypted\_by\_wrong\_keys.pngとusagi\_decrypted\_by\_wrong\_keys.pngは表示することが出来なかった。
+\subsection{課題}
+\begin{enumerate}
+	\renewcommand{\labelenumi}{\arabic{enumi}}
+	\item $ n = 15 , e = 3 , d = 3 $としたとき、6以上8以下の整数$m$について、いずれの$m$に対しても式$ c = m ^e \bmod n $及び$ m = c ^d \bmod n $が成立することを確認せよ。\\\\
+$ m = 6 $のとき\\
+以下のコマンドを実行して計算した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+i=6
+expr $i \* $i \* $i % 15
+\end{lstlisting}
+結果は6だった。よって、
+\begin{eqnarray}
+	c & = & m ^e \bmod n \nonumber \\
+	& = & 6 ^3 \bmod 15 \nonumber \\
+	& = & 6 \nonumber
+\end{eqnarray}
+さらに、
+\begin{eqnarray}
+	m ^e \bmod n & = & 6 ^3 \bmod 15 \nonumber \\
+	& = & 6 \nonumber \\
+	& = & m \nonumber
+\end{eqnarray}
+よって$ m = 6 $のときに$ c = m ^e \bmod n $及び$ m = c ^d \bmod n $が成り立つことが確認できた。
+$ m = 7 $のとき\\
+以下のコマンドを実行して計算した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+i=7
+expr $i \* $i \* $i % 15
+\end{lstlisting}
+結果は13だった。よって、
+\begin{eqnarray}
+	c & = & m ^e \bmod n \nonumber \\
+	& = & 7 ^3 \bmod 15 \nonumber \\
+	& = & 13 \nonumber
+\end{eqnarray}
+さらに、
+\begin{eqnarray}
+	m ^e \bmod n & = & 13 ^3 \bmod 15 \nonumber \\
+	& = & 7 \nonumber \\
+	& = & m \nonumber
+\end{eqnarray}
+よって$ m = 7 $のときに$ c = m ^e \bmod n $及び$ m = c ^d \bmod n $が成り立つことが確認できた。
+$ m = 8 $のとき\\
+以下のコマンドを実行して計算した。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+i=8
+expr $i \* $i \* $i % 15
+\end{lstlisting}
+結果は2だった。よって、
+\begin{eqnarray}
+	c & = & m ^e \bmod n \nonumber \\
+	& = & 8 ^3 \bmod 15 \nonumber \\
+	& = & 2 \nonumber
+\end{eqnarray}
+さらに、
+\begin{eqnarray}
+	m ^e \bmod n & = & 2 ^3 \bmod 15 \nonumber \\
+	& = & 8 \nonumber \\
+	& = & m \nonumber
+\end{eqnarray}
+よって$ m = 8 $のときに$ c = m ^e \bmod n $及び$ m = c ^d \bmod n $が成り立つことが確認できた。\\
+よって$ m = 6 , m = 7 , m = 8 $のときに$ c = m ^e \bmod n $及び$ m = c ^d \bmod n $が成り立つことが確認できた。
+	\item 今回の実験で用いたサンプルプログラムでは、暗号文のデータ量は原文の2倍になる。このように、RSA暗号では、正しく暗号化と復号化がなされるような公開鍵を復号鍵を作成すると、暗号文のデータ量（ビット数）は原文のデータ量（ビット数）よりも大きくなってしまう。この理由について説明せよ。\\
+原文の一文字を暗号化する関数encryptの出力の最大値はRSA暗号のルールより$ n - 1 $となる。$ n $は$ m $の最大値より大きくなければならないのでRSA暗号では暗号化した時にデータ量が増える。
+\end{enumerate}
 % --- 参考文献リストここから
 %\newpage
 \begin{thebibliography}{9}
