@@ -70,6 +70,7 @@ struct sockaddr_in {
     //int socket(int domain, int type, int protocol);
     //domain プロトコルファミリ
     //type 通信の種類。SOCK_STREAMは順次双方向バイトストリーム。コネクション型の信頼性が高い通信。
+    //protocol エンドツーエンドプロトコルを指定する。0は自走設定
     /*** ソケットを作成し、ソケット記述子をdestSocketに代入する ***/
     destSocket = socket(AF_INET, SOCK_STREAM, 0);
 

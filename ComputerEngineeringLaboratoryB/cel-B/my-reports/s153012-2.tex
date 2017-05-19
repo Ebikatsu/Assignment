@@ -135,29 +135,74 @@ $ ./parity
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% ------------------------------------------------------------------
-\newpage
 \section{第5回 TPCソケットの基礎}
 \subsection{プログラムの実行結果}
+ECHOクライアントを実行した結果は以下のようになった。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+10.232.30.7000
+Connect to 10.210.232.30:7000 ...
+Socket is connected...
+SEND>> cel-B
+RECIEVE>> cel-B
+SEND>> cel-B
+RECIEVE>> cel-B
+SEND>> cel-B
+RECIEVE>> cel-B
+SEND>> ^C
+\end{lstlisting}
+\begin{comment}
 \begin{figure}[htb]
  \centering
  \includegraphics[width=15cm]{../echo-client/echo_client_output.png}
  \caption{echo\_client実行結果} \label{EchoClientOutput}
 \end{figure}
+\end{comment}
 \subsection{プログラムの改造}
+クライアントがrecvコマンドで文字列を受け取ったあと、表示する際に、戻ってきた長さを表示するように改造したecho\_client2の実行結果は以下のようになった。
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.137:7000 ...
+Socket is connected...
+SEND>> cel-B
+RECIEVE>> cel-B (5)
+SEND>> abc
+RECIEVE>> abc (3)
+SEND>> qwerty
+RECIEVE>> qwerty (6)
+SEND>> ^C
+\end{lstlisting}
+\begin{comment}
 \begin{figure}[htb]
  \centering
  \includegraphics[width=15cm]{../echo-client/echo_client2_output.png}
  \caption{echo\_client2実行結果} \label{EchoClient2Output}
 \end{figure}
+\end{comment}
+\subsection{調査課題}
+\begin{enumerate}
+ \renewcommand{\labelenumi}{(\arabic{enumi})}
+ \item 今回のプログラム中で使用されている connect 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し,どのような動作を意図しているかを説明せよ.\\
+\\
+92,93行目で以下のようにconnect関数がつかわれている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+    status = connect(destSocket, (struct sockaddr *)&destSockAddr, 
+                    (socklen_t)sizeof(destSockAddr));
+  \end{lstlisting}
+  \begin{itemize}
+   \item 機能
+   \item 引数
+   \item 返り値
+  \end{itemize}
+ \item 今回のプログラム中で使用されている recv 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し, どのような動作を意図しているかを説明せよ.
+\end{enumerate}
 
-....
 
 %%% ------------------------------------------------------------------
 \newpage
-\section{第x回 実験タイトル}
-
-...．
-
+\section{第6回 ECHOサーバの作成}
+\subsection{プログラムの実行結果}
+\subsection{プログラムの改造}
+\subsection{加点課題}
+\subsection{調査課題}
 %%% ------------------------------------------------------------------
 % --- 参考文献リストここから
 \newpage
