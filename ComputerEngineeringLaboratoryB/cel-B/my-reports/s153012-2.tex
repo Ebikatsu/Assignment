@@ -182,17 +182,34 @@ SEND>> ^C
  \renewcommand{\labelenumi}{(\arabic{enumi})}
  \item 今回のプログラム中で使用されている connect 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し,どのような動作を意図しているかを説明せよ.\\
 \\
-92,93行目で以下のようにconnect関数がつかわれている。
+92,93行目で以下のようにconnect関数が使われている。
   \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
     status = connect(destSocket, (struct sockaddr *)&destSockAddr, 
                     (socklen_t)sizeof(destSockAddr));
   \end{lstlisting}
   \begin{itemize}
-   \item 機能
-   \item 引数
-   \item 返り値
+   \item 機能:ソケットで接続を確立する。
+   \item 引数\\
+destSockedは接続に使うソケットのディスクリプタ\\
+(struct sockaddr *)\&destSocketAddrは接続先のIPアドレスとポート番号が入ったsockaddr構造体へのポインタ\\
+(socklen\_t)sizeof(destSockAddr)はsockaddr構造体のサイズ
+   \item 返り値:成功した時0を、失敗した時-1を返す。
   \end{itemize}
- \item 今回のプログラム中で使用されている recv 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し, どのような動作を意図しているかを説明せよ.
+ \item 今回のプログラム中で使用されている recv 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し, どのような動作を意図しているかを説明せよ.\\
+\\
+134行目で以下のようにrecv関数が使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+        numrcv = recv(destSocket, recvStr, BUFFER_LEN, NO_FLAGS_SET);
+  \end{lstlisting}
+  \begin{itemize}
+   \item 機能:メッセージを受信する。
+   \item 引数\\
+destSocketは受信に使うソケットのディスクリプタ\\
+recvStrは受信したデータを受け取るアドレス\\
+BUFFER\_LENはメッセージの最大バイト数\\
+NO\_FLAGS\_SETはソケットが呼びだされた際の動作を指定する。NO\_FLAGS\_SETはデフォルトの動作
+   \item 返り値:成功した時受信したバイト数を、失敗した時-1を返す。
+  \end{itemize}
 \end{enumerate}
 
 
@@ -200,6 +217,166 @@ SEND>> ^C
 \newpage
 \section{第6回 ECHOサーバの作成}
 \subsection{プログラムの実行結果}
+%server-output
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECIEVE(4)>>abc
+RECIEVE(4)>>def
+RECIEVE(4)>>ghi
+Connection terminated
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECIEVE(4)>>jkl
+RECIEVE(4)>>mno
+RECIEVE(4)>>pqr
+Connection terminated
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECIEVE(4)>>stu
+RECIEVE(4)>>vwx
+RECIEVE(3)>>yx
+Connection terminated
+Waiting for connection ...
+^C
+\end{lstlisting}
+%client-output
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECIEVE>> abc
+SEND>> def
+RECIEVE>> def
+SEND>> ghi
+RECIEVE>> ghi
+SEND>> ^c
+\end{lstlisting}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> jkl
+RECIEVE>> jkl
+SEND>> mno
+RECIEVE>> mno
+SEND>> pqr
+RECIEVE>> pqr
+SEND>> ^c
+\end{lstlisting}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> stu
+RECIEVE>> stu
+SEND>> vwx
+RECIEVE>> vwx
+SEND>> yz
+RECIEVE>> yz
+SEND>> ^c
+\end{lstlisting}
+%server-output2
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+Connected from 10.210.232.47.
+RECIEVE(4)>>abc
+RECIEVE(4)>>def
+RECIEVE(4)>>ghi
+Connection terminated
+Waiting for connection ...
+Connected from 10.210.232.47.
+RECIEVE(4)>>jkl
+RECIEVE(4)>>mno
+RECIEVE(4)>>pqr
+Connection terminated
+Waiting for connection ...
+Connected from 10.210.232.47.
+RECIEVE(4)>>stu
+RECIEVE(4)>>vwx
+RECIEVE(3)>>yx
+Connection terminated
+Waiting for connection ...
+^C
+\end{lstlisting}
+%client-output2
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECIEVE>> abc
+SEND>> def
+RECIEVE>> def
+SEND>> ghi
+RECIEVE>> ghi
+SEND>> ^c
+\end{lstlisting}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> jkl
+RECIEVE>> jkl
+SEND>> mno
+RECIEVE>> mno
+SEND>> pqr
+RECIEVE>> pqr
+SEND>> ^c
+\end{lstlisting}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> stu
+RECIEVE>> stu
+SEND>> vwx
+RECIEVE>> vwx
+SEND>> yz
+RECIEVE>> yz
+SEND>> ^c
+\end{lstlisting}
+%server-output3
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECIEVE(4)>>abc
+RECIEVE(6)>>cel-B
+RECIEVE(7)>>qwerty
+Connection terminated
+Waiting for connection ...
+^C
+\end{lstlisting}
+%client-output3
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECIEVE>> aaa
+SEND>> cel-B
+RECIEVE>> ccccc
+SEND>> qwerty
+RECIEVE>> qqqqqq
+SEND>> ^c
+\end{lstlisting}
+%server-output4
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECIEVE(4)>>abc
+RECIEVE(6)>>cel-B
+RECIEVE(7)>>qwerty
+Connection terminated
+Waiting for connection ...
+^C
+\end{lstlisting}
+%client-output4
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECIEVE>> cba
+SEND>> cel-B
+RECIEVE>> B-lec
+SEND>> qwerty
+RECIEVE>> ytrewq
+SEND>> ^c
+\end{lstlisting}
 \subsection{プログラムの改造}
 \subsection{加点課題}
 \subsection{調査課題}
