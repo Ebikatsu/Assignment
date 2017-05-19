@@ -97,7 +97,7 @@ struct sockaddr_in {
       //int listen(int socket, int queue_limit);
       //socket ソケット記述子
       //queue_limit キューの長さ（接続要求の上限値）
-      /*** コネクションの確立時にクライアントからの接続要求を格納うするキューをサーバ側で作る ***/
+      /*** コネクションの確立時にクライアントからの接続要求を格納するキューをサーバ側で作る ***/
       listen(serverSocket, 1);
 
       /*** 接続待ち状態であることを表示 ***/

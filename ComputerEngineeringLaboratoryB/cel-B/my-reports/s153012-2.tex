@@ -387,7 +387,6 @@ SEND>> ^c
 \begin{enumerate}
  \renewcommand{\labelenumi}{(\arabic{enumi})}
  \item bind関数\\
-\\
 bind関数は92行目で以下のように使われている。
   \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
     bind(serverSocket, (struct sockaddr *)&serverAddress, 
@@ -397,12 +396,36 @@ bind関数は92行目で以下のように使われている。
    \item 機能:ソケットにIPアドレスとポート番号をつける。
    \item 引数\\
 serverSocket ソケットのディスクリプタ\\
-(struct sockaddr *)\&serverAddress IPアドレスとポート番号が入ったsockaddr構造体へのポインタ\\
+(struct sockaddr *)\&serverAddress サーバのIPアドレスとポート番号が入ったsockaddr構造体へのポインタ\\
 sizeof(serverAddress) sockaddr構造体のサイズ
    \item 返り値:成功した時0、失敗した時-1を返す。
   \end{itemize}
- \item listen関数
- \item accept関数
+ \item listen関数\\
+listen関数は101行目で以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+   listen(serverSocket, 1);
+  \end{lstlisting}
+  \begin{itemize}
+   \item 機能:コネクションの確立時にクライアントからの接続要求を格納するキューをサーバ側で作る。
+   \item 引数\\
+serverSocket ソケットのディスクリプタ\\
+1 キューの長さ（接続要求の上限値）
+   \item 返り値:成功した時0、失敗した時-1を返す。
+  \end{itemize}
+ \item accept関数\\
+accept関数は112行目で以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+      clientSocket = 
+        accept(serverSocket, (struct sockaddr *)&clientAddress, &clientSize);
+  \end{lstlisting}
+  \begin{itemize}
+   \item 機能:コネクションの確立時に、該当するソケットへの接続を待つ動作を用意する。クライアントからの接続要求に合わせて、listen()でキューイングしたソケットを取り出す。
+   \item 引数\\
+serverSocket ソケットのディスクリプタ\\
+(struct sockaddr *)\&clientAddress クライアントのIPアドレスとポート番号が入ったsockaddr構造体へのポインタ\\
+clientSize sockaddr構造体のサイズ
+   \item 返り値:成功した時はクライアントのソケットのディスクリプタを、失敗した時は-1を返す。
+  \end{itemize}
 \end{enumerate}
 %%% ------------------------------------------------------------------
 % --- 参考文献リストここから
@@ -412,7 +435,11 @@ sizeof(serverAddress) sockaddr構造体のサイズ
 \bibitem{book-sample} 神崎映光，西川津ビビッド，出雲島猫，「書籍の参照はこんな感じ」，島大出版，1979年．
 \bibitem{url-sample} 島根大学 総合理工学部 数理・情報システム学科（情報系），http://www.cis.shimane-u.ac.jp/．
 \end{comment}
-\bibitem{bind-sample} Camp Network C言語-bind関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-bind\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{connectfunc} Camp Network C言語-connect関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-connect\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{sendrecvfunc} Camp Network C言語-ソケット送受信関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-\%E3\%82\%BD\%E3\%82\%B1\%E3\%83\%83\%E3\%83\%88\%E9\%80\%81\%E5\%8F\%97\%E4\%BF\%A1\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{bindfunc} Camp Network C言語-bind関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-bind\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{listenfunc} Camp Network C言語-listen関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-listen\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{acceptfunc} Camp Network C言語-accept関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-accept\%E9\%96\%A2\%E6\%95\%B0
 \end{thebibliography}
 % --- 参考文献リストここまで
 %
