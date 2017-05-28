@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <pthread.h>
 
-#define PHILOSOPHERS 4
+#define PHILOSOPHERS 20
+#define EXIT_TIME 60
 
 pthread_mutex_t chopsticks[PHILOSOPHERS];
 int philosophers_status[PHILOSOPHERS] = {0};
 int chopsticks_status[PHILOSOPHERS] = {0};
 int number[PHILOSOPHERS];
+time_t start_time;
 
 /*
  * philosopher関数
@@ -109,14 +112,24 @@ void *philosopher(void *num)
     }
 }
 
+void *timer_function(void *dummy)
+{
+    while(1)if(time(NULL) - start_time > EXIT_TIME)exit(EXIT_SUCCESS);
+    return NULL;
+}
+
 /*
  * プログラムの開始点
  */
 int main(void)
 {
     pthread_t philosophers[PHILOSOPHERS];
+    pthread_t timer_thread;
     int i;
     int status;
+
+    //現在時刻取得
+    time(&start_time);
 
     //int pthread_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr);
     //mutex	ロックする資源があるアドレス
@@ -132,7 +145,7 @@ int main(void)
         /*** スレッド（哲学者）を生成する。 ***/
         number[i] = i;
         status = pthread_create(&philosophers[i], NULL, 
-            (void *)philosopher, (void *)&number[i]);
+            philosopher, (void *)&number[i]);
 
         /*** スレッド（哲学者）の生成に失敗した時の処理。 ***/
         if (status != 0) {
@@ -141,10 +154,17 @@ int main(void)
         }
     }
 
+    if(pthread_create(&timer_thread, NULL, timer_function, NULL) != 0) {
+        fprintf(stderr, "Error: cannot create a thread.\n");
+        exit(EXIT_FAILURE);
+    }
+
     /*** スレッド（哲学者）の終了を待つ。 ***/
     for (i = 0; i <= PHILOSOPHERS - 1; i++) {
         pthread_join(philosophers[i], NULL);
     }
+
+    pthread_join(timer_thread, NULL);
 
     /*** 正常終了 ***/
     return(EXIT_SUCCESS);

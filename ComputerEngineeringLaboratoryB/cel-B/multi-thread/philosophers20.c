@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#define PHILOSOPHERS 4
+#define PHILOSOPHERS 20
 
 pthread_mutex_t chopsticks[PHILOSOPHERS];
 int philosophers_status[PHILOSOPHERS] = {0};
@@ -27,9 +27,6 @@ void *philosopher(void *num)
         /*** 1秒以上5秒以下の時間待つ。 ***/
         sleep(rand() % 5 + 1); 
 
-        //int pthread_mutex_lock(pthread_mutex_t *mutex);
-        //mutex	ロックするmutexオブジェクトのアドレス
-        //返り値は成功の時0、失敗の時0でないエラーコード。
         /*** 哲学者は自分の左側の箸を確保する。 ***/
         status = pthread_mutex_lock(&chopsticks[id]);
 
@@ -82,9 +79,6 @@ void *philosopher(void *num)
         /*** 箸は元の場所に戻される。 ***/
         chopsticks_status[id] = 0;
 
-        //int pthread_mutex_unlock(pthread_mutex_t *mutex);
-        //mutex ロックを解除するmutexオブジェクト
-        //返り値は成功の時0、失敗の時0でないエラーコード。
         /*** 哲学者は箸を一本自分の左側に置く。 ***/
         status = pthread_mutex_unlock(&chopsticks[id]);
 
@@ -118,10 +112,6 @@ int main(void)
     int i;
     int status;
 
-    //int pthread_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr);
-    //mutex	ロックする資源があるアドレス
-    //attr	属性
-    //返り値は成功した時0、失敗した時-1。
     /*** mutexオブジェクトを初期化する。 ***/
     for (i = 0; i <= PHILOSOPHERS - 1; i++) {
         pthread_mutex_init(&chopsticks[i], NULL);

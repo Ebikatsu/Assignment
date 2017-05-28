@@ -10,8 +10,8 @@
 %%%
 \usepackage{comment}
 \period{2} % ← 何回目のレポートか（1～3）
-\stunum{学生番号} % ← 学生番号
-\author{氏名} % ← 学生氏名
+\stunum{S153012} % ← 学生番号
+\author{伊藤　太清} % ← 学生氏名
 \date{\today} % ← レポート提出日
 
 \begin{document}
@@ -428,6 +428,226 @@ clientSize sockaddr構造体のサイズ
   \end{itemize}
 \end{enumerate}
 %%% ------------------------------------------------------------------
+\newpage
+\section{第7回　マルチスレッド}
+\subsection{プログラムの実行結果}
+multi\_threadを実行した結果は以下のとおりである。
+\begin{lstlisting}[caption=multi\_thread実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+thread 2 wakes up 1 times.
+thread 4 wakes up 1 times.
+thread 3 wakes up 1 times.
+thread 1 wakes up 1 times.
+thread 2 wakes up 2 times.
+thread 1 wakes up 2 times.
+thread 0 wakes up 1 times.
+thread 4 wakes up 2 times.
+thread 0 wakes up 2 times.
+thread 3 wakes up 2 times.
+thread 2 wakes up 3 times.
+thread 0 wakes up 3 times.
+thread 1 wakes up 3 times.
+thread 3 wakes up 3 times.
+thread 4 wakes up 3 times.
+thread 0 wakes up 4 times.
+thread 2 wakes up 4 times.
+thread 3 wakes up 4 times.
+thread 2 wakes up 5 times.
+thread 1 wakes up 4 times.
+thread 4 wakes up 4 times.
+thread 2 wakes up 6 times.
+thread 1 wakes up 5 times.
+thread 0 wakes up 5 times.
+thread 3 wakes up 5 times.
+thread 1 wakes up 6 times.
+thread 4 wakes up 5 times.
+thread 2 wakes up 7 times.
+thread 1 wakes up 7 times.
+thread 3 wakes up 6 times.
+thread 2 wakes up 8 times.
+thread 0 wakes up 6 times.
+thread 1 wakes up 8 times.
+thread 3 wakes up 7 times.
+thread 4 wakes up 6 times.
+thread 2 wakes up 9 times.
+thread 4 wakes up 7 times.
+thread 3 wakes up 8 times.
+thread 2 wakes up 10 times.
+thread 4 wakes up 8 times.
+thread 0 wakes up 7 times.
+thread 3 wakes up 9 times.
+thread 1 wakes up 9 times.
+thread 0 wakes up 8 times.
+thread 3 wakes up 10 times.
+thread 0 wakes up 9 times.
+thread 1 wakes up 10 times.
+thread 4 wakes up 9 times.
+thread 0 wakes up 10 times.
+thread 4 wakes up 10 times.
+\end{lstlisting}
+philosophersを実行した結果は以下のとおりである。
+\begin{lstlisting}[caption=philosophers実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+1000  1100
+1010  1111
+0100  1110
+1000  1101
+0001  1011
+0010  0111
+0100  1110
+1000  1101
+0001  1011
+0010  0111
+0100  1110
+1000  1101
+0001  1011
+0010  0111
+\end{lstlisting}
+philosophers.cの哲学者の数（PHILOSOPHERS）を20に変更してコンパイルしたphilosophers20を実行した結果は以下のとおりである。
+\begin{lstlisting}[caption=philosophers20実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+00000000010000000000  00000000011000000000
+00000000010000001000  00000000011000001100
+00010000010000001000  00011000011000001100
+00010001010000001000  00011001111000001100
+00010001010100001000  00011001111110001100
+00010001010100001001  10011001111110001101
+00010001010100101001  10111001111110111101
+00010001000100101010  11111111101110111111
+00010001001000101010  11111111101101111111
+00010001001001001010  11111111101111101111
+00010001010001001010  11111111111011111111
+00100001010001001010  11110111111011111111
+00100001010001010000  11111111111011111001
+00100001010001010100  11111111111011111111
+00100010010001010100  11111111011111111111
+00100010010010010000  11111111111111011011
+01000010010010010000  11101111111111111011
+01000010100010010000  11111111110111111011
+01000010100010100000  11111111111111110111
+10000010000010000000  11011111111111011111
+10000100000010000000  11111110111111011111
+10000100000100000000  11111111111110111111
+00000100000100000001  10111111111111111111
+00001000000100000001  11111101111111111111
+00001000001000000001  11111111111101111111
+00001000001000000010  01111111111111111111
+00001000001000000100  11111111111111111110
+00010000001000000100  11111011111111111111
+00010000010000000100  11111111111011111111
+00000000010000001000  11100111111111111101
+00100000010000001000  11110111111111111111
+00100000100000001000  11111111110111111111
+01000000100000001000  11101111111111111111
+01000000100000010000  11111111111111111011
+01000001000000010000  11111111101111111111
+10000001000000010000  11011111111111111111
+10000001000000100000  11111111111111110111
+10000010000000100000  11111111011111111111
+00000010000000100001  10111111111111111111
+00000010000001000001  11111111111111101111
+\end{lstlisting}
+\subsection{プログラムの改造}
+philosophers.cのpthread\_mutex\_lock関数、pthread\_mutex\_unlock関数をコメントアウトし、コンパイルしたプログラムphilosophers2の実行結果は以下のとおりである。
+\begin{lstlisting}[caption=philosophers2実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+1000  1100
+1010  1111
+1110  1111
+1111  1111
+0101  1001
+1101  1101
+1011  1011
+1011  1111
+0101  0110
+1101  1110
+1110  0111
+0111  1011
+1011  1101
+1111  1111
+0110  0011
+0111  1011
+1000  1100
+1100  1110
+1101  1111
+1111  1111
+0001  1001
+0011  1011
+1011  1111
+1111  1111
+1111  1111
+1000  1100
+1010  1111
+1011  1111
+1111  1111
+1110  0110
+1110  0111
+1111  1111
+1111  1111
+\end{lstlisting}
+このプログラムでは、すべての哲学者たちが箸という資源の確保、開放を行っていないため、哲学者たちは自由に自分の両隣の箸の値を書き換えることができる。その結果、二人の哲学者が一本の箸を同時に使っているということが起きている。
+\subsection{加点課題}
+\subsection{調査課題}
+\begin{enumerate}
+ \renewcommand{\labelenumi}{(\arabic{enumi})}
+ \item pthread\_create関数,pthread\_join関数\\
+  pthread\_create関数\\
+  philosophers.cの124行目に以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+        status = pthread_create(&philosophers[i], NULL, 
+            (void *)philosopher, (void *)&number[i]);
+  \end{lstlisting}
+  一般的に以下のような形で使われる。\\
+  int pthread\_create(pthread\_t *thread, pthread\_attr\_t *attr, void *(*start\_routine)(void *), void *arg);
+  \begin{itemize}
+   \item 機能:スレッドを作成し動作を開始させる。
+   \item 引数\\
+   thread 生成されたスレッドの識別子を格納する領域のアドレス\\
+   attr	スレッドの属性。\\
+   start\_routine 生成されたスレッドで実行する関数。\\
+   arg start\_routineに渡す引数。
+   \item 返り値:成功の時0、失敗の時0でないエラーコード。
+  \end{itemize}
+  pthread\_join関数
+  philosophers.cの136行目に以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+        pthread_join(philosophers[i], NULL);
+  \end{lstlisting}
+  一般的に以下のような形で使われる。\\
+  int pthread\_join(pthread\_t th, void **thread\_return);
+  \begin{itemize}
+   \item 機能:指定されたスレッドが終了するまで呼び出し元のメインスレッドをブロックする。
+   \item 引数\\
+    th 終了を待つスレッド\\
+    thread\_return pthread\_createで指定されたstart\_routine関数の返り値を格納するためのポインタ\\
+   \item 返り値:成功の時0、失敗の時0でないエラーコード。
+  \end{itemize}
+ \item pthread\_mutex\_lock関数,pthread\_mutex\_unlock関数\\
+  pthread\_mutex\_lock関数\\
+  philosophers.cの43行目で以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+        status = pthread_mutex_lock(&chopsticks[id]);
+  \end{lstlisting}
+  一般的に以下のような形で使われる。\\
+  int pthread\_mutex\_lock(pthread\_mutex\_t *mutex);
+  \begin{itemize}
+   \item 機能:この関数を実行したスレッドがmutexオブジェクトをロックする。
+   \item 引数\\
+    mutex ロックするmutexオブジェクトのアドレス
+   \item 返り値:成功の時0、失敗の時0でないエラーコード。
+  \end{itemize}
+  pthread\_mutex\_unlock関数\\
+  philosophers.cの95行目で以下のように使われている。
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+        status = pthread_mutex_unlock(&chopsticks[(id + 1) % PHILOSOPHERS]);
+  \end{lstlisting}
+  一般的に以下のような形で使われる。\\
+  int pthread\_mutex\_unlock(pthread\_mutex\_t *mutex);
+  \begin{itemize}
+   \item 機能:ロックしていたmutexオブジェクトを開放する。
+   \item 引数\\
+    mutex ロックを解除するmutexオブジェクト
+   \item 返り値:成功の時0、失敗の時0でないエラーコード。
+  \end{itemize}
+ \item 共有資源のデッドロックの簡単な例\\
+デッドロックとは、複数のスレッドが複数の共有資源をロックしようとして、お互いにロックが開放されるのを待っている状態である。philosophers.cのプログラムがその簡単な例となっている。4本の箸が置かれた食卓があり、4人の哲学者がそこに座っている。箸と哲学者は食卓を囲むように交互に並んでいる。哲学者は食事をするために2本の箸を必要とするが、4人の哲学者が食事するには箸が不足している。そこで哲学者は最初に自分の左側の箸を取り、次に自分の右側の箸を取る。箸が他の哲学者に使われているときは、その哲学者が箸を元に戻すまで待つ。すると、4人の哲学者は自分の左側の箸を取り、その時点で哲学者に確保されていない箸はなくなる。哲学者は自分の右側に箸がないので箸が戻されるのを待つが、誰も食事を始められないのでいくら待っても哲学者は2本の箸を得られないことになる。このように、各スレッドがお互いに待ち合い、処理が進まなくなる状態がデッドロックである。
+\end{enumerate}
 % --- 参考文献リストここから
 \newpage
 \begin{thebibliography}{9}
@@ -440,6 +660,10 @@ clientSize sockaddr構造体のサイズ
 \bibitem{bindfunc} Camp Network C言語-bind関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-bind\%E9\%96\%A2\%E6\%95\%B0
 \bibitem{listenfunc} Camp Network C言語-listen関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-listen\%E9\%96\%A2\%E6\%95\%B0
 \bibitem{acceptfunc} Camp Network C言語-accept関数 , http://capm-network.com/?tag=C\%E8\%A8\%80\%E8\%AA\%9E-accept\%E9\%96\%A2\%E6\%95\%B0
+\bibitem{pthreadcreatefinc}JMプロジェクト pthread\_create関数 , https://linuxjm.osdn.jp/html/glibc-linuxthreads/man3/pthread\_create.3.html
+\bibitem{pthreadjoinfunc} JMプロジェクト pthread\_join関数 , https://linuxjm.osdn.jp/html/glibc-linuxthreads/man3/pthread\_join.3.html
+\bibitem{pthreadmutex} JMプロジェクト pthread\_mutex , https://linuxjm.osdn.jp/html/glibc-linuxthreads/man3/pthread\_mutex\_lock.3.html
+\bibitem{deadlock} IT専科デッドロックについて , http://www.itsenka.com/contents/development/java/topics/thread7.html
 \end{thebibliography}
 % --- 参考文献リストここまで
 %

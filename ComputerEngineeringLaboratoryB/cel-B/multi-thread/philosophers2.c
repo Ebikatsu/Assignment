@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <pthread.h>
 
 #define PHILOSOPHERS 4
@@ -31,25 +32,29 @@ void *philosopher(void *num)
         //mutex	ロックするmutexオブジェクトのアドレス
         //返り値は成功の時0、失敗の時0でないエラーコード。
         /*** 哲学者は自分の左側の箸を確保する。 ***/
-        status = pthread_mutex_lock(&chopsticks[id]);
+        //status = pthread_mutex_lock(&chopsticks[id]);
 
         /*** 哲学者が自分の左側の箸を取れなかった時の処理 ***/
+        /*
         if (status != 0) {
             fprintf(stderr, "Error: cannot lock a mutex.\n");
             exit(EXIT_FAILURE);
         }
+        */
 
         /*** 箸は哲学者に確保された。 ***/
         chopsticks_status[id] = 1;
  
         /*** 哲学者は自分の右側の箸を確保する。 ***/
-        status = pthread_mutex_lock(&chopsticks[(id + 1) % PHILOSOPHERS]);
+        //status = pthread_mutex_lock(&chopsticks[(id + 1) % PHILOSOPHERS]);
 
         /*** 哲学者が自分の右側の箸を取れなかった時の処理 ***/
+        /*
         if (status != 0) {
             fprintf(stderr, "Error: cannot lock a mutex.\n");
             exit(EXIT_FAILURE);
         }
+        */
 
         /*** 箸は哲学者に確保された。 ***/
         chopsticks_status[(id + 1) % PHILOSOPHERS] = 1;
@@ -86,25 +91,29 @@ void *philosopher(void *num)
         //mutex ロックを解除するmutexオブジェクト
         //返り値は成功の時0、失敗の時0でないエラーコード。
         /*** 哲学者は箸を一本自分の左側に置く。 ***/
-        status = pthread_mutex_unlock(&chopsticks[id]);
+        //status = pthread_mutex_unlock(&chopsticks[id]);
 
         /*** 箸を元の場所に置けなかった時の処理。 ***/
+        /*
         if (status != 0) {
             fprintf(stderr, "Error: cannot unlock a mutex.\n");
             exit(EXIT_FAILURE);
         }
+        */
 
         /*** 箸は元の場所に戻される。 ***/
         chopsticks_status[(id + 1) % PHILOSOPHERS] = 0;
 
         /*** 哲学者は箸を一本自分の左側に置く。 ***/
-        status = pthread_mutex_unlock(&chopsticks[(id + 1) % PHILOSOPHERS]);
+        //status = pthread_mutex_unlock(&chopsticks[(id + 1) % PHILOSOPHERS]);
 
         /*** 箸を元の場所に置けなかった時の処理。 ***/
+        /*
         if (status != 0) {
             fprintf(stderr, "Error: cannot unlock a mutex.\n");
             exit(EXIT_FAILURE);
         }
+        */
 
     }
 }
@@ -132,7 +141,7 @@ int main(void)
         /*** スレッド（哲学者）を生成する。 ***/
         number[i] = i;
         status = pthread_create(&philosophers[i], NULL, 
-            (void *)philosopher, (void *)&number[i]);
+            philosopher, (void *)&number[i]);
 
         /*** スレッド（哲学者）の生成に失敗した時の処理。 ***/
         if (status != 0) {

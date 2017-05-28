@@ -94,13 +94,13 @@ void *philosopher(void *num)
             exit(EXIT_FAILURE);
         }
 
-        /***  ***/
+        /*** 箸は元の場所に戻される。 ***/
         chopsticks_status[(id + 1) % PHILOSOPHERS] = 0;
 
-        /***  ***/
+        /*** 哲学者は箸を一本自分の左側に置く。 ***/
         status = pthread_mutex_unlock(&chopsticks[(id + 1) % PHILOSOPHERS]);
 
-        /***  ***/
+        /*** 箸を元の場所に置けなかった時の処理。 ***/
         if (status != 0) {
             fprintf(stderr, "Error: cannot unlock a mutex.\n");
             exit(EXIT_FAILURE);
