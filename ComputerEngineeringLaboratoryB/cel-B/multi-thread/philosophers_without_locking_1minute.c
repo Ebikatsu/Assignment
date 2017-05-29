@@ -122,7 +122,8 @@ void *philosopher(void *num)
 
 void *timer_function(void *dummy)
 {
-    while(1)if(time(NULL) - start_time > EXIT_TIME)exit(EXIT_SUCCESS);
+    sleep(EXIT_TIME);
+    exit(EXIT_SUCCESS);
     return NULL;
 }
 
