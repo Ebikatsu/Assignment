@@ -1,0 +1,56 @@
+検索データapple.txt
+線形探索
+search data ? 2
+比較回数3
+二分探索
+search data ? 0
+比較回数3
+検索データbanana.txt
+線形探索
+search data ? 1
+比較回数2
+二分探索
+search data ? 1
+比較回数2
+検索データcherry.txt
+線形探索
+search data ? 3
+比較回数4
+二分探索
+search data ? 2
+比較回数3
+検索データgrape.txt
+線形探索
+search data ? 0
+比較回数1
+二分探索
+search data ? 3
+比較回数1
+検索データmelon.txt
+線形探索
+search data ? 5
+比較回数6
+二分探索
+search data ? 4
+比較回数3
+検索データorange.txt
+線形探索
+search data ? 4
+比較回数5
+二分探索
+search data ? 5
+比較回数2
+検索データpeach.txt
+線形探索
+search data ? Not find !
+比較回数7
+二分探索
+search data ? Not find !
+比較回数3
+検索データstrawberry.txt
+線形探索
+search data ? 6
+比較回数7
+二分探索
+search data ? 6
+比較回数3
