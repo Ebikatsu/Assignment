@@ -182,7 +182,7 @@ SEND>> ^C
  \renewcommand{\labelenumi}{(\arabic{enumi})}
  \item 今回のプログラム中で使用されている connect 関数の仕様について調査し, echo\_client.c 中での使用例を書き出し,どのような動作を意図しているかを説明せよ.\\
 \\
-92,93行目で以下のようにconnect関数が使われている。
+92行目、93行目で以下のようにconnect関数が使われている。
   \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
     status = connect(destSocket, (struct sockaddr *)&destSockAddr, 
                     (socklen_t)sizeof(destSockAddr));
