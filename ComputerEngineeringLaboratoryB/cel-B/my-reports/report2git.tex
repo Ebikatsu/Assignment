@@ -656,6 +656,115 @@ multi\_thread\_sum.cでは、複数のスレッドがグローバル変数であ
  \item 共有資源のデッドロックの簡単な例\\
 デッドロックとは、複数のスレッドが複数の共有資源をロックしようとして、お互いにロックが開放されるのを待っている状態である。philosophers.cのプログラムがその簡単な例となっている。4本の箸が置かれた食卓があり、4人の哲学者がそこに座っている。箸と哲学者は食卓を囲むように交互に並んでいる。哲学者は食事をするために2本の箸を必要とするが、4人の哲学者が食事するには箸が不足している。そこで哲学者は最初に自分の左側の箸を取り、次に自分の右側の箸を取る。箸が他の哲学者に使われているときは、その哲学者が箸を元に戻すまで待つ。すると、4人の哲学者は自分の左側の箸を取り、その時点で哲学者に確保されていない箸はなくなる。哲学者は自分の右側に箸がないので箸が戻されるのを待つが、誰も食事を始められないのでいくら待っても哲学者は2本の箸を得られないことになる。このように、各スレッドがお互いに待ち合い、処理が進まなくなる状態がデッドロックである。
 \end{enumerate}
+\newpage
+\section{第8回　ECHOサーバのマルチスレッド}
+\subsection{プログラムの実行結果}
+echo\_multi\_serverを実行し、別のターミナルを2つ開きそれぞれのターミナルでecho-clientを実行したところ、以下のような結果が得られた。
+\begin{lstlisting}[caption=echo\_multi\_server実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECEIVE(4)>>abc
+RECEIVE(4)>>def
+RECEIVE(4)>>ghi
+Connected from 10.210.232.48.
+RECEIVE(4)>>jkl
+RECEIVE(4)>>mno
+RECEIVE(4)>>pqr
+RECEIVE(4)>>stu
+RECEIVE(4)>>vwx
+RECEIVE(3)>>yz
+Connection terminated.
+RECEIVE(4)>>123
+RECEIVE(4)>>456
+RECEIVE(4)>>789
+Connection terminated.
+^C
+\end{lstlisting}
+\begin{lstlisting}[caption=echo\_client実行結果その1, basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECEIVE>> abc
+SEND>> def
+RECEIVE>> def
+SEND>> ghi
+RECEIVE>> ghi
+SEND>> stu
+RECEIVE>> stu
+SEND>> vwx
+RECEIVE>> vwx
+SEND>> yz
+RECEIVE>> yz
+SEND>> ^C
+\end{lstlisting}
+\begin{lstlisting}[caption=echo\_client実行結果その2, basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> jkl
+RECEIVE>> jkl
+SEND>> mno
+RECEIVE>> mno
+SEND>> pqr
+RECEIVE>> pqr
+SEND>> 123
+RECEIVE>> 123
+SEND>> 456
+RECEIVE>> 456
+SEND>> 789
+RECEIVE>> 789
+SEND>> ^C
+\end{lstlisting}
+\subsection{プログラムの改造}
+echo\_multi\_server2を実行し、別のターミナルを2つ開きそれぞれのターミナルでecho-clientを実行したところ、以下のような結果が得られた。
+\begin{lstlisting}[caption=echo\_multi\_surver2実行結果, basicstyle=\ttfamily\footnotesize, frame=single]
+Waiting for connection ...
+1 clients.
+Connected from 10.210.232.48.
+RECEIVE(4)>>abc
+2 clients.
+Connected from 10.210.232.48.
+RECEIVE(4)>>def
+1 clients.
+Connection terminated.
+RECEIVE(4)>>ghi
+0 clients.
+Connection terminated.
+^C
+\end{lstlisting}
+\begin{lstlisting}[caption=echo\_client実行結果その1, basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECEIVE>> abc
+SEND>> ^C
+\end{lstlisting}
+\begin{lstlisting}[caption=echo\_client実行結果その2, basicstyle=\ttfamily\footnotesize, frame=single]
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> jkl
+RECEIVE>> jkl
+SEND>> mno
+RECEIVE>> mno
+SEND>> pqr
+RECEIVE>> pqr
+SEND>> 123
+RECEIVE>> 123
+SEND>> 456
+RECEIVE>> 456
+SEND>> 789
+RECEIVE>> 789
+SEND>> ^C
+\end{lstlisting}
+\subsection{調査課題}
+TPCは信頼性の高い通信を実現するためにいくつかの機能が備わっている。//
+\begin{itemize}
+ \item ACK\\
+送信側が、受信側が正常に受信したかどうかを確認するために受信側が確認用の信号を送る技術で、ひとつのパケットが送信されるたびに受信側はACKを送信し、ACKが返らなければもう一度送信する。通信を開始するときは受信側がACKを送信したあとに送信側からもACKを送信する3ウェイハンドシェイクという技術がある。
+ \item 順序制御\\
+複数のパケットを送信する場合、送信中にパケットの順序が入れ替わってしまう可能性もあるので、送信側でパケットに番号をつけ、受信側で再構成できるようにする技術。
+ \item フロー制御\\
+効率よく、かつ受信側の限界を超えないように送信する技術で、受信側が受信するためのバッファのサイズの空き部分の大きさを送信側に送信し、送信側に受信側の状況を知らせることで実現している。
+\end{itemize}
 % --- 参考文献リストここから
 \newpage
 \begin{thebibliography}{9}
@@ -672,6 +781,9 @@ multi\_thread\_sum.cでは、複数のスレッドがグローバル変数であ
 \bibitem{pthreadjoinfunc} JMプロジェクト pthread\_join関数 , https://linuxjm.osdn.jp/html/glibc-linuxthreads/man3/pthread\_join.3.html
 \bibitem{pthreadmutex} JMプロジェクト pthread\_mutex , https://linuxjm.osdn.jp/html/glibc-linuxthreads/man3/pthread\_mutex\_lock.3.html
 \bibitem{deadlock} IT専科デッドロックについて , http://www.itsenka.com/contents/development/java/topics/thread7.html
+\bibitem{pthreaddetachfunc} スレッドのデタッチとjoin http://www.fireproject.jp/feature/c-language/pthread/pthread\_join.html
+\bibitem{TCP1} TCP/IP - TCP http://www.infraexpert.com/study/tcpip7.html
+\bibitem{TCP2} TCPの概要 http://net-newbie.com/tcpip/tcp/tcp-intro.html
 \end{thebibliography}
 % --- 参考文献リストここまで
 %

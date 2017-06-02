@@ -1,0 +1,16 @@
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> abc
+RECEIVE>> abc
+SEND>> def
+RECEIVE>> def
+SEND>> ghi
+RECEIVE>> ghi
+SEND>> stu
+RECEIVE>> stu
+SEND>> vwx
+RECEIVE>> vwx
+SEND>> yz
+RECEIVE>> yz
+SEND>> ^C
+

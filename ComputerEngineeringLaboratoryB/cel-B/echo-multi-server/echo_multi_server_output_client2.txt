@@ -1,0 +1,16 @@
+Connect to 10.210.232.48:7000 ...
+Socket is connected...
+SEND>> jkl
+RECEIVE>> jkl
+SEND>> mno
+RECEIVE>> mno
+SEND>> pqr
+RECEIVE>> pqr
+SEND>> 123
+RECEIVE>> 123
+SEND>> 456
+RECEIVE>> 456
+SEND>> 789
+RECEIVE>> 789
+SEND>> ^C
+

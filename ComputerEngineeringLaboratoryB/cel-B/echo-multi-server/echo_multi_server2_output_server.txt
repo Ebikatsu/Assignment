@@ -1,0 +1,14 @@
+Waiting for connection ...
+1 clients.
+Connected from 10.210.232.48.
+RECEIVE(4)>>abc
+2 clients.
+Connected from 10.210.232.48.
+RECEIVE(4)>>def
+1 clients.
+Connection terminated.
+RECEIVE(4)>>ghi
+0 clients.
+Connection terminated.
+^C
+

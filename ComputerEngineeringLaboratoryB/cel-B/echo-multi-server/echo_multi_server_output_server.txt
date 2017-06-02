@@ -1,0 +1,19 @@
+Waiting for connection ...
+Connected from 10.210.232.48.
+RECEIVE(4)>>abc
+RECEIVE(4)>>def
+RECEIVE(4)>>ghi
+Connected from 10.210.232.48.
+RECEIVE(4)>>jkl
+RECEIVE(4)>>mno
+RECEIVE(4)>>pqr
+RECEIVE(4)>>stu
+RECEIVE(4)>>vwx
+RECEIVE(3)>>yz
+Connection terminated.
+RECEIVE(4)>>123
+RECEIVE(4)>>456
+RECEIVE(4)>>789
+Connection terminated.
+^C
+
