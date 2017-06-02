@@ -583,6 +583,14 @@ philosophers.cのpthread\_mutex\_lock関数、pthread\_mutex\_unlock関数をコ
 \end{lstlisting}
 このプログラムでは、すべての哲学者たちが箸という資源の確保、開放を行っていないため、哲学者たちは自由に自分の両隣の箸の値を書き換えることができる。その結果、二人の哲学者が一本の箸を同時に使っているということが起きている。
 \subsection{加点課題}
+\begin{itemize}
+ \item multi\_thread\_sumの実行結果\\
+10が出力されるべきだが、10以下の数字が出力される。実行するごとに異なる値が出力される。
+ \item multi\_thread\_sumが正常に動作しない理由\\
+multi\_thread\_sum.cでは、複数のスレッドがグローバル変数であるsumに読み書きをしている。run関数内でlocal\_sumという変数を宣言し、そこにsumの値をコピーしてnumberと足し算してsumに代入しているが、あるスレッドでlocal\_sumに値が代入され、次にそのスレッドでsumにnumberが加算された値が代入されずに別のスレッドのlocal\_sumに値が代入されてしまった場合、このプログラムは全てのスレッドの番号を足し合わせることができない。つまり、共有資源のロック・アンロックが行われていないことが原因である。
+ \item multi\_thread\_sum\_rev.c\\
+そこで、run関数のlocal\_sumを削除し、sumの加算命令の直前にmutexのロックを、直後にmutexのアンロックを行い用にしたmulti\_thread\_sum\_rev.cを作成した。こうすることによって、各スレッドはmutexをロックできるまでsumへの読み書きができなくなるので、プログラムは常に10を出力するようになった。
+\end{itemize}
 \subsection{調査課題}
 \begin{enumerate}
  \renewcommand{\labelenumi}{(\arabic{enumi})}
