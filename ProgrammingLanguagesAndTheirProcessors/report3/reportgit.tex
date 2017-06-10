@@ -1,4 +1,4 @@
-\documentclass[a4paper]{jarticle}
+\documentclass[a4paper,12pt]{jarticle}
 \usepackage{comment}
 \usepackage[top=30truemm,bottom=30truemm,left=30truemm,right=30truemm]{geometry}
 \usepackage{here}
@@ -98,12 +98,108 @@ ch
 正規表現では、BNFの複数の非終端記号を連接によってひとつにまとめて表現することができる。
 \subsection{演習3.1の正規表現を非決定性有限オートマトンで表しなさい。}
 まず、開始状態Sを作る。
-\begin{comment}
 \begin{figure}[H]
  \begin{center}
-  \includegraphics{Automatonfig/3-2-1.png}
+  \includegraphics[width=10cm]{Automatonfig/3-2-1.png}
  \end{center}
 \end{figure}
-\end{comment}
+次に$ \bigl[ - | + | \epsilon \bigr] $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-2-2.png}
+ \end{center}
+\end{figure}
+となる。次に$ 数字 $を認識するので
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-2-3.png}
+ \end{center}
+\end{figure}
+となる。つぎに$ \{ 数字 \} $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-2-4.png}
+ \end{center}
+\end{figure}
+となる。次に$ . $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-2-5.png}
+ \end{center}
+\end{figure}
+となる。つぎに$ \{ 数字 \} $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-2-6.png}
+ \end{center}
+\end{figure}
+となる。次に$ E $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=15cm]{Automatonfig/3-2-7.png}
+ \end{center}
+\end{figure}
+次に$ \bigl[ - | + | \epsilon \bigr] $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=15cm]{Automatonfig/3-2-8.png}
+ \end{center}
+\end{figure}
+となる。次に$ 数字 $を認識するので
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=15cm]{Automatonfig/3-2-9.png}
+ \end{center}
+\end{figure}
+となる。つぎに$ \{ 数字 \} $を認識するので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=15cm]{Automatonfig/3-2-10.png}
+ \end{center}
+\end{figure}
+となる。これで終了状態になるので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=15cm]{Automatonfig/3-2-11.png}
+ \end{center}
+\end{figure}
+となる。
 \subsection{演習3.2の非決定性有限オートマトンを決定性有限オートマトンに変換しなさい。}
+3.2のオートマトンで状態$ S $から入力「$ \epsilon $」で到達できるのは状態$ S $と$ 1 $なので、決定性有限オートマトンの開始状態は、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-1.png}
+ \end{center}
+\end{figure}
+となる。3.2のオートマトンの状態$ S $または状態$ 1 $から入力「$-$」で到達できるのは状態$ 1 $、入力「$ + $」で到達できるのは状態$ 1 $、入力「$ 数字 $」で到達できるのは状態$ 2 $だから、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-2.png}
+ \end{center}
+\end{figure}
+となる。3.2のオートマトンの状態$ 1 $から入力「$ 数字 $」で到達できるのは状態$ 2 $、状態$ 2 $から状態$ 3 $までは入力に対する動作がすでに決定しているので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-3.png}
+ \end{center}
+\end{figure}
+となる。3.2のオートマトンの状態$ 3 $から入力「$ E $」で到達できるのは状態$ 4 $と状態$ 5 $なので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-4.png}
+ \end{center}
+\end{figure}
+となる。3.2のオートマトンの状態$ 4 $または状態$ 5 $から入力「$ - $」で到達できるのは状態$ 5 $、入力「$ + $」で到達できるのは状態$ 5 $、入力「$ 数字 $」で到達できるのは状態$ 6 $と状態$ F $なので、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-5.png}
+ \end{center}
+\end{figure}
+となる。3.2のオートマトンの状態$ 5 $から入力「$ 数字 $」で到達できるのは状態$ 6 $と状態$ F $、状態$ 6 $または状態$ F $から入力「$ 数字 $」で到達できるのは状態$ 6 $と状態$ F $だから、
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=10cm]{Automatonfig/3-3-6.png}
+ \end{center}
+\end{figure}
+となる。
 \end{document}
