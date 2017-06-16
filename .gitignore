@@ -3,5 +3,9 @@
 *.dtx
 *.ins
 *.log
+*.mpf
+*.mti
 *.pdf
 *.sty
+*.toc
+*.wlf

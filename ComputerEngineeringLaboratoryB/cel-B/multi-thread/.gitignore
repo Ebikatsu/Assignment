@@ -2,6 +2,10 @@ multi_thread
 multi_thread_sum
 multi_thread_sum_rev
 philosophers
+philosophers2
 philosophers20
+philosophers20_1minute
 philosophers_without_locking
+philosophers_without_locking_1minute
+philosophers_1minute
 
