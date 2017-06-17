@@ -7,7 +7,7 @@
 \newcommand{\dotgt}{\ooalign{$>$\crcr\hss$\cdot$\hss}}
 \newcommand{\dotlt}{\ooalign{$<$\crcr\hss$\cdot$\hss}}
 \begin{document}
-\section{課題1}
+\section*{課題1}
 教科書表4.2の演算子順位行列が表す算術式に対して、次の2点の追加を考える。
 \begin{enumerate}
  \renewcommand{\labelenumi}{(\arabic{enumi})}
@@ -19,21 +19,21 @@
  \begin{center}
   \caption{教科書表4.2}
   \begin{tabular}{|c|cccccccc|}\hline
-	\backslashbox{左}{右}&	+&	-&	*&	/&	(&	)&		識別子&	終\\	\hline
+	\backslashbox{左}{右}&	$+$&	$-$&	$*$&	$/$&	$($&	$)$&		識別子&	終\\		\hline
 	始&			\dotlt&	\dotlt&	\dotlt&	\dotlt&	\dotlt&	&		\dotlt&	$\doteq$\\
-	+&			\dotgt&	\dotgt&	\dotlt&	\dotlt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
-	-&			\dotgt&	\dotgt&	\dotlt&	\dotlt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
-	*&			\dotgt&	\dotgt&	\dotgt&	\dotgt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
-	/&			\dotgt&	\dotgt&	\dotgt&	\dotgt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
-	(&			\dotlt&	\dotlt&	\dotlt&	\dotlt&	\dotlt&	$\doteq$&	\dotlt&	\\	
+	$+$&			\dotgt&	\dotgt&	\dotlt&	\dotlt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
+	$-$&			\dotgt&	\dotgt&	\dotlt&	\dotlt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
+	$*$&			\dotgt&	\dotgt&	\dotgt&	\dotgt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
+	$/$&			\dotgt&	\dotgt&	\dotgt&	\dotgt&	\dotlt&	\dotgt&		\dotlt&	\dotgt\\	
+	$($&			\dotlt&	\dotlt&	\dotlt&	\dotlt&	\dotlt&	$\doteq$&	\dotlt&	\\	
 	識別子&			\dotgt&	\dotgt&	\dotgt&	\dotgt&	&	\dotgt&		&	\dotgt\\	\hline
   \end{tabular}
  \end{center}
 \end{table}
-\section{課題2}
+\section*{課題2}
 課題1で代入文\\
 s = s + (a.x - b.x) * (c.y + d.y)\\
 を演算子順位法で構文解析する過程を、教科書の図4.1のようにスタックの動きをトレースする形で示せ。
-\section{課題3}
+\section*{課題3}
 課題2の代入文をポーランド記法(逆ポーランド記法)で表現せよ。
 \end{document}
