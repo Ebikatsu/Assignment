@@ -1,6 +1,7 @@
 *a.out
 *.aux
 *.dtx
+*.dvi
 *.ins
 *.log
 *.mpf
