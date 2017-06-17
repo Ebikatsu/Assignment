@@ -36,13 +36,5 @@ Starting PTW attack with 27872 ivs.
      KEY FOUND! [ 31:31:34:35:31:34:31:39:2F:39:38:31:30 ] (ASCII: 11451419/9810 )
 	Decrypted correctly: 100%
 
-
-解析対象のAP
-BSSID:
-F4:9F:F3:D4:C6:EC
-
-ESSID:
-sysExp2
-
 通信内容:
 aoto
