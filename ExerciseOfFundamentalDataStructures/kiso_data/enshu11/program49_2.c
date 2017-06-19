@@ -4,7 +4,22 @@
 
 //#define DEBUG
 
-void down_heap(int x[], int start, int end)
+void down_heap_process(int x[], int m)
+{
+	int i;
+	for(i = 1; i <= m; i++)printf(" %d", x[i]);
+	printf("\n");
+}
+
+void heap_sort_process(int x[], int m)
+{
+	int i;
+	for(i = 1; i <= m; i++)printf(" %d", x[i]);
+	printf("\n");
+	printf("heap_sort\n");
+}
+
+void down_heap(int x[], int start, int end, int m)
 {
 	int pivot, tmp;
 	#ifdef DEBUG
@@ -54,6 +69,9 @@ void down_heap(int x[], int start, int end)
 			}
 			#endif
 
+			printf("return文でdown_heap終了\n");
+			down_heap_process(x, m);
+
 			return;
 		}
 		start = pivot;
@@ -66,9 +84,12 @@ void down_heap(int x[], int start, int end)
 		printf("%d\n", x[i]);
 	}
 	#endif
+
+	printf("down_heap\n");
+	down_heap_process(x, m);
 }
 
-void heap_sort(int x[], int n)
+void heap_sort(int x[], int n, int m)
 {
 	int i, tmp;
 	#ifdef DEBUG
@@ -76,7 +97,7 @@ void heap_sort(int x[], int n)
 	#endif
 
 	for(i = n / 2; i > 0; i--){
-		down_heap(x, i, n);
+		down_heap(x, i, n, m);
 	}
 
 	#ifdef DEBUG
@@ -88,9 +109,11 @@ void heap_sort(int x[], int n)
 	#endif
 
 	for(i = n; i >= 2; i--){
+		printf("i = %d\n", i);
 		tmp = x[i];
 		x[i] = x[1];
 		x[1] = tmp;
+		printf("x[1]とx[%d]の入れ替え完了\n", i);
 		#ifdef DEBUG
 		printf("heap2\n");
 		for(j = 1; j < n + 1; j++)
@@ -98,7 +121,8 @@ void heap_sort(int x[], int n)
 			printf("%d\n", x[j]);
 		}
 		#endif
-			down_heap(x, 1, i - 1);
+		down_heap(x, 1, i - 1, m);
+		printf("down_heap終了\n");
 		#ifdef DEBUG
 		printf("heap3(i == %d)\n", i);
 		for(j = 1; j < n + 1; j++)
@@ -107,6 +131,7 @@ void heap_sort(int x[], int n)
 		}
 		#endif
 	}
+	heap_sort_process(x, m);
 }
 
 main(int argc, char *argv[])
@@ -116,7 +141,7 @@ main(int argc, char *argv[])
 	n = atoi(argv[1]);
 	for(i = 1; i < n + 1; i++)scanf("%d", &x[i]);
 
-	heap_sort(x, n);
+	heap_sort(x, n, n);
 
 	printf("sort\n");
 	for(i = 1; i < n + 1; i++)
