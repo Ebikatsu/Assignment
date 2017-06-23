@@ -8,6 +8,7 @@
 %%%
 %%% まずはここで各種設定
 %%%
+\lstset{breaklines=true}
 \usepackage{comment}
 \usepackage[dvipdfmx]{graphicx}
 \period{3} % ← 何回目のレポートか（1～3）
@@ -219,6 +220,41 @@ RTSとCTSは複数の端末が同時にデータを送信しようとして起�
 \quad 暗号化以外の無線LANのセキュリティとして、接続制限が挙げられる。アクセスポイントが通信しようとする端末のMACアドレスなどの情報を取り、特定の端末のみに通信の許可を出したり、特定の端末との通信を禁止したりして接続を制限する方法である。
 \end{enumerate}
 %%% ------------------------------------------------------------------
+\newpage
+\section{第11回 SDN (Software Defined Networks) (1) :ネットワーク管理・操作の基礎}
+\subsection{グループメンバーと役割分担}
+%第3レポートの対象となる回では，複数人のグループで作業を行うため，各回で誰が何を担当したのかも節（\verb|\subsection|）を用いて記載する．以下は記載例である．\texttt{tex}ソースに記載の通り，\verb|\description|環境を用いると良い．
+%
+\begin{description}
+ \item[s123456 学生 なまえ] ネットワークの配線，環境の構築
+ \item[s135791 相方 ひとりめ] プログラムのコーディング，デバッグ
+ \item[s246802 相方 ふたりめ] コーディングのサポート
+ \item[s369258 相方 さんにんめ] 3人の応援
+\end{description}
+\setcounter{subsection}{0}
+\subsection{各ホストの IP アドレス設定}
+サーバ操作用ホストおよび通信用ホスト2台において6.2節の手順を行った結果,および小型サーバにおいて6.6節の手順を行った結果を掲載する.IPアドレス設定後にip addrコマンドを実行した結果も掲載すること.
+\begin{itemize}
+ \item 小型サーバ操作用ホスト
+ \lstinputlisting[caption=実行結果]{../SDN1/100.txt}
+ \item 通信用ホスト1
+ \lstinputlisting[caption=実行結果]{../SDN1/102.txt}
+ \item 通信用ホスト2
+ \lstinputlisting[caption=実行結果]{../SDN1/103.txt}
+\end{itemize}
+\subsection{ping による疎通確認結果}
+第6.7節の手順でpingコマンドを実行した際の結果を掲載する.検証した3通りの実験結果をすべて掲載すること.
+\begin{itemize}
+ \item ETHER-2ポートと接続している通信用ホスト→小型サーバのETHER-2ポート
+ \lstinputlisting[caption=実行結果]{../SDN1/ping_ETHER2-server.txt}
+ \item ETHER-3ポートと接続している通信用ホスト→小型サーバのETHER-3ポート
+ \item 一方の通信用ホスト→他方の通信用ホスト
+\end{itemize}
+\subsection{調査課題}
+本実験ではIPアドレスの手動設定にifconfigコマンドを用いたが,ネットワークアダプタ一覧の確認に用いたipコマンドを用いても同様の操作が可能である.6.6節でeth2のIPアドレスを192.168.100.2に設定したifconfigコマンドについて,同等の操作をipコマンドで行うにはどのように入力すれば良いか示せ.
+\begin{lstlisting}[caption=ipコマンド]
+ip addr add 192.168.100.2 dev eth2
+\end{lstlisting}
 % --- 参考文献リストここから
 \newpage
 \begin{thebibliography}{9}
@@ -227,6 +263,7 @@ RTSとCTSは複数の端末が同時にデータを送信しようとして起�
 \bibitem{RTSandCTS} Wireless LAN - CSMA/CA , http://www.infraexpert.com/study/wireless6.html
 \bibitem{Backoff} 第6回　イーサネット（その１）　- イーサネットの規格とCSMA/CDアクセス制御方式 (4/5) , http://www.atmarkit.co.jp/ait/articles/0105/23/news004\_4.html
 \bibitem{ARP} TCP/IP - ARP , http://www.infraexpert.com/study/tcpip2.html
+\bibitem{IP} ipコマンドチートシート https://access.redhat.com/sites/default/files/attachments/rh\_ip\_command\_cheatsheet\_1214\_jcs\_print\_ja4.pdf
 \end{thebibliography}
 % --- 参考文献リストここまで
 %
