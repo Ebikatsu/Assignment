@@ -1,0 +1,44 @@
+\documentclass[a4paper,12pt]{jarticle}
+\usepackage{comment}
+\usepackage[top=30truemm,bottom=30truemm,left=30truemm,right=30truemm]{geometry}
+\usepackage[utf8]{inputenc}
+\begin{document}
+\section*{課題1}
+\begin{comment}
+左再帰をもつ構文規則、
+\begin{displaymath}
+V \rightarrow I | V \left( E \right) | V . I
+\end{displaymath}
+を、変換の過程を詳細に示しながら、右再帰の構文規則に変換せよ。
+\end{comment}
+\begin{eqnarray*}
+V & \rightarrow & I V' \\
+V' & \rightarrow & \left( E \right) V' | . I V' | \epsilon
+\end{eqnarray*}
+\section*{課題2}
+\begin{comment}
+次の文法、
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+\item $ E \rightarrow \left( E \right) $
+\item $ | F $
+\item $ | C $
+\item $ | V $
+\item $ V \rightarrow I X $
+\item $ X \rightarrow [ E ] $
+\item $ | \epsilon $
+\item $ F \rightarrow I \left( L \right)$
+\item $ L \rightarrow E T $
+\item $ | \epsilon $
+\item $ T \rightarrow , E T $
+\item $ | \epsilon$
+\end{enumerate}
+についての問に答えよ。ただし、$ I $と$ C $は終端記号であるとする。また、過程の詳細も示せ。
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item 各終端器号のFirst集合とFollow集合を求めよ。
+\item 構文解析表を作れ。
+\item この文法の問題点を指摘し、どう改めればよいかを述べよ。
+\end{enumerate}
+\end{comment}
+\end{document}
