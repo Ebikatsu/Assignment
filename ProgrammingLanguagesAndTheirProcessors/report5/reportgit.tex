@@ -1,7 +1,10 @@
 \documentclass[a4paper,12pt]{jarticle}
+\usepackage{amsmath,amssymb}
 \usepackage{comment}
 \usepackage[top=30truemm,bottom=30truemm,left=30truemm,right=30truemm]{geometry}
+\usepackage{here}
 \usepackage[utf8]{inputenc}
+\usepackage{slashbox}
 \begin{document}
 \section*{課題1}
 \begin{comment}
@@ -12,6 +15,15 @@ V \rightarrow I | V \left( E \right) | V . I
 を、変換の過程を詳細に示しながら、右再帰の構文規則に変換せよ。
 \end{comment}
 \begin{eqnarray*}
+V & \rightarrow &  I | V \left( E \right) | V . I \\
+& \Downarrow & \\
+V & \rightarrow &  V \alpha | I \\
+\alpha & \rightarrow & \left( E \right) | . I \\
+& \Downarrow & \\
+V & \rightarrow & I V'\\
+V' & \rightarrow & \alpha V' | \epsilon \\
+\alpha & \rightarrow & \left( E \right) | . I \\
+& \Downarrow & \\
 V & \rightarrow & I V' \\
 V' & \rightarrow & \left( E \right) V' | . I V' | \epsilon
 \end{eqnarray*}
@@ -34,11 +46,178 @@ V' & \rightarrow & \left( E \right) V' | . I V' | \epsilon
 \item $ | \epsilon$
 \end{enumerate}
 についての問に答えよ。ただし、$ I $と$ C $は終端記号であるとする。また、過程の詳細も示せ。
+\end{comment}
 \begin{enumerate}
 \renewcommand{\labelenumi}{(\alph{enumi})}
-\item 各終端器号のFirst集合とFollow集合を求めよ。
+\item 各非終端記号のFirst集合とFollow集合を求めよ。\\
+\begin{align*}
+First \left( E \right) & = \{ ' \left( \right. ' \} \cup First \left( F \right) \cup First \left( C \right) \cup First \left( V \right) & & \because E \rightarrow \left( E \right) | F | C | V \\
+First \left( V \right) & = \{ I \} & & \because V \rightarrow I X \\
+First \left( X \right) & = \{ ' [ ' , \epsilon \} & & \because X \rightarrow [ E ] | \epsilon \\
+First \left( F \right) & = \{ I \} & & \because F \rightarrow I \left( L \right) \\
+First \left( L \right) & = First \left( E \right) \cup \{ \epsilon \} & & \because L \rightarrow E T | \epsilon \\
+First \left( T \right) & = \{ ' , ' \} & & \because T \rightarrow , E T | \epsilon
+\end{align*}
+よって、
+\begin{eqnarray*}
+First \left( E \right) & = & \{ ' \left( \right. ' , I , C \}\\
+First \left( V \right) & = & \{ I \} \\
+First \left( X \right) & = & \{ ' [ ' , \epsilon \} \\
+First \left( F \right) & = & \{ I \} \\
+First \left( L \right) & = & \{ ' \left( \right. ' , I , C , \epsilon \} \\
+First \left( T \right) & = & \{ ' , ' , \epsilon \}
+\end{eqnarray*}
+Follow集合について、
+\begin{align*}
+\$ & \in Follow \left( E \right) \\
+\{ ' \left. \right) ' \} & \subseteq Follow \left( E \right) & & \because E \rightarrow \left( E \right) \\
+Follow \left( E \right) & \subseteq Follow \left( F \right) & & \because E \rightarrow F \\
+Follow \left( E \right) & \subseteq Follow \left( C \right) & & \because E \rightarrow C \\
+Follow \left( E \right) & \subseteq Follow \left( V \right) & & \because E \rightarrow V \\
+First \left( X \right) - \{ \epsilon \} = \{ ' [ ' \} & \subseteq Follow \left( I \right) & & \because V \rightarrow I X \\
+Follow \left( V \right) & \subseteq Follow \left( X \right) & & \because V \rightarrow I X \\
+Follow \left( V \right) & \subseteq Follow \left( I \right) & & \because V \rightarrow I X , \epsilon \in First \left( X \right) \\
+\{ ' ] ' \} & \subseteq Follow \left( E \right) & & \because X \rightarrow [ E ] \\
+\{ ' \left( \right. ' \} & \subseteq Follow \left( I \right) & & \because F \rightarrow I \left( L \right) \\
+\{ ' \left. \right) ' \} & \subseteq Follow \left( L \right) & & \because F \rightarrow I \left( L \right) \\
+First \left( T \right) - \{ \epsilon \} = \{ ' , ' \} & \subseteq Follow \left( E \right) & & \because L \rightarrow E T \\
+Follow \left( L \right) & \subseteq Follow \left( T \right) & & \because L \rightarrow E T \\
+Follow \left( L \right) & \subseteq Follow \left( E \right) & & \because L \rightarrow E T , \epsilon \in First \left( T \right) \\
+First \left( T \right) - \{ \epsilon \} = \{ ' , ' \} & \subseteq Follow \left( E \right) & & \because T \rightarrow , E T \\
+Follow \left( T \right) & \subseteq Follow \left( E \right) & & \because T \rightarrow , E T , \epsilon \in First \left( T \right)
+\end{align*}
+よって、
+\begin{eqnarray*}
+Follow \left( E \right) & = & \{ \$ \} \cup \{ ' \left. \right) ' \} \cup \{ ' ] ' \} \cup \{ ' , ' \} \cup Follow \left( L \right) \cup Follow \left( T \right) \\
+Follow \left( V \right) & = & Follow \left( E \right) \\
+Follow \left( X \right) & = & Follow \left( V \right) \\
+Follow \left( F \right) & = & Follow \left( E \right) \\
+Follow \left( L \right) & = & \{ ' \left. \right) ' \} \\
+Follow \left( T \right) & = & Follow \left( L \right) \
+\end{eqnarray*}
+よって、
+\begin{eqnarray*}
+Follow \left( E \right) & = & \{ \$ , ' \left. \right) ' , ' ] ' , ' , ' \} \\
+Follow \left( V \right) & = & \{ \$ , ' \left. \right) ' , ' ] ' , ' , ' \} \\
+Follow \left( X \right) & = & \{ \$ , ' \left. \right) ' , ' ] ' , ' , ' \} \\
+Follow \left( F \right) & = & \{ \$ , ' \left. \right) ' , ' ] ' , ' , ' \} \\
+Follow \left( L \right) & = & \{ ' \left. \right) ' \} \\
+Follow \left( T \right) & = & \{ ' \left. \right) ' \}
+\end{eqnarray*}
 \item 構文解析表を作れ。
-\item この文法の問題点を指摘し、どう改めればよいかを述べよ。
+\begin{align*}
+E & \rightarrow \left( E \right) & & \in M [ E , ' \left( \right. ' ] \\
+E & \rightarrow F & & \in M [ E , I ] \\
+E & \rightarrow C & & \in M [ E , C ] \\
+E & \rightarrow V & & \in M [ E , I ] \\
+V & \rightarrow I X & & \in M [ V , I ] \\
+X & \rightarrow [ E ] & & \in M [ X , ' [ ' ] \\
+F & \rightarrow I \left( L \right) & & \in M [ F , I ] \\
+L & \rightarrow E T & & \in M [ L , ' \left( \right. ' ] \\
+L & \rightarrow E T & & \in M [ L , I ] \\
+L & \rightarrow E T & & \in M [ L ,CI ] \\
+T & \rightarrow , E T & & \in M [ T , ' , ' ]
+\end{align*}
+よって、
+\begin{eqnarray*}
+M [ E , ' \left( \right. ' ] & = & \{ E \rightarrow \left( E \right) \} \\
+M [ E , I ] & = & \{ E \rightarrow F , E \rightarrow V \} \\
+M [ E , C ] & = & \{ E \rightarrow C \} \\
+M [ V , I ] & = & \{ V \rightarrow I X \} \\
+M [ X , ' [ ' ] & = & \{ X \rightarrow [ E ] \} \\
+M [ F , I ] & = & \{ F \rightarrow I \left( L \right) \} \\
+M [ L , ' \left( \right. ' ] & = & \{ L \rightarrow E T \} \\
+M [ L , I ] & = & \{ L \rightarrow E T \} \\
+M [ L ,CI ] & = & \{ L \rightarrow E T \} \\
+M [ T , ' , ' ] & = & \{ T \rightarrow , E T \}
+\end{eqnarray*}
+よって、
+\begin{table}[H]
+ \begin{center}
+  \caption{構文解析表}
+  \begin{tabular}{|c|ccccccc|}\hline
+   \backslashbox{}{}&	$ I $&	$ C $&	$' \left( \right. '$&	$' \left. \right) '$&	$ ' [ ' $&	$ ' ] ' $&	$ ' , ' $\\	\hline
+   $ E $&		$ 2 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ V $&		$ 1 $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ X $&		$ - $&	$ - $&	$ - $&			$ - $&			$ 1 $&		$ - $&		$ - $\\
+   $ F $&		$ 1 $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ L $&		$ 1 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ T $&		$ - $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ 1 $\\		\hline
+  \end{tabular}
+ \end{center}
+\end{table}
+\item この文法の問題点を指摘し、どう改めればよいかを述べよ。\\
+最初の文字が$ I $だったとき、$ E $に適用される生成規則は$ E \rightarrow F $と$ E \rightarrow V $のふたつの可能性があり、文法が曖昧である。そこで、生成規則のうち、
+\begin{eqnarray*}
+E & \rightarrow & V \\
+V & \rightarrow & I X \\
+F & \rightarrow & I \left( L \right)
+\end{eqnarray*}
+を消し、
+\begin{equation}
+F \rightarrow I \left( L \right) | I X
+\end{equation}
+を加えると、構文解析表は以下のようになる。
+\begin{eqnarray*}
+M [ E , ' \left( \right. ' ] & = & \{ E \rightarrow \left( E \right) \} \\
+M [ E , I ] & = & \{ E \rightarrow F \} \\
+M [ E , C ] & = & \{ E \rightarrow C \} \\
+M [ X , ' [ ' ] & = & \{ X \rightarrow [ E ] \} \\
+M [ F , I ] & = & \{ F \rightarrow I \left( L \right) , F \rightarrow I X \} \\
+M [ L , ' \left( \right. ' ] & = & \{ L \rightarrow E T \} \\
+M [ L , I ] & = & \{ L \rightarrow E T \} \\
+M [ L ,CI ] & = & \{ L \rightarrow E T \} \\
+M [ T , ' , ' ] & = & \{ T \rightarrow , E T \}
+\end{eqnarray*}
+\begin{table}[H]
+ \begin{center}
+  \caption{構文解析表}
+  \begin{tabular}{|c|ccccccc|}\hline
+   \backslashbox{}{}&	$ I $&	$ C $&	$' \left( \right. '$&	$' \left. \right) '$&	$ ' [ ' $&	$ ' ] ' $&	$ ' , ' $\\	\hline
+   $ E $&		$ 1 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ X $&		$ - $&	$ - $&	$ - $&			$ - $&			$ 1 $&		$ - $&		$ - $\\
+   $ F $&		$ 2 $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ L $&		$ 1 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ T $&		$ - $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ 1 $\\		\hline
+  \end{tabular}
+ \end{center}
+\end{table}
+さらに、
+\begin{equation}
+F \rightarrow I \left( L \right) | I X
+\end{equation}
+を
+\begin{eqnarray*}
+F & \rightarrow & I F' \\
+F' & \rightarrow & \left( L \right) | X
+\end{eqnarray*}
+に書き換えると、構文解析表は以下のようになり、文法の曖昧さを取り除くことができる。
+\begin{eqnarray*}
+M [ E , ' \left( \right. ' ] & = & \{ E \rightarrow \left( E \right) \} \\
+M [ E , I ] & = & \{ E \rightarrow F \} \\
+M [ E , C ] & = & \{ E \rightarrow C \} \\
+M [ X , ' [ ' ] & = & \{ X \rightarrow [ E ] \} \\
+M [ F , I ] & = & \{ F \rightarrow I F' \} \\
+M [ F' , ' \left( \right. ' ] & = & \{ F' \rightarrow \left( L \right) \} \\
+M [ F' , ' [ ' ] & = & \{ F \rightarrow X \} \\
+M [ L , ' \left( \right. ' ] & = & \{ L \rightarrow E T \} \\
+M [ L , I ] & = & \{ L \rightarrow E T \} \\
+M [ L ,CI ] & = & \{ L \rightarrow E T \} \\
+M [ T , ' , ' ] & = & \{ T \rightarrow , E T \}
+\end{eqnarray*}
+\begin{table}[H]
+ \begin{center}
+  \caption{構文解析表}
+  \begin{tabular}{|c|ccccccc|}\hline
+   \backslashbox{}{}&	$ I $&	$ C $&	$' \left( \right. '$&	$' \left. \right) '$&	$ ' [ ' $&	$ ' ] ' $&	$ ' , ' $\\	\hline
+   $ E $&		$ 1 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ X $&		$ - $&	$ - $&	$ - $&			$ - $&			$ 1 $&		$ - $&		$ - $\\
+   $ F $&		$ 1 $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ F' $&		$ - $&	$ - $&	$ 1 $&			$ - $&			$ 1 $&		$ - $&		$ - $\\
+   $ L $&		$ 1 $&	$ 1 $&	$ 1 $&			$ - $&			$ - $&		$ - $&		$ - $\\
+   $ T $&		$ - $&	$ - $&	$ - $&			$ - $&			$ - $&		$ - $&		$ 1 $\\		\hline
+  \end{tabular}
+ \end{center}
+\end{table}
 \end{enumerate}
-\end{comment}
 \end{document}
